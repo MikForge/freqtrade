@@ -125,7 +125,8 @@ class Backtesting:
 
         self._exchange_name = self.config["exchange"]["name"]
         if not exchange:
-            exchange = ExchangeResolver.load_exchange(self.config, load_leverage_tiers=True)
+            exchange = ExchangeResolver.load_exchange(
+                self.config, load_leverage_tiers=True)
         self.exchange = exchange
 
         self.dataprovider = DataProvider(self.config, self.exchange)
@@ -139,12 +140,14 @@ class Backtesting:
             for strat in list(self.config["strategy_list"]):
                 stratconf = deepcopy(self.config)
                 stratconf["strategy"] = strat
-                self.strategylist.append(StrategyResolver.load_strategy(stratconf))
+                self.strategylist.append(
+                    StrategyResolver.load_strategy(stratconf))
                 validate_config_consistency(stratconf)
 
         else:
             # No strategy list specified, only one strategy
-            self.strategylist.append(StrategyResolver.load_strategy(self.config))
+            self.strategylist.append(
+                StrategyResolver.load_strategy(self.config))
             validate_config_consistency(self.config)
 
         if "timeframe" not in self.config:
@@ -158,7 +161,8 @@ class Backtesting:
         self.timeframe_td = timedelta(seconds=self.timeframe_secs)
         self.disable_database_use()
         self.init_backtest_detail()
-        self.pairlists = PairListManager(self.exchange, self.config, self.dataprovider)
+        self.pairlists = PairListManager(
+            self.exchange, self.config, self.dataprovider)
         self._validate_pairlists_for_backtesting()
 
         self.dataprovider.add_pairlisthandler(self.pairlists)
@@ -179,22 +183,27 @@ class Backtesting:
                 for mt in ("taker", "maker")
             ]
             self.fee = max(fee for fee in fees if fee is not None)
-            logger.info(f"Using fee {self.fee:.4%} - worst case fee from exchange (lowest tier).")
+            logger.info(
+                f"Using fee {self.fee:.4%} - worst case fee from exchange (lowest tier).")
         self.precision_mode = self.exchange.precisionMode
         self.precision_mode_price = self.exchange.precision_mode_price
 
         if self.config.get("freqai_backtest_live_models", False):
             from freqtrade.freqai.utils import get_timerange_backtest_live_models
 
-            self.config["timerange"] = get_timerange_backtest_live_models(self.config)
+            self.config["timerange"] = get_timerange_backtest_live_models(
+                self.config)
 
         self.timerange = TimeRange.parse_timerange(
-            None if self.config.get("timerange") is None else str(self.config.get("timerange"))
+            None if self.config.get("timerange") is None else str(
+                self.config.get("timerange"))
         )
 
         # Get maximum required startup period
-        self.required_startup = max([strat.startup_candle_count for strat in self.strategylist])
-        self.exchange.validate_required_startup_candles(self.required_startup, self.timeframe)
+        self.required_startup = max(
+            [strat.startup_candle_count for strat in self.strategylist])
+        self.exchange.validate_required_startup_candles(
+            self.required_startup, self.timeframe)
 
         # Add maximum startup candle count to configuration for informative pairs support
         self.config["startup_candle_count"] = self.required_startup
@@ -202,13 +211,17 @@ class Backtesting:
         if self.config.get("freqai", {}).get("enabled", False):
             # For FreqAI, increase the required_startup to includes the training data
             # This value should NOT be written to startup_candle_count
-            self.required_startup = self.dataprovider.get_required_startup(self.timeframe)
+            self.required_startup = self.dataprovider.get_required_startup(
+                self.timeframe)
 
-        self.trading_mode: TradingMode = config.get("trading_mode", TradingMode.SPOT)
+        self.trading_mode: TradingMode = config.get(
+            "trading_mode", TradingMode.SPOT)
         # strategies which define "can_short=True" will fail to load in Spot mode.
         self._can_short = self.trading_mode != TradingMode.SPOT
-        self._position_stacking: bool = self.config.get("position_stacking", False)
-        self.enable_protections: bool = self.config.get("enable_protections", False)
+        self._position_stacking: bool = self.config.get(
+            "position_stacking", False)
+        self.enable_protections: bool = self.config.get(
+            "enable_protections", False)
         migrate_data(config, self.exchange)
 
         self.init_backtest()
@@ -276,7 +289,8 @@ class Backtesting:
             if hasattr(strategy, "protections"):
                 conf = deepcopy(conf)
                 conf["protections"] = strategy.protections
-            self.protections = ProtectionManager(self.config, strategy.protections)
+            self.protections = ProtectionManager(
+                self.config, strategy.protections)
 
     def load_bt_data(self) -> Tuple[Dict[str, DataFrame], TimeRange]:
         """
@@ -306,7 +320,8 @@ class Backtesting:
 
         # Adjust startts forward if not enough data is available
         self.timerange.adjust_start_if_necessary(
-            timeframe_to_seconds(self.timeframe), self.required_startup, min_date
+            timeframe_to_seconds(
+                self.timeframe), self.required_startup, min_date
         )
 
         self.progress.set_new_value(1)
@@ -325,14 +340,18 @@ class Backtesting:
                 startup_candles=0,
                 fail_without_data=True,
                 data_format=self.config["dataformat_ohlcv"],
-                candle_type=self.config.get("candle_type_def", CandleType.SPOT),
+                candle_type=self.config.get(
+                    "candle_type_def", CandleType.SPOT),
             )
         else:
             self.detail_data = {}
         if self.trading_mode == TradingMode.FUTURES:
-            funding_fee_timeframe: str = self.exchange.get_option("funding_fee_timeframe")
-            self.funding_fee_timeframe_secs: int = timeframe_to_seconds(funding_fee_timeframe)
-            mark_timeframe: str = self.exchange.get_option("mark_ohlcv_timeframe")
+            funding_fee_timeframe: str = self.exchange.get_option(
+                "funding_fee_timeframe")
+            self.funding_fee_timeframe_secs: int = timeframe_to_seconds(
+                funding_fee_timeframe)
+            mark_timeframe: str = self.exchange.get_option(
+                "mark_ohlcv_timeframe")
 
             # Load additional futures data.
             funding_rates_dict = history.load_data(
@@ -355,7 +374,8 @@ class Backtesting:
                 startup_candles=0,
                 fail_without_data=True,
                 data_format=self.config["dataformat_ohlcv"],
-                candle_type=CandleType.from_string(self.exchange.get_option("mark_ohlcv_price")),
+                candle_type=CandleType.from_string(
+                    self.exchange.get_option("mark_ohlcv_price")),
             )
             # Combine data to avoid combining the data per trade.
             unavailable_pairs = []
@@ -367,7 +387,8 @@ class Backtesting:
                 self.futures_data[pair] = self.exchange.combine_funding_and_mark(
                     funding_rates=funding_rates_dict[pair],
                     mark_rates=mark_rates_dict[pair],
-                    futures_funding_rate=self.config.get("futures_funding_rate", None),
+                    futures_funding_rate=self.config.get(
+                        "futures_funding_rate", None),
                 )
 
             if unavailable_pairs:
@@ -429,8 +450,10 @@ class Backtesting:
 
             if not pair_data.empty:
                 # Cleanup from prior runs
-                pair_data.drop(HEADERS[5:] + ["buy", "sell"], axis=1, errors="ignore")
-            df_analyzed = self.strategy.ft_advise_signals(pair_data, {"pair": pair})
+                pair_data.drop(
+                    HEADERS[5:] + ["buy", "sell"], axis=1, errors="ignore")
+            df_analyzed = self.strategy.ft_advise_signals(
+                pair_data, {"pair": pair})
             # Update dataprovider cache
             self.dataprovider._set_cached_df(
                 pair, self.timeframe, df_analyzed, self.config["candle_type_def"]
@@ -462,7 +485,23 @@ class Backtesting:
 
             # Convert from Pandas to list for performance reasons
             # (Looping Pandas is slow.)
-            data[pair] = df_analyzed[HEADERS].values.tolist() if not df_analyzed.empty else []
+            data[pair] = df_analyzed[HEADERS].values.tolist(
+            ) if not df_analyzed.empty else []
+
+            # new hed
+
+            EXTRA_HEADERS = [
+                "ATR_LONG",
+                "ATR_SHORT"
+            ]
+            # 额外指标数据，每一项也是一个行列表
+            extra_data = df_analyzed[EXTRA_HEADERS].values.tolist(
+            ) if not df_analyzed.empty else []
+
+            # 逐行将额外指标追加到原始数据中
+            for i, row in enumerate(data[pair]):
+                # 确保 extra_data 的行数与 data[pair] 一致
+                row.extend(extra_data[i])
         return data
 
     def _get_close_rate(
@@ -519,7 +558,8 @@ class Backtesting:
                 stop_rate = row[OPEN_IDX] * (
                     1
                     + side_1 * abs(self.strategy.trailing_stop_positive_offset)
-                    - side_1 * abs(self.strategy.trailing_stop_positive / leverage)
+                    - side_1 *
+                    abs(self.strategy.trailing_stop_positive / leverage)
                 )
             else:
                 # Worst case: price ticks tiny bit above open and dives down.
@@ -553,8 +593,10 @@ class Backtesting:
 
             # - (Expected abs profit - open_rate - open_fee) / (fee_close -1)
             roi_rate = trade.open_rate * roi / leverage
-            open_fee_rate = side_1 * trade.open_rate * (1 + side_1 * trade.fee_open)
-            close_rate = -(roi_rate + open_fee_rate) / ((trade.fee_close or 0.0) - side_1 * 1)
+            open_fee_rate = side_1 * trade.open_rate * \
+                (1 + side_1 * trade.fee_open)
+            close_rate = -(roi_rate + open_fee_rate) / \
+                ((trade.fee_close or 0.0) - side_1 * 1)
             if is_short:
                 is_new_roi = row[OPEN_IDX] < close_rate
             else:
@@ -574,14 +616,16 @@ class Backtesting:
                     is_short
                     # Red candle (for longs)
                     and row[OPEN_IDX] < row[CLOSE_IDX]  # Red candle
-                    and trade.open_rate > row[OPEN_IDX]  # trade-open above open_rate
+                    # trade-open above open_rate
+                    and trade.open_rate > row[OPEN_IDX]
                     and close_rate < row[CLOSE_IDX]  # closes below close
                 )
                 or (
                     not is_short
                     # green candle (for shorts)
                     and row[OPEN_IDX] > row[CLOSE_IDX]  # green candle
-                    and trade.open_rate < row[OPEN_IDX]  # trade-open below open_rate
+                    # trade-open below open_rate
+                    and trade.open_rate < row[OPEN_IDX]
                     and close_rate > row[CLOSE_IDX]  # closes above close
                 )
             ):
@@ -605,8 +649,10 @@ class Backtesting:
     ) -> LocalTrade:
         current_rate: float = row[OPEN_IDX]
         current_profit = trade.calc_profit_ratio(current_rate)
-        min_stake = self.exchange.get_min_pair_stake_amount(trade.pair, current_rate, -0.1)
-        max_stake = self.exchange.get_max_pair_stake_amount(trade.pair, current_rate)
+        min_stake = self.exchange.get_min_pair_stake_amount(
+            trade.pair, current_rate, -0.1)
+        max_stake = self.exchange.get_max_pair_stake_amount(
+            trade.pair, current_rate)
         stake_available = self.wallets.get_available_stake_amount()
         stake_amount, order_tag = self.strategy._adjust_trade_position_internal(
             trade=trade,  # type: ignore[arg-type]
@@ -660,11 +706,13 @@ class Backtesting:
                 # Remaining stake is too low to be sold.
                 return trade
             exit_ = ExitCheckTuple(ExitType.PARTIAL_EXIT, order_tag)
-            pos_trade = self._get_exit_for_signal(trade, row, exit_, current_time, amount)
+            pos_trade = self._get_exit_for_signal(
+                trade, row, exit_, current_time, amount)
             if pos_trade is not None:
                 order = pos_trade.orders[-1]
                 # If the order was filled and for the full trade amount, we need to close the trade.
-                self._process_exit_order(order, pos_trade, current_time, row, trade.pair)
+                self._process_exit_order(
+                    order, pos_trade, current_time, row, trade.pair)
                 return pos_trade
 
         return trade
@@ -699,6 +747,7 @@ class Backtesting:
                 trade=trade,  # type: ignore[arg-type]
                 order=order,
                 current_time=current_date,
+                row = row
             )
 
             if not (order.ft_order_side == trade.exit_side and order.safe_amount == trade.amount):
@@ -750,7 +799,8 @@ class Backtesting:
             trade.close_date = current_time
             exit_reason = exit_.exit_reason
             amount_ = amount if amount is not None else trade.amount
-            trade_dur = int((trade.close_date_utc - trade.open_date_utc).total_seconds() // 60)
+            trade_dur = int(
+                (trade.close_date_utc - trade.open_date_utc).total_seconds() // 60)
             try:
                 close_rate = self._get_close_rate(row, trade, exit_, trade_dur)
             except ValueError:
@@ -866,7 +916,8 @@ class Backtesting:
 
         # Check if we need to adjust our current positions
         if self.strategy.position_adjustment_enable:
-            trade = self._get_adjust_trade_entry_for_candle(trade, row, current_time)
+            trade = self._get_adjust_trade_entry_for_candle(
+                trade, row, current_time)
 
         if trade.is_open:
             enter = row[SHORT_IDX] if trade.is_short else row[LONG_IDX]
@@ -958,6 +1009,7 @@ class Backtesting:
                     max_leverage=max_leverage,
                     side=direction,
                     entry_tag=entry_tag,
+                    row=row
                 )
                 if self.trading_mode != TradingMode.SPOT
                 else 1.0
@@ -989,6 +1041,7 @@ class Backtesting:
                 leverage=leverage,
                 entry_tag=entry_tag,
                 side=direction,
+                row=row
             )
 
         stake_amount_val = self.wallets.validate_stake_amount(
@@ -1019,7 +1072,8 @@ class Backtesting:
         """
 
         current_time = row[DATE_IDX].to_pydatetime()
-        entry_tag = entry_tag1 or (row[ENTER_TAG_IDX] if len(row) >= ENTER_TAG_IDX + 1 else None)
+        entry_tag = entry_tag1 or (row[ENTER_TAG_IDX] if len(
+            row) >= ENTER_TAG_IDX + 1 else None)
         # let's call the custom entry price, using the open price as default price
         order_type = self.strategy.order_types["entry"]
         pos_adjust = trade is not None and requested_rate is None
@@ -1079,6 +1133,7 @@ class Backtesting:
                     current_time=current_time,
                     entry_tag=entry_tag,
                     side=direction,
+                    row=row
                 ):
                     return trade
 
@@ -1118,7 +1173,8 @@ class Backtesting:
                 )
                 LocalTrade.add_bt_trade(trade)
 
-            trade.adjust_stop_loss(trade.open_rate, self.strategy.stoploss, initial=True)
+            trade.adjust_stop_loss(
+                trade.open_rate, self.strategy.stoploss, initial=True)
 
             order = Order(
                 id=self.order_id_counter,
@@ -1165,7 +1221,8 @@ class Backtesting:
                 self._exit_trade(
                     trade, exit_row, exit_row[OPEN_IDX], trade.amount, ExitType.FORCE_EXIT.value
                 )
-                trade.orders[-1].close_bt_order(exit_row[DATE_IDX].to_pydatetime(), trade)
+                trade.orders[-1].close_bt_order(
+                    exit_row[DATE_IDX].to_pydatetime(), trade)
 
                 trade.close_date = exit_row[DATE_IDX].to_pydatetime()
                 trade.exit_reason = ExitType.FORCE_EXIT.value
@@ -1287,7 +1344,8 @@ class Backtesting:
                     row=row,
                     trade=trade,
                     requested_rate=requested_rate,
-                    requested_stake=(order.safe_remaining * order.ft_price / trade.leverage),
+                    requested_stake=(order.safe_remaining *
+                                     order.ft_price / trade.leverage),
                     direction="short" if trade.is_short else "long",
                 )
                 # Delete trade if no successful entries happened (if placing the new order failed)
@@ -1328,7 +1386,8 @@ class Backtesting:
         ):
             if pair not in self.rejected_dict:
                 self.rejected_dict[pair] = []
-            self.rejected_dict[pair].append([row[DATE_IDX], row[ENTER_TAG_IDX]])
+            self.rejected_dict[pair].append(
+                [row[DATE_IDX], row[ENTER_TAG_IDX]])
 
     def backtest_loop(
         self,
@@ -1357,7 +1416,8 @@ class Backtesting:
         # don't open on the last row
         # We only open trades on the main candle, not on detail candles
         if (
-            (self._position_stacking or len(LocalTrade.bt_trades_open_pp[pair]) == 0)
+            (self._position_stacking or len(
+                LocalTrade.bt_trades_open_pp[pair]) == 0)
             and is_first
             and current_time != end_date
             and trade_dir is not None
@@ -1378,7 +1438,8 @@ class Backtesting:
 
             # 4. Create exit orders (if any)
             if not trade.has_open_orders:
-                self._check_trade_exit(trade, row, current_time)  # Place exit order if necessary
+                # Place exit order if necessary
+                self._check_trade_exit(trade, row, current_time)
 
             # 5. Process exit orders.
             order = trade.select_order(trade.exit_side, is_open=True)
@@ -1393,12 +1454,14 @@ class Backtesting:
         """
         current_time = start_date + increment
         self.progress.init_step(
-            BacktestState.BACKTEST, int((end_date - start_date) / self.timeframe_td)
+            BacktestState.BACKTEST, int(
+                (end_date - start_date) / self.timeframe_td)
         )
         while current_time <= end_date:
             is_first = True
             # Pairs that have open trades should be processed first
-            new_pairlist = list(dict.fromkeys([t.pair for t in LocalTrade.bt_trades_open] + pairs))
+            new_pairlist = list(dict.fromkeys(
+                [t.pair for t in LocalTrade.bt_trades_open] + pairs))
 
             for pair in new_pairlist:
                 yield current_time, pair, is_first
@@ -1447,13 +1510,15 @@ class Backtesting:
 
             row_index += 1
             indexes[pair] = row_index
-            self.dataprovider._set_dataframe_max_index(self.required_startup + row_index)
+            self.dataprovider._set_dataframe_max_index(
+                self.required_startup + row_index)
             self.dataprovider._set_dataframe_max_date(current_time)
             current_detail_time: datetime = row[DATE_IDX].to_pydatetime()
             trade_dir: Optional[LongShort] = self.check_for_trade_entry(row)
 
             if (
-                (trade_dir is not None or len(LocalTrade.bt_trades_open_pp[pair]) > 0)
+                (trade_dir is not None or len(
+                    LocalTrade.bt_trades_open_pp[pair]) > 0)
                 and self.timeframe_detail
                 and pair in self.detail_data
             ):
@@ -1469,7 +1534,8 @@ class Backtesting:
                 ].copy()
                 if len(detail_data) == 0:
                     # Fall back to "regular" data if no detail data was found for this candle
-                    self.backtest_loop(row, pair, current_time, end_date, trade_dir)
+                    self.backtest_loop(
+                        row, pair, current_time, end_date, trade_dir)
                     continue
                 detail_data.loc[:, "enter_long"] = row[LONG_IDX]
                 detail_data.loc[:, "exit_long"] = row[ELONG_IDX]
@@ -1493,7 +1559,8 @@ class Backtesting:
                     is_first = False
             else:
                 self.dataprovider._set_dataframe_max_date(current_time)
-                self.backtest_loop(row, pair, current_time, end_date, trade_dir)
+                self.backtest_loop(row, pair, current_time,
+                                   end_date, trade_dir)
 
         self.handle_left_open(LocalTrade.bt_trades_open_pp, data=data)
         self.wallets.update()
@@ -1523,19 +1590,23 @@ class Backtesting:
 
         # Use max_open_trades in backtesting, except --disable-max-market-positions is set
         if not self.config.get("use_max_market_positions", True):
-            logger.info("Ignoring max_open_trades (--disable-max-market-positions was used) ...")
+            logger.info(
+                "Ignoring max_open_trades (--disable-max-market-positions was used) ...")
             self.strategy.max_open_trades = float("inf")
-            self.config.update({"max_open_trades": self.strategy.max_open_trades})
+            self.config.update(
+                {"max_open_trades": self.strategy.max_open_trades})
 
         # need to reprocess data every time to populate signals
         preprocessed = self.strategy.advise_all_indicators(data)
 
         # Trim startup period from analyzed dataframe
         # This only used to determine if trimming would result in an empty dataframe
-        preprocessed_tmp = trim_dataframes(preprocessed, timerange, self.required_startup)
+        preprocessed_tmp = trim_dataframes(
+            preprocessed, timerange, self.required_startup)
 
         if not preprocessed_tmp:
-            raise OperationalException("No data left after adjusting for startup candles.")
+            raise OperationalException(
+                "No data left after adjusting for startup candles.")
 
         # Use preprocessed_tmp for date generation (the trimmed dataframe).
         # Backtesting will re-trim the dataframes after entry/exit signal generation.
@@ -1576,15 +1647,20 @@ class Backtesting:
 
     def _get_min_cached_backtest_date(self):
         min_backtest_date = None
-        backtest_cache_age = self.config.get("backtest_cache", constants.BACKTEST_CACHE_DEFAULT)
+        backtest_cache_age = self.config.get(
+            "backtest_cache", constants.BACKTEST_CACHE_DEFAULT)
         if self.timerange.stopts == 0 or self.timerange.stopdt > datetime.now(tz=timezone.utc):
-            logger.warning("Backtest result caching disabled due to use of open-ended timerange.")
+            logger.warning(
+                "Backtest result caching disabled due to use of open-ended timerange.")
         elif backtest_cache_age == "day":
-            min_backtest_date = datetime.now(tz=timezone.utc) - timedelta(days=1)
+            min_backtest_date = datetime.now(
+                tz=timezone.utc) - timedelta(days=1)
         elif backtest_cache_age == "week":
-            min_backtest_date = datetime.now(tz=timezone.utc) - timedelta(weeks=1)
+            min_backtest_date = datetime.now(
+                tz=timezone.utc) - timedelta(weeks=1)
         elif backtest_cache_age == "month":
-            min_backtest_date = datetime.now(tz=timezone.utc) - timedelta(weeks=4)
+            min_backtest_date = datetime.now(
+                tz=timezone.utc) - timedelta(weeks=4)
         return min_backtest_date
 
     def load_prior_backtest(self):
@@ -1598,7 +1674,8 @@ class Backtesting:
         min_backtest_date = self._get_min_cached_backtest_date()
         if min_backtest_date is not None:
             self.results = find_existing_backtest_stats(
-                self.config["user_data_dir"] / "backtest_results", self.run_ids, min_backtest_date
+                self.config["user_data_dir"] /
+                "backtest_results", self.run_ids, min_backtest_date
             )
 
     def start(self) -> None:
@@ -1616,9 +1693,11 @@ class Backtesting:
         for strat in self.strategylist:
             if self.results and strat.get_strategy_name() in self.results["strategy"]:
                 # When previous result hash matches - reuse that result and skip backtesting.
-                logger.info(f"Reusing result of previous backtest for {strat.get_strategy_name()}")
+                logger.info(
+                    f"Reusing result of previous backtest for {strat.get_strategy_name()}")
                 continue
-            min_date, max_date = self.backtest_one_strategy(strat, data, timerange)
+            min_date, max_date = self.backtest_one_strategy(
+                strat, data, timerange)
 
         # Update old results with new ones.
         if len(self.all_results) > 0:
@@ -1628,12 +1707,14 @@ class Backtesting:
             if self.results:
                 self.results["metadata"].update(results["metadata"])
                 self.results["strategy"].update(results["strategy"])
-                self.results["strategy_comparison"].extend(results["strategy_comparison"])
+                self.results["strategy_comparison"].extend(
+                    results["strategy_comparison"])
             else:
                 self.results = results
             dt_appendix = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
             if self.config.get("export", "none") in ("trades", "signals"):
-                combined_res = combined_dataframes_with_rel_mean(data, min_date, max_date)
+                combined_res = combined_dataframes_with_rel_mean(
+                    data, min_date, max_date)
                 store_backtest_stats(
                     self.config["exportfilename"],
                     self.results,
