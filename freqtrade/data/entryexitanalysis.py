@@ -91,6 +91,11 @@ def _analyze_candles_and_indicators(pair, trades: pd.DataFrame, signal_candles: 
 
                 try:
                     trades_red = pd.merge(trades_red, trades_inds, on="signal_date", how="outer")
+                    # 在保持 signal_date 为索引的前提下，根据 enter_reason 去重
+                    trades_red = trades_red.reset_index()  # 暂时恢复 signal_date 为列
+                    trades_red = trades_red.sort_values("signal_date")  # 排序确保保留的是最后一个
+                    trades_red = trades_red.drop_duplicates(subset=["open_date", "enter_tag"], keep="last")
+                    trades_red = trades_red.set_index("signal_date")  # 再次设置回去
                 except Exception as e:
                     raise e
         return trades_red
