@@ -23,7 +23,8 @@ def _load_backtest_analysis_data(backtest_dir: Path, name: str):
     if backtest_dir.is_dir():
         scpf = Path(
             backtest_dir,
-            Path(get_latest_backtest_filename(backtest_dir)).stem + "_" + name + ".pkl",
+            Path(get_latest_backtest_filename(
+                backtest_dir)).stem + "_" + name + ".pkl",
         )
     else:
         scpf = Path(backtest_dir.parent / f"{backtest_dir.stem}_{name}.pkl")
@@ -65,42 +66,63 @@ def _process_candles_and_indicators(pairlist, strategy_name, trades, signal_cand
     return analysed_trades_dict
 
 
-def _analyze_candles_and_indicators(pair, trades: pd.DataFrame, signal_candles: pd.DataFrame):
-    buyf = signal_candles
-
-    if len(buyf) > 0:
-        buyf = buyf.set_index("date", drop=False)
-        trades_red = trades.loc[trades["pair"] == pair].copy()
-
-        trades_inds = pd.DataFrame()
-
-        if trades_red.shape[0] > 0 and buyf.shape[0] > 0:
-            for t, v in trades_red.open_date.items():
-                allinds = buyf.loc[(buyf["date"] < v)]
-                if allinds.shape[0] > 0:
-                    tmp_inds = allinds.iloc[[-1]]
-
-                    trades_red.loc[t, "signal_date"] = tmp_inds["date"].values[0]
-                    trades_red.loc[t, "enter_reason"] = trades_red.loc[t, "enter_tag"]
-                    tmp_inds.index.rename("signal_date", inplace=True)
-                    trades_inds = pd.concat([trades_inds, tmp_inds])
-
-            if "signal_date" in trades_red:
-                trades_red["signal_date"] = pd.to_datetime(trades_red["signal_date"], utc=True)
-                trades_red.set_index("signal_date", inplace=True)
-
-                try:
-                    trades_red = pd.merge(trades_red, trades_inds, on="signal_date", how="outer")
-                    # 在保持 signal_date 为索引的前提下，根据 enter_reason 去重
-                    trades_red = trades_red.reset_index()  # 暂时恢复 signal_date 为列
-                    trades_red = trades_red.sort_values("signal_date")  # 排序确保保留的是最后一个
-                    trades_red = trades_red.drop_duplicates(subset=["open_date", "enter_tag"], keep="last")
-                    trades_red = trades_red.set_index("signal_date")  # 再次设置回去
-                except Exception as e:
-                    raise e
-        return trades_red
-    else:
+def _analyze_candles_and_indicators(pair: str, trades: pd.DataFrame, signal_candles: pd.DataFrame) -> pd.DataFrame:
+    """
+    匹配信号和交易：
+    - 找到每笔交易在开仓前最近的一条信号；
+    - 默认允许同一 signal_date 出现多条信号（不同 enter_tag / 指标）；
+    - 可选启用内容去重（默认关闭）。
+    """
+    if signal_candles.empty or trades.empty:
         return pd.DataFrame()
+
+    trades_red = trades[trades["pair"] == pair].copy()
+    trades_red["signal_date"] = pd.NaT
+    trades_red["enter_reason"] = None
+
+    signal_candles = signal_candles.sort_values("date").copy()
+    trades_red = trades_red.sort_values("open_date").copy()
+
+    enriched_signals = []
+
+    for idx, trade in trades_red.iterrows():
+        prev_signals = signal_candles[signal_candles["date"]
+                                      < trade["open_date"]]
+        if not prev_signals.empty:
+            last_signal = prev_signals.iloc[-1]
+            trades_red.at[idx, "signal_date"] = last_signal["date"]
+            trades_red.at[idx, "enter_reason"] = last_signal.get(
+                "enter_tag", None)
+
+            enriched_row = last_signal.to_dict()
+            enriched_row["signal_date"] = last_signal["date"]
+            enriched_signals.append(enriched_row)
+
+    if not enriched_signals:
+        return trades_red
+
+    # 构造信号 DataFrame
+    signal_df_all = pd.DataFrame(enriched_signals)
+
+    # 🔽 可选的“内容完全一致”去重逻辑（默认注释掉）
+    # dedup_cols = [col for col in signal_df_all.columns if col != "signal_date"]
+    # signal_df = signal_df_all.drop_duplicates(subset=dedup_cols)
+
+    # ✅ 默认保留全部信号（包括重复的 signal_date + 内容）
+    signal_df = signal_df_all
+
+    trades_red["signal_date"] = pd.to_datetime(
+        trades_red["signal_date"], utc=True)
+
+    result = pd.merge(
+        trades_red,
+        signal_df,
+        on="signal_date",
+        how="left",
+        suffixes=("", "_signal")
+    )
+
+    return result
 
 
 def _do_group_table_output(
@@ -114,27 +136,35 @@ def _do_group_table_output(
         if g == "0":
             group_mask = ["enter_reason"]
             wins = (
-                bigdf.loc[bigdf["profit_abs"] >= 0].groupby(group_mask).agg({"profit_abs": ["sum"]})
+                bigdf.loc[bigdf["profit_abs"] >= 0].groupby(
+                    group_mask).agg({"profit_abs": ["sum"]})
             )
 
             wins.columns = ["profit_abs_wins"]
             loss = (
-                bigdf.loc[bigdf["profit_abs"] < 0].groupby(group_mask).agg({"profit_abs": ["sum"]})
+                bigdf.loc[bigdf["profit_abs"] < 0].groupby(
+                    group_mask).agg({"profit_abs": ["sum"]})
             )
             loss.columns = ["profit_abs_loss"]
 
             new = bigdf.groupby(group_mask).agg(
-                {"profit_abs": ["count", lambda x: sum(x > 0), lambda x: sum(x <= 0)]}
+                {"profit_abs": ["count", lambda x: sum(
+                    x > 0), lambda x: sum(x <= 0)]}
             )
             new = pd.concat([new, wins, loss], axis=1).fillna(0)
 
-            new["profit_tot"] = new["profit_abs_wins"] - abs(new["profit_abs_loss"])
-            new["wl_ratio_pct"] = (new.iloc[:, 1] / new.iloc[:, 0] * 100).fillna(0)
-            new["avg_win"] = (new["profit_abs_wins"] / new.iloc[:, 1]).fillna(0)
-            new["avg_loss"] = (new["profit_abs_loss"] / new.iloc[:, 2]).fillna(0)
+            new["profit_tot"] = new["profit_abs_wins"] - \
+                abs(new["profit_abs_loss"])
+            new["wl_ratio_pct"] = (
+                new.iloc[:, 1] / new.iloc[:, 0] * 100).fillna(0)
+            new["avg_win"] = (new["profit_abs_wins"] /
+                              new.iloc[:, 1]).fillna(0)
+            new["avg_loss"] = (new["profit_abs_loss"] /
+                               new.iloc[:, 2]).fillna(0)
 
             new["exp_ratio"] = (
-                ((1 + (new["avg_win"] / abs(new["avg_loss"]))) * (new["wl_ratio_pct"] / 100)) - 1
+                ((1 + (new["avg_win"] / abs(new["avg_loss"])))
+                 * (new["wl_ratio_pct"] / 100)) - 1
             ).fillna(0)
 
             new.columns = [
@@ -200,7 +230,8 @@ def _do_group_table_output(
                 new["mean_profit_pct"] = new["mean_profit_pct"] * 100
                 new["total_profit_pct"] = new["total_profit_pct"] * 100
 
-                _print_table(new, sortcols, name=f"Group {g}:", to_csv=to_csv, csv_path=csv_path)
+                _print_table(
+                    new, sortcols, name=f"Group {g}:", to_csv=to_csv, csv_path=csv_path)
             else:
                 logger.warning("Invalid group mask specified.")
 
@@ -250,7 +281,8 @@ def prepare_results(
     res_df = _select_rows_within_dates(res_df, timerange)
 
     if res_df is not None and res_df.shape[0] > 0 and ("enter_reason" in res_df.columns):
-        res_df = _select_rows_by_tags(res_df, enter_reason_list, exit_reason_list)
+        res_df = _select_rows_by_tags(
+            res_df, enter_reason_list, exit_reason_list)
 
     return res_df
 
@@ -265,13 +297,15 @@ def print_results(
 ):
     if res_df.shape[0] > 0:
         if analysis_groups:
-            _do_group_table_output(res_df, analysis_groups, to_csv=to_csv, csv_path=csv_path)
+            _do_group_table_output(
+                res_df, analysis_groups, to_csv=to_csv, csv_path=csv_path)
 
         if rejected_signals is not None:
             if rejected_signals.empty:
                 print("There were no rejected signals.")
             else:
-                _do_rejected_signals_output(rejected_signals, to_csv=to_csv, csv_path=csv_path)
+                _do_rejected_signals_output(
+                    rejected_signals, to_csv=to_csv, csv_path=csv_path)
 
         # NB this can be large for big dataframes!
         if "all" in indicator_list:
@@ -305,7 +339,8 @@ def _print_table(
         data = df
 
     if to_csv:
-        safe_name = Path(csv_path, name.lower().replace(" ", "_").replace(":", "") + ".csv")
+        safe_name = Path(csv_path, name.lower().replace(
+            " ", "_").replace(":", "") + ".csv")
         data.to_csv(safe_name)
         print(f"Saved {name} to {safe_name}")
     else:
@@ -323,25 +358,30 @@ def process_entry_exit_reasons(config: Config):
         indicator_list = config.get("indicator_list", [])
         do_rejected = config.get("analysis_rejected", False)
         to_csv = config.get("analysis_to_csv", False)
-        csv_path = Path(config.get("analysis_csv_path", config["exportfilename"]))
+        csv_path = Path(config.get(
+            "analysis_csv_path", config["exportfilename"]))
         if to_csv and not csv_path.is_dir():
-            raise OperationalException(f"Specified directory {csv_path} does not exist.")
+            raise OperationalException(
+                f"Specified directory {csv_path} does not exist.")
 
         timerange = TimeRange.parse_timerange(
-            None if config.get("timerange") is None else str(config.get("timerange"))
+            None if config.get("timerange") is None else str(
+                config.get("timerange"))
         )
 
         backtest_stats = load_backtest_stats(config["exportfilename"])
 
         for strategy_name, results in backtest_stats["strategy"].items():
-            trades = load_backtest_data(config["exportfilename"], strategy_name)
+            trades = load_backtest_data(
+                config["exportfilename"], strategy_name)
 
             if trades is not None and not trades.empty:
                 signal_candles = _load_signal_candles(config["exportfilename"])
 
                 rej_df = None
                 if do_rejected:
-                    rejected_signals_dict = _load_rejected_signals(config["exportfilename"])
+                    rejected_signals_dict = _load_rejected_signals(
+                        config["exportfilename"])
                     rej_df = prepare_results(
                         rejected_signals_dict,
                         strategy_name,
