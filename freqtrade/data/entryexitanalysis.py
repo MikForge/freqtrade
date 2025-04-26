@@ -90,7 +90,8 @@ def _analyze_candles_and_indicators(pair: str, trades: pd.DataFrame, signal_cand
                                       < trade["open_date"]]
         if not prev_signals.empty:
             last_signal = prev_signals.iloc[-1]
-            trades_red.at[idx, "signal_date"] = last_signal["date"]
+            trades_red.at[idx, "signal_date"] = last_signal["date"].tz_localize(
+                None)
             trades_red.at[idx, "enter_reason"] = last_signal.get(
                 "enter_tag", None)
 
