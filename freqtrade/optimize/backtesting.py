@@ -491,8 +491,8 @@ class Backtesting:
             # new hed
 
             EXTRA_HEADERS = [
-                "ATR_LONG",
-                "ATR_SHORT"
+                f"ATR_LONG_{self.timeframe}",
+                f"ATR_SHORT_{self.timeframe}"
             ]
             # 额外指标数据，每一项也是一个行列表
             extra_data = df_analyzed[EXTRA_HEADERS].values.tolist(
