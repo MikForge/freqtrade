@@ -491,8 +491,8 @@ class Backtesting:
             # new hed
 
             EXTRA_HEADERS = [
-                f"ATR_LONG_{self.timeframe}",
-                f"ATR_SHORT_{self.timeframe}"
+                f"ATRLONG_{self.timeframe}",
+                f"ATRSHORT_{self.timeframe}"
             ]
             # 额外指标数据，每一项也是一个行列表
             extra_data = df_analyzed[EXTRA_HEADERS].values.tolist(
@@ -747,7 +747,7 @@ class Backtesting:
                 trade=trade,  # type: ignore[arg-type]
                 order=order,
                 current_time=current_date,
-                row = row
+                row=row
             )
 
             if not (order.ft_order_side == trade.exit_side and order.safe_amount == trade.amount):
