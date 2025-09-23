@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://www.freqtrade.io/en/latest/develop/hyperopt/">
+        <link rel="canonical" href="https://www.freqtrade.io/en/stable/hyperopt/">
       
       
         <link rel="prev" href="../backtesting/">
@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../images/logo.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.32">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -52,9 +52,19 @@
     
       <link rel="stylesheet" href="../stylesheets/ft.extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-VH170LG9M5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-VH170LG9M5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-VH170LG9M5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -105,7 +115,7 @@
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -133,7 +143,7 @@
     <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="tear"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
       </label>
     
   
@@ -143,7 +153,7 @@
     <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="tear"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
       </label>
     
   
@@ -151,16 +161,61 @@
       
     
     
-      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
     
     
       <div class="md-header__source">
         <a href="https://github.com/freqtrade/freqtrade" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -207,7 +262,7 @@
       <a href="https://github.com/freqtrade/freqtrade" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -227,8 +282,10 @@
       <a href=".." class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Home
+    
   </span>
   
 
@@ -247,8 +304,10 @@
       <a href="../docker_quickstart/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Quickstart with Docker
+    
   </span>
   
 
@@ -267,6 +326,7 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
@@ -277,8 +337,10 @@
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     Installation
+    
   </span>
   
 
@@ -302,8 +364,10 @@
       <a href="../installation/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Linux/MacOS/Raspberry
+    
   </span>
   
 
@@ -323,8 +387,10 @@
       <a href="../windows_installation/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Windows
+    
   </span>
   
 
@@ -351,8 +417,10 @@
       <a href="../bot-basics/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Freqtrade Basics
+    
   </span>
   
 
@@ -371,8 +439,32 @@
       <a href="../configuration/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../strategy-101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strategy Quickstart
+    
   </span>
   
 
@@ -391,8 +483,10 @@
       <a href="../strategy-customization/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Strategy Customization
+    
   </span>
   
 
@@ -411,8 +505,10 @@
       <a href="../strategy-callbacks/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Strategy Callbacks
+    
   </span>
   
 
@@ -431,8 +527,10 @@
       <a href="../stoploss/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Stoploss
+    
   </span>
   
 
@@ -451,8 +549,10 @@
       <a href="../plugins/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Plugins
+    
   </span>
   
 
@@ -471,8 +571,10 @@
       <a href="../bot-usage/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Start the bot
+    
   </span>
   
 
@@ -491,26 +593,29 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     Control the bot
+    
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             Control the bot
           </label>
@@ -526,8 +631,10 @@
       <a href="../telegram-usage/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Telegram
+    
   </span>
   
 
@@ -547,8 +654,10 @@
       <a href="../freq-ui/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     freqUI
+    
   </span>
   
 
@@ -568,8 +677,10 @@
       <a href="../rest-api/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     REST API
+    
   </span>
   
 
@@ -589,8 +700,10 @@
       <a href="../webhook-config/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Web Hook
+    
   </span>
   
 
@@ -617,8 +730,10 @@
       <a href="../data-download/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Data Downloading
+    
   </span>
   
 
@@ -637,8 +752,10 @@
       <a href="../backtesting/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Backtesting
+    
   </span>
   
 
@@ -666,8 +783,10 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
+  
   <span class="md-ellipsis">
     Hyperopt
+    
   </span>
   
 
@@ -677,8 +796,10 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
+  
   <span class="md-ellipsis">
     Hyperopt
+    
   </span>
   
 
@@ -1090,6 +1211,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#output-debug-messages-from-your-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output debug messages from your strategy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#validate-backtesting-results" class="md-nav__link">
     <span class="md-ellipsis">
       Validate backtesting results
@@ -1131,26 +1261,29 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
         
           
-          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     FreqAI
+    
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_15">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
             <span class="md-nav__icon md-icon"></span>
             FreqAI
           </label>
@@ -1166,8 +1299,10 @@
       <a href="../freqai/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Introduction
+    
   </span>
   
 
@@ -1187,8 +1322,10 @@
       <a href="../freqai-configuration/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Configuration
+    
   </span>
   
 
@@ -1208,8 +1345,10 @@
       <a href="../freqai-parameter-table/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Parameter table
+    
   </span>
   
 
@@ -1229,8 +1368,10 @@
       <a href="../freqai-feature-engineering/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Feature engineering
+    
   </span>
   
 
@@ -1250,8 +1391,10 @@
       <a href="../freqai-running/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Running FreqAI
+    
   </span>
   
 
@@ -1271,8 +1414,10 @@
       <a href="../freqai-reinforcement-learning/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Reinforcement Learning
+    
   </span>
   
 
@@ -1292,8 +1437,10 @@
       <a href="../freqai-developers/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Developer guide
+    
   </span>
   
 
@@ -1320,8 +1467,10 @@
       <a href="../leverage/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Short / Leverage
+    
   </span>
   
 
@@ -1340,8 +1489,10 @@
       <a href="../utils/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Utility Sub-commands
+    
   </span>
   
 
@@ -1360,8 +1511,10 @@
       <a href="../plotting/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Plotting
+    
   </span>
   
 
@@ -1380,8 +1533,10 @@
       <a href="../exchanges/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Exchange-specific Notes
+    
   </span>
   
 
@@ -1400,26 +1555,29 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_21" >
         
           
-          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_21" id="__nav_21_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     Data Analysis
+    
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_20">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_21">
             <span class="md-nav__icon md-icon"></span>
             Data Analysis
           </label>
@@ -1435,8 +1593,10 @@
       <a href="../data-analysis/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Jupyter Notebooks
+    
   </span>
   
 
@@ -1456,8 +1616,10 @@
       <a href="../strategy_analysis_example/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Strategy analysis
+    
   </span>
   
 
@@ -1477,8 +1639,10 @@
       <a href="../advanced-backtesting/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Backtest analysis
+    
   </span>
   
 
@@ -1505,26 +1669,29 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_21" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_22" >
         
           
-          <label class="md-nav__link" for="__nav_21" id="__nav_21_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_22" id="__nav_22_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     Advanced Topics
+    
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_21_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_21">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_22_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_22">
             <span class="md-nav__icon md-icon"></span>
             Advanced Topics
           </label>
@@ -1540,8 +1707,10 @@
       <a href="../advanced-setup/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Advanced Post-installation Tasks
+    
   </span>
   
 
@@ -1561,8 +1730,10 @@
       <a href="../trade-object/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Trade Object
+    
   </span>
   
 
@@ -1582,8 +1753,10 @@
       <a href="../lookahead-analysis/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Lookahead analysis
+    
   </span>
   
 
@@ -1603,8 +1776,10 @@
       <a href="../recursive-analysis/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Recursive analysis
+    
   </span>
   
 
@@ -1624,8 +1799,10 @@
       <a href="../strategy-advanced/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Advanced Strategy
+    
   </span>
   
 
@@ -1645,8 +1822,10 @@
       <a href="../advanced-hyperopt/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Advanced Hyperopt
+    
   </span>
   
 
@@ -1666,8 +1845,10 @@
       <a href="../advanced-orderflow/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Orderflow
+    
   </span>
   
 
@@ -1687,8 +1868,10 @@
       <a href="../producer-consumer/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Producer/Consumer mode
+    
   </span>
   
 
@@ -1708,29 +1891,10 @@
       <a href="../sql_cheatsheet/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     SQL Cheat-sheet
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../edge/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Edge Positioning
+    
   </span>
   
 
@@ -1757,8 +1921,10 @@
       <a href="../faq/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     FAQ
+    
   </span>
   
 
@@ -1777,8 +1943,10 @@
       <a href="../strategy_migration/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Strategy migration
+    
   </span>
   
 
@@ -1797,8 +1965,10 @@
       <a href="../updating/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Updating Freqtrade
+    
   </span>
   
 
@@ -1817,8 +1987,10 @@
       <a href="../deprecated/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Deprecated Features
+    
   </span>
   
 
@@ -1837,8 +2009,10 @@
       <a href="../developer/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Contributors Guide
+    
   </span>
   
 
@@ -2266,6 +2440,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#output-debug-messages-from-your-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output debug messages from your strategy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#validate-backtesting-results" class="md-nav__link">
     <span class="md-ellipsis">
       Validate backtesting results
@@ -2303,15 +2486,21 @@
                 
                   
 
+
+  
+    <a href="https://github.com/freqtrade/freqtrade/edit/develop/docs/hyperopt.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
   
   
 
 
 <h1 id="hyperopt">Hyperopt<a class="headerlink" href="#hyperopt" title="Permanent link">&para;</a></h1>
 <p>This page explains how to tune your strategy by finding the optimal
-parameters, a process called hyperparameter optimization. The bot uses algorithms included in the <code>scikit-optimize</code> package to accomplish this.
+parameters, a process called hyperparameter optimization. The bot uses algorithms included in the <code>optuna</code> package to accomplish this.
 The search will burn all your CPU cores, make your laptop sound like a fighter jet and still take a long time.</p>
-<p>In general, the search for best parameters starts with a few random combinations (see <a href="#reproducible-results">below</a> for more details) and then uses Bayesian search with a ML regressor algorithm (currently ExtraTreesRegressor) to quickly find a combination of parameters in the search hyperspace that minimizes the value of the <a href="#loss-functions">loss function</a>.</p>
+<p>In general, the search for best parameters starts with a few random combinations (see <a href="#reproducible-results">below</a> for more details) and then uses one of optuna's sampler algorithms (currently NSGAIIISampler) to quickly find a combination of parameters in the search hyperspace that minimizes the value of the <a href="#loss-functions">loss function</a>.</p>
 <p>Hyperopt requires historic data to be available, just as backtesting does (hyperopt runs backtesting many times with different parameters).
 To learn how to get data for the pairs and exchange you're interested in, head over to the <a href="../data-download/">Data Downloading</a> section of the documentation.</p>
 <div class="admonition bug">
@@ -2336,33 +2525,34 @@ The legacy method was supported up to 2021.8 and has been removed in 2021.9.</p>
 pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements-hyperopt.txt
 </code></pre></div>
 <h2 id="hyperopt-command-reference">Hyperopt command reference<a class="headerlink" href="#hyperopt-command-reference" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>usage: freqtrade hyperopt [-h] [-v] [--logfile FILE] [-V] [-c PATH] [-d PATH]
-                          [--userdir PATH] [-s NAME] [--strategy-path PATH]
-                          [--recursive-strategy-search] [--freqaimodel NAME]
-                          [--freqaimodel-path PATH] [-i TIMEFRAME]
-                          [--timerange TIMERANGE]
-                          [--data-format-ohlcv {json,jsongz,hdf5}]
+<div class="highlight"><pre><span></span><code>usage: freqtrade hyperopt [-h] [-v] [--no-color] [--logfile FILE] [-V]
+                          [-c PATH] [-d PATH] [--userdir PATH] [-s NAME]
+                          [--strategy-path PATH] [--recursive-strategy-search]
+                          [--freqaimodel NAME] [--freqaimodel-path PATH]
+                          [-i TIMEFRAME] [--timerange TIMERANGE]
+                          [--data-format-ohlcv {json,jsongz,feather,parquet}]
                           [--max-open-trades INT]
                           [--stake-amount STAKE_AMOUNT] [--fee FLOAT]
                           [-p PAIRS [PAIRS ...]] [--hyperopt-path PATH]
-                          [--eps] [--dmmp] [--enable-protections]
+                          [--eps] [--enable-protections]
                           [--dry-run-wallet DRY_RUN_WALLET]
                           [--timeframe-detail TIMEFRAME_DETAIL] [-e INT]
                           [--spaces {all,buy,sell,roi,stoploss,trailing,protection,trades,default} [{all,buy,sell,roi,stoploss,trailing,protection,trades,default} ...]]
-                          [--print-all] [--no-color] [--print-json] [-j JOBS]
+                          [--print-all] [--print-json] [-j JOBS]
                           [--random-state INT] [--min-trades INT]
                           [--hyperopt-loss NAME] [--disable-param-export]
                           [--ignore-missing-spaces] [--analyze-per-epoch]
+                          [--early-stop INT]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -i TIMEFRAME, --timeframe TIMEFRAME
                         Specify timeframe (`1m`, `5m`, `30m`, `1h`, `1d`).
   --timerange TIMERANGE
                         Specify what timerange of data to use.
-  --data-format-ohlcv {json,jsongz,hdf5}
+  --data-format-ohlcv {json,jsongz,feather,parquet}
                         Storage format for downloaded candle (OHLCV) data.
-                        (default: `json`).
+                        (default: `feather`).
   --max-open-trades INT
                         Override the value of the `max_open_trades`
                         configuration setting.
@@ -2379,12 +2569,8 @@ optional arguments:
   --eps, --enable-position-stacking
                         Allow buying the same pair multiple times (position
                         stacking).
-  --dmmp, --disable-max-market-positions
-                        Disable applying `max_open_trades` during backtest
-                        (same as setting `max_open_trades` to a very high
-                        number).
   --enable-protections, --enableprotections
-                        Enable protections for backtesting.Will slow
+                        Enable protections for backtesting. Will slow
                         backtesting down by a considerable amount, but will
                         include configured protections
   --dry-run-wallet DRY_RUN_WALLET, --starting-balance DRY_RUN_WALLET
@@ -2398,8 +2584,6 @@ optional arguments:
                         Specify which parameters to hyperopt. Space-separated
                         list.
   --print-all           Print all results, not only the best ones.
-  --no-color            Disable colorization of hyperopt results. May be
-                        useful if you are redirecting output to a file.
   --print-json          Print output in JSON format.
   -j JOBS, --job-workers JOBS
                         The number of concurrently running jobs for
@@ -2422,17 +2606,23 @@ optional arguments:
                         SortinoHyperOptLoss, SortinoHyperOptLossDaily,
                         CalmarHyperOptLoss, MaxDrawDownHyperOptLoss,
                         MaxDrawDownRelativeHyperOptLoss,
-                        ProfitDrawDownHyperOptLoss
+                        MaxDrawDownPerPairHyperOptLoss,
+                        ProfitDrawDownHyperOptLoss, MultiMetricHyperOptLoss
   --disable-param-export
                         Disable automatic hyperopt parameter export.
   --ignore-missing-spaces, --ignore-unparameterized-spaces
                         Suppress errors for any requested Hyperopt spaces that
                         do not contain any parameters.
   --analyze-per-epoch   Run populate_indicators once per epoch.
+  --early-stop INT      Early stop hyperopt if no improvement after (default:
+                        0) epochs.
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
-  --logfile FILE        Log to the file specified. Special values are:
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
+  --logfile FILE, --log-file FILE
+                        Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
                         details.
   -V, --version         show program&#39;s version number and exit
@@ -2441,8 +2631,10 @@ Common arguments:
                         `userdir/config.json` or `config.json` whichever
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
-  -d PATH, --datadir PATH
-                        Path to directory with historical backtesting data.
+  -d PATH, --datadir PATH, --data-dir PATH
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 
@@ -2523,9 +2715,9 @@ If you decide to use RSI or ADX, which values should I use for them?</p>
 <p>So let's use hyperparameter optimization to solve this mystery.</p>
 <h3 id="defining-indicators-to-be-used">Defining indicators to be used<a class="headerlink" href="#defining-indicators-to-be-used" title="Permanent link">&para;</a></h3>
 <p>We start by calculating the indicators our strategy is going to use.</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">populate_indicators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">populate_indicators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate all indicators used by the strategy</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2544,7 +2736,7 @@ If you decide to use RSI or ADX, which values should I use for them?</p>
 </code></pre></div>
 <h3 id="hyperoptable-parameters">Hyperoptable parameters<a class="headerlink" href="#hyperoptable-parameters" title="Permanent link">&para;</a></h3>
 <p>We continue to define hyperoptable parameters:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
     <span class="n">buy_adx</span> <span class="o">=</span> <span class="n">DecimalParameter</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">30.1</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="s2">&quot;buy&quot;</span><span class="p">)</span>
     <span class="n">buy_rsi</span> <span class="o">=</span> <span class="n">IntParameter</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="s2">&quot;buy&quot;</span><span class="p">)</span>
     <span class="n">buy_adx_enabled</span> <span class="o">=</span> <span class="n">BooleanParameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="s2">&quot;buy&quot;</span><span class="p">)</span>
@@ -2564,7 +2756,7 @@ If no parameter is available for a space, you'll receive the error that no space
 Parameters with unclear space (e.g. <code>adx_period = IntParameter(4, 24, default=14)</code> - no explicit nor implicit space) will not be detected and will therefore be ignored.</p>
 </div>
 <p>So let's write the buy strategy using these values:</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">populate_entry_trend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">def</span><span class="w"> </span><span class="nf">populate_entry_trend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
         <span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># GUARDS AND TRENDS</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">buy_adx_enabled</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
@@ -2625,16 +2817,16 @@ add it to the <code>populate_indicators()</code> method in your strategy or hype
 <h2 id="optimizing-an-indicator-parameter">Optimizing an indicator parameter<a class="headerlink" href="#optimizing-an-indicator-parameter" title="Permanent link">&para;</a></h2>
 <p>Assuming you have a simple strategy in mind - a EMA cross strategy (2 Moving averages crossing) - and you'd like to find the ideal parameters for this strategy.
 By default, we assume a stoploss of 5% - and a take-profit (<code>minimal_roi</code>) of 10% - which means freqtrade will sell the trade once 10% profit has been reached.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduce</span>
 
-<span class="kn">import</span> <span class="nn">talib.abstract</span> <span class="k">as</span> <span class="nn">ta</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">talib.abstract</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ta</span>
 
-<span class="kn">from</span> <span class="nn">freqtrade.strategy</span> <span class="kn">import</span> <span class="p">(</span><span class="n">BooleanParameter</span><span class="p">,</span> <span class="n">CategoricalParameter</span><span class="p">,</span> <span class="n">DecimalParameter</span><span class="p">,</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">freqtrade.strategy</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">BooleanParameter</span><span class="p">,</span> <span class="n">CategoricalParameter</span><span class="p">,</span> <span class="n">DecimalParameter</span><span class="p">,</span> 
                                 <span class="n">IStrategy</span><span class="p">,</span> <span class="n">IntParameter</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">freqtrade.vendor.qtpylib.indicators</span> <span class="k">as</span> <span class="nn">qtpylib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">freqtrade.vendor.qtpylib.indicators</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qtpylib</span>
 
-<span class="k">class</span> <span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
     <span class="n">stoploss</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.05</span>
     <span class="n">timeframe</span> <span class="o">=</span> <span class="s1">&#39;15m&#39;</span>
     <span class="n">minimal_roi</span> <span class="o">=</span> <span class="p">{</span>
@@ -2645,7 +2837,7 @@ By default, we assume a stoploss of 5% - and a take-profit (<code>minimal_roi</c
     <span class="n">buy_ema_long</span> <span class="o">=</span> <span class="n">IntParameter</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 
 
-    <span class="k">def</span> <span class="nf">populate_indicators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">populate_indicators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate all indicators used by the strategy&quot;&quot;&quot;</span>
 
         <span class="c1"># Calculate all ema_short values</span>
@@ -2658,7 +2850,7 @@ By default, we assume a stoploss of 5% - and a take-profit (<code>minimal_roi</c
 
         <span class="k">return</span> <span class="n">dataframe</span>
 
-    <span class="k">def</span> <span class="nf">populate_entry_trend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">populate_entry_trend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
         <span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">conditions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qtpylib</span><span class="o">.</span><span class="n">crossed_above</span><span class="p">(</span>
                 <span class="n">dataframe</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;ema_short_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">buy_ema_short</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span> <span class="n">dataframe</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;ema_long_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">buy_ema_long</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
@@ -2673,7 +2865,7 @@ By default, we assume a stoploss of 5% - and a take-profit (<code>minimal_roi</c
                 <span class="s1">&#39;enter_long&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">dataframe</span>
 
-    <span class="k">def</span> <span class="nf">populate_exit_trend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">populate_exit_trend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
         <span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">conditions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qtpylib</span><span class="o">.</span><span class="n">crossed_above</span><span class="p">(</span>
                 <span class="n">dataframe</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;ema_long_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">buy_ema_long</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span> <span class="n">dataframe</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;ema_short_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">buy_ema_short</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
@@ -2715,16 +2907,16 @@ By using this in a loop, hyperopt will generate 48 new columns (<code>['buy_ema_
 <h2 id="optimizing-protections">Optimizing protections<a class="headerlink" href="#optimizing-protections" title="Permanent link">&para;</a></h2>
 <p>Freqtrade can also optimize protections. How you optimize protections is up to you, and the following should be considered as example only.</p>
 <p>The strategy will simply need to define the "protections" entry as property returning a list of protection configurations.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduce</span>
 
-<span class="kn">import</span> <span class="nn">talib.abstract</span> <span class="k">as</span> <span class="nn">ta</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">talib.abstract</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ta</span>
 
-<span class="kn">from</span> <span class="nn">freqtrade.strategy</span> <span class="kn">import</span> <span class="p">(</span><span class="n">BooleanParameter</span><span class="p">,</span> <span class="n">CategoricalParameter</span><span class="p">,</span> <span class="n">DecimalParameter</span><span class="p">,</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">freqtrade.strategy</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">BooleanParameter</span><span class="p">,</span> <span class="n">CategoricalParameter</span><span class="p">,</span> <span class="n">DecimalParameter</span><span class="p">,</span> 
                                 <span class="n">IStrategy</span><span class="p">,</span> <span class="n">IntParameter</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">freqtrade.vendor.qtpylib.indicators</span> <span class="k">as</span> <span class="nn">qtpylib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">freqtrade.vendor.qtpylib.indicators</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qtpylib</span>
 
-<span class="k">class</span> <span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
     <span class="n">stoploss</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.05</span>
     <span class="n">timeframe</span> <span class="o">=</span> <span class="s1">&#39;15m&#39;</span>
     <span class="c1"># Define the parameter spaces</span>
@@ -2734,7 +2926,7 @@ By using this in a loop, hyperopt will generate 48 new columns (<code>['buy_ema_
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">protections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">protections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">prot</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="n">prot</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
@@ -2752,7 +2944,7 @@ By using this in a loop, hyperopt will generate 48 new columns (<code>['buy_ema_
 
         <span class="k">return</span> <span class="n">prot</span>
 
-    <span class="k">def</span> <span class="nf">populate_indicators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">populate_indicators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
         <span class="c1"># ...</span>
 </code></pre></div>
 <p>You can then run hyperopt as follows:
@@ -2770,7 +2962,7 @@ It is therefore recommended to not define protections in the configuration.</p>
 <h3 id="migrating-from-previous-property-setups">Migrating from previous property setups<a class="headerlink" href="#migrating-from-previous-property-setups" title="Permanent link">&para;</a></h3>
 <p>A migration from a previous setup is pretty simple, and can be accomplished by converting the protections entry to a property.
 In simple terms, the following configuration will be converted to the below.</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
     <span class="n">protections</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;CooldownPeriod&quot;</span><span class="p">,</span>
@@ -2779,10 +2971,10 @@ In simple terms, the following configuration will be converted to the below.</p>
     <span class="p">]</span>
 </code></pre></div>
 <p>Result</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">protections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">protections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="p">{</span>
                 <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;CooldownPeriod&quot;</span><span class="p">,</span>
@@ -2793,16 +2985,16 @@ In simple terms, the following configuration will be converted to the below.</p>
 <p>You will then obviously also change potential interesting entries to parameters to allow hyper-optimization.</p>
 <h3 id="optimizing-max_entry_position_adjustment">Optimizing <code>max_entry_position_adjustment</code><a class="headerlink" href="#optimizing-max_entry_position_adjustment" title="Permanent link">&para;</a></h3>
 <p>While <code>max_entry_position_adjustment</code> is not a separate space, it can still be used in hyperopt by using the property approach shown above.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduce</span>
 
-<span class="kn">import</span> <span class="nn">talib.abstract</span> <span class="k">as</span> <span class="nn">ta</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">talib.abstract</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ta</span>
 
-<span class="kn">from</span> <span class="nn">freqtrade.strategy</span> <span class="kn">import</span> <span class="p">(</span><span class="n">BooleanParameter</span><span class="p">,</span> <span class="n">CategoricalParameter</span><span class="p">,</span> <span class="n">DecimalParameter</span><span class="p">,</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">freqtrade.strategy</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">BooleanParameter</span><span class="p">,</span> <span class="n">CategoricalParameter</span><span class="p">,</span> <span class="n">DecimalParameter</span><span class="p">,</span> 
                                 <span class="n">IStrategy</span><span class="p">,</span> <span class="n">IntParameter</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">freqtrade.vendor.qtpylib.indicators</span> <span class="k">as</span> <span class="nn">qtpylib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">freqtrade.vendor.qtpylib.indicators</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qtpylib</span>
 
-<span class="k">class</span> <span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
     <span class="n">stoploss</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.05</span>
     <span class="n">timeframe</span> <span class="o">=</span> <span class="s1">&#39;15m&#39;</span>
 
@@ -2810,11 +3002,11 @@ In simple terms, the following configuration will be converted to the below.</p>
     <span class="n">max_epa</span> <span class="o">=</span> <span class="n">CategoricalParameter</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="s2">&quot;buy&quot;</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">max_entry_position_adjustment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max_entry_position_adjustment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_epa</span><span class="o">.</span><span class="n">value</span>
 
 
-    <span class="k">def</span> <span class="nf">populate_indicators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">populate_indicators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
         <span class="c1"># ...</span>
 </code></pre></div>
 <details class="tip">
@@ -2823,7 +3015,7 @@ In simple terms, the following configuration will be converted to the below.</p>
 <div class="highlight"><pre><span></span><code><span class="n">max_epa</span> <span class="o">=</span> <span class="n">IntParameter</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="s2">&quot;buy&quot;</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="nd">@property</span>
-<span class="k">def</span> <span class="nf">max_entry_position_adjustment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">max_entry_position_adjustment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_epa</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </code></pre></div></p>
 </details>
@@ -2835,14 +3027,16 @@ This class should be in its own file within the <code>user_data/hyperopts/</code
 <ul>
 <li><code>ShortTradeDurHyperOptLoss</code> - (default legacy Freqtrade hyperoptimization loss function) - Mostly for short trade duration and avoiding losses.</li>
 <li><code>OnlyProfitHyperOptLoss</code> - takes only amount of profit into consideration.</li>
-<li><code>SharpeHyperOptLoss</code> - optimizes Sharpe Ratio calculated on trade returns relative to standard deviation.</li>
-<li><code>SharpeHyperOptLossDaily</code> - optimizes Sharpe Ratio calculated on <strong>daily</strong> trade returns relative to standard deviation.</li>
-<li><code>SortinoHyperOptLoss</code> - optimizes Sortino Ratio calculated on trade returns relative to <strong>downside</strong> standard deviation.</li>
+<li><code>SharpeHyperOptLoss</code> - Optimizes Sharpe Ratio calculated on trade returns relative to standard deviation.</li>
+<li><code>SharpeHyperOptLossDaily</code> - Optimizes Sharpe Ratio calculated on <strong>daily</strong> trade returns relative to standard deviation.</li>
+<li><code>SortinoHyperOptLoss</code> - Optimizes Sortino Ratio calculated on trade returns relative to <strong>downside</strong> standard deviation.</li>
 <li><code>SortinoHyperOptLossDaily</code> - optimizes Sortino Ratio calculated on <strong>daily</strong> trade returns relative to <strong>downside</strong> standard deviation.</li>
 <li><code>MaxDrawDownHyperOptLoss</code> - Optimizes Maximum absolute drawdown.</li>
 <li><code>MaxDrawDownRelativeHyperOptLoss</code> -  Optimizes both maximum absolute drawdown while also adjusting for maximum relative drawdown.</li>
+<li><code>MaxDrawDownPerPairHyperOptLoss</code> - Calculates the profit/drawdown ratio per pair and returns the worst result as objective, forcing hyperopt to optimize the parameters for all pairs in the pairlist. This way, we prevent one or more pairs with good results from inflating the metrics, while the pairs with poor results are not represented and therefore not optimized.</li>
 <li><code>CalmarHyperOptLoss</code> - Optimizes Calmar Ratio calculated on trade returns relative to max drawdown.</li>
 <li><code>ProfitDrawDownHyperOptLoss</code> - Optimizes by max Profit &amp; min Drawdown objective. <code>DRAWDOWN_MULT</code> variable within the hyperoptloss file can be adjusted to be stricter or more flexible on drawdown purposes.</li>
+<li><code>MultiMetricHyperOptLoss</code> -  Optimizes by several key metrics to achieve balanced performance. The primary focus is on maximizing Profit and minimizing Drawdown, while also considering additional metrics such as Profit Factor, Expectancy Ratio and Winrate. Moreover, it applies a penalty for epochs with a low number of trades, encouraging strategies with adequate trade frequency.</li>
 </ul>
 <p>Creation of a custom loss function is covered in the <a href="../advanced-hyperopt/">Advanced Hyperopt</a> part of the documentation.</p>
 <h2 id="execute-hyperopt">Execute Hyperopt<a class="headerlink" href="#execute-hyperopt" title="Permanent link">&para;</a></h2>
@@ -2852,7 +3046,8 @@ Because hyperopt tries a lot of combinations to find the best parameters it will
 <div class="highlight"><pre><span></span><code>freqtrade<span class="w"> </span>hyperopt<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--hyperopt-loss<span class="w"> </span>&lt;hyperoptlossname&gt;<span class="w"> </span>--strategy<span class="w"> </span>&lt;strategyname&gt;<span class="w"> </span>-e<span class="w"> </span><span class="m">500</span><span class="w"> </span>--spaces<span class="w"> </span>all
 </code></pre></div>
 <p>The <code>-e</code> option will set how many evaluations hyperopt will do. Since hyperopt uses Bayesian search, running too many epochs at once may not produce greater results. Experience has shown that best results are usually not improving much after 500-1000 epochs.<br />
-Doing multiple runs (executions) with a few 1000 epochs and different random state will most likely produce different results.</p>
+The <code>--early-stop</code> option will set after how many epochs with no improvements hyperopt will stop. A good value is 20-30% of the total epochs. Any value greater than 0 and lower than 20 it will be replaced by 20. Early stop is by default disabled (<code>--early-stop=0</code>)</p>
+<p>Doing multiple runs (executions) with a few 1000 epochs and different random state will most likely produce different results.</p>
 <p>The <code>--spaces all</code> option determines that all possible parameters should be optimized. Possibilities are listed below.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2884,7 +3079,7 @@ Or maybe you just want to optimize your stoploss or roi table for that awesome n
 <li><code>trailing</code>: search for the best trailing stop values</li>
 <li><code>trades</code>: search for the best max open trades values</li>
 <li><code>protection</code>: search for the best protection parameters (read the <a href="#optimizing-protections">protections section</a> on how to properly define these)</li>
-<li><code>default</code>: <code>all</code> except <code>trailing</code> and <code>protection</code></li>
+<li><code>default</code>: <code>all</code> except <code>trailing</code>, <code>trades</code> and <code>protection</code></li>
 <li>space-separated list of any of the above values for example <code>--spaces roi stoploss</code></li>
 </ul>
 <p>The default Hyperopt Search Space, used when no <code>--space</code> command line option is specified, does not include the <code>trailing</code> hyperspace. We recommend you to run optimization for the <code>trailing</code> hyperspace separately, when the best parameters for other hyperspaces were found, validated and pasted into your custom strategy.</p>
@@ -2915,7 +3110,7 @@ Given the following result from hyperopt:</p>
 This file is also updated when using the <code>hyperopt-show</code> sub-command, unless <code>--disable-param-export</code> is provided to either of the 2 commands.</p>
 <p>Your strategy class can also contain these results explicitly. Simply copy hyperopt results block and paste them at class level, replacing old parameters (if any). New parameters will automatically be loaded next time strategy is executed.</p>
 <p>Transferring your whole hyperopt result to your strategy would then look like:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
     <span class="c1"># Buy hyperspace params:</span>
     <span class="n">buy_params</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;buy_adx&#39;</span><span class="p">:</span> <span class="mi">44</span><span class="p">,</span>
@@ -3098,16 +3293,13 @@ The prevalence is therefore: config &gt; parameter file &gt; strategy <code>*_pa
 <p>Windows does not support color-output natively, therefore it is automatically disabled. To have color-output for hyperopt running under windows, please consider using WSL.</p>
 </div>
 <h2 id="position-stacking-and-disabling-max-market-positions">Position stacking and disabling max market positions<a class="headerlink" href="#position-stacking-and-disabling-max-market-positions" title="Permanent link">&para;</a></h2>
-<p>In some situations, you may need to run Hyperopt (and Backtesting) with the
-<code>--eps</code>/<code>--enable-position-staking</code> and <code>--dmmp</code>/<code>--disable-max-market-positions</code> arguments.</p>
+<p>In some situations, you may need to run Hyperopt (and Backtesting) with the <code>--eps</code>/<code>--enable-position-staking</code> argument, or you may need to set <code>max_open_trades</code> to a very high number to disable the limit on the number of open trades.</p>
 <p>By default, hyperopt emulates the behavior of the Freqtrade Live Run/Dry Run, where only one
-open trade is allowed for every traded pair. The total number of trades open for all pairs
+open trade per pair is allowed. The total number of trades open for all pairs
 is also limited by the <code>max_open_trades</code> setting. During Hyperopt/Backtesting this may lead to
-some potential trades to be hidden (or masked) by previously open trades.</p>
-<p>The <code>--eps</code>/<code>--enable-position-stacking</code> argument allows emulation of buying the same pair multiple times,
-while <code>--dmmp</code>/<code>--disable-max-market-positions</code> disables applying <code>max_open_trades</code>
-during Hyperopt/Backtesting (which is equal to setting <code>max_open_trades</code> to a very high
-number).</p>
+potential trades being hidden (or masked) by already open trades.</p>
+<p>The <code>--eps</code>/<code>--enable-position-stacking</code> argument allows emulation of buying the same pair multiple times.
+Using <code>--max-open-trades</code> with a very high number will disable the limit on the number of open trades.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Dry/live runs will <strong>NOT</strong> use position stacking - therefore it does make sense to also validate the strategy without this as it's closer to reality.</p>
@@ -3137,9 +3329,29 @@ Freqtrade tries to counter the "local minima" problem by using new, randomized p
 Your epochs should therefore be aligned to the possible values - or you should be ready to interrupt a run if you norice a lot of <code>The objective has been evaluated at this point before.</code> warnings.</p>
 <h2 id="show-details-of-hyperopt-results">Show details of Hyperopt results<a class="headerlink" href="#show-details-of-hyperopt-results" title="Permanent link">&para;</a></h2>
 <p>After you run Hyperopt for the desired amount of epochs, you can later list all results for analysis, select only best or profitable once, and show the details for any of the epochs previously evaluated. This can be done with the <code>hyperopt-list</code> and <code>hyperopt-show</code> sub-commands. The usage of these sub-commands is described in the <a href="../utils/#list-hyperopt-results">Utils</a> chapter.</p>
+<h2 id="output-debug-messages-from-your-strategy">Output debug messages from your strategy<a class="headerlink" href="#output-debug-messages-from-your-strategy" title="Permanent link">&para;</a></h2>
+<p>If you want to output debug messages from your strategy, you can use the <code>logging</code> module. By default, Freqtrade will output all messages with a level of <code>INFO</code> or higher. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyAwesomeStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">populate_entry_trend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This is a debug message&quot;</span><span class="p">)</span>
+        <span class="o">...</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">using print</p>
+<p>Messages printed via <code>print()</code> will not be shown in the hyperopt output unless parallelism is disabled (<code>-j 1</code>). 
+It is recommended to use the <code>logging</code> module instead.</p>
+</div>
 <h2 id="validate-backtesting-results">Validate backtesting results<a class="headerlink" href="#validate-backtesting-results" title="Permanent link">&para;</a></h2>
 <p>Once the optimized strategy has been implemented into your strategy, you should backtest this strategy to make sure everything is working as expected.</p>
-<p>To achieve same the results (number of trades, their durations, profit, etc.) as during Hyperopt, please use the same configuration and parameters (timerange, timeframe, ...) used for hyperopt <code>--dmmp</code>/<code>--disable-max-market-positions</code> and <code>--eps</code>/<code>--enable-position-stacking</code> for Backtesting.</p>
+<p>To achieve same the results (number of trades, their durations, profit, etc.) as during Hyperopt, please use the same configuration and parameters (timerange, timeframe, ...) used for hyperopt for Backtesting.</p>
 <h3 id="why-do-my-backtest-results-not-match-my-hyperopt-results">Why do my backtest results not match my hyperopt results?<a class="headerlink" href="#why-do-my-backtest-results-not-match-my-hyperopt-results" title="Permanent link">&para;</a></h3>
 <p>Should results not match, check the following factors:</p>
 <ul>
@@ -3159,6 +3371,8 @@ Your epochs should therefore be aligned to the possible values - or you should b
 
 
 
+  
+
 
 
 
@@ -3172,7 +3386,7 @@ Your epochs should therefore be aligned to the possible values - or you should b
         
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
   Back to top
 </button>
         
@@ -3189,7 +3403,7 @@ Your epochs should therefore be aligned to the possible values - or you should b
           <a href="../backtesting/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Backtesting">
             <div class="md-footer__button md-icon">
               
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
             </div>
             <div class="md-footer__title">
               <span class="md-footer__direction">
@@ -3214,7 +3428,7 @@ Your epochs should therefore be aligned to the possible values - or you should b
             </div>
             <div class="md-footer__button md-icon">
               
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
             </div>
           </a>
         
@@ -3239,7 +3453,6 @@ Your epochs should therefore be aligned to the possible values - or you should b
       
 
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
@@ -3250,14 +3463,14 @@ Your epochs should therefore be aligned to the possible values - or you should b
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "search.share", "content.code.copy", "navigation.top", "navigation.footer"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "search.share", "content.code.copy", "content.action.edit", "navigation.top", "navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.471ce7a9.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
         <script src="../javascripts/config.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

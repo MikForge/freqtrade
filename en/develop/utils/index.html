@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://www.freqtrade.io/en/latest/develop/utils/">
+        <link rel="canonical" href="https://www.freqtrade.io/en/stable/utils/">
       
       
         <link rel="prev" href="../leverage/">
@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../images/logo.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.32">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -52,9 +52,19 @@
     
       <link rel="stylesheet" href="../stylesheets/ft.extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-VH170LG9M5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-VH170LG9M5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-VH170LG9M5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -105,7 +115,7 @@
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -133,7 +143,7 @@
     <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="tear"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
       </label>
     
   
@@ -143,7 +153,7 @@
     <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="tear"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
       </label>
     
   
@@ -151,16 +161,61 @@
       
     
     
-      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
     
     
       <div class="md-header__source">
         <a href="https://github.com/freqtrade/freqtrade" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -207,7 +262,7 @@
       <a href="https://github.com/freqtrade/freqtrade" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -227,8 +282,10 @@
       <a href=".." class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Home
+    
   </span>
   
 
@@ -247,8 +304,10 @@
       <a href="../docker_quickstart/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Quickstart with Docker
+    
   </span>
   
 
@@ -267,6 +326,7 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
@@ -277,8 +337,10 @@
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     Installation
+    
   </span>
   
 
@@ -302,8 +364,10 @@
       <a href="../installation/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Linux/MacOS/Raspberry
+    
   </span>
   
 
@@ -323,8 +387,10 @@
       <a href="../windows_installation/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Windows
+    
   </span>
   
 
@@ -351,8 +417,10 @@
       <a href="../bot-basics/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Freqtrade Basics
+    
   </span>
   
 
@@ -371,8 +439,32 @@
       <a href="../configuration/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../strategy-101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strategy Quickstart
+    
   </span>
   
 
@@ -391,8 +483,10 @@
       <a href="../strategy-customization/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Strategy Customization
+    
   </span>
   
 
@@ -411,8 +505,10 @@
       <a href="../strategy-callbacks/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Strategy Callbacks
+    
   </span>
   
 
@@ -431,8 +527,10 @@
       <a href="../stoploss/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Stoploss
+    
   </span>
   
 
@@ -451,8 +549,10 @@
       <a href="../plugins/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Plugins
+    
   </span>
   
 
@@ -471,8 +571,10 @@
       <a href="../bot-usage/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Start the bot
+    
   </span>
   
 
@@ -491,26 +593,29 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     Control the bot
+    
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             Control the bot
           </label>
@@ -526,8 +631,10 @@
       <a href="../telegram-usage/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Telegram
+    
   </span>
   
 
@@ -547,8 +654,10 @@
       <a href="../freq-ui/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     freqUI
+    
   </span>
   
 
@@ -568,8 +677,10 @@
       <a href="../rest-api/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     REST API
+    
   </span>
   
 
@@ -589,8 +700,10 @@
       <a href="../webhook-config/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Web Hook
+    
   </span>
   
 
@@ -617,8 +730,10 @@
       <a href="../data-download/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Data Downloading
+    
   </span>
   
 
@@ -637,8 +752,10 @@
       <a href="../backtesting/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Backtesting
+    
   </span>
   
 
@@ -657,8 +774,10 @@
       <a href="../hyperopt/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Hyperopt
+    
   </span>
   
 
@@ -677,26 +796,29 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
         
           
-          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     FreqAI
+    
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_15">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
             <span class="md-nav__icon md-icon"></span>
             FreqAI
           </label>
@@ -712,8 +834,10 @@
       <a href="../freqai/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Introduction
+    
   </span>
   
 
@@ -733,8 +857,10 @@
       <a href="../freqai-configuration/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Configuration
+    
   </span>
   
 
@@ -754,8 +880,10 @@
       <a href="../freqai-parameter-table/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Parameter table
+    
   </span>
   
 
@@ -775,8 +903,10 @@
       <a href="../freqai-feature-engineering/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Feature engineering
+    
   </span>
   
 
@@ -796,8 +926,10 @@
       <a href="../freqai-running/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Running FreqAI
+    
   </span>
   
 
@@ -817,8 +949,10 @@
       <a href="../freqai-reinforcement-learning/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Reinforcement Learning
+    
   </span>
   
 
@@ -838,8 +972,10 @@
       <a href="../freqai-developers/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Developer guide
+    
   </span>
   
 
@@ -866,8 +1002,10 @@
       <a href="../leverage/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Short / Leverage
+    
   </span>
   
 
@@ -895,8 +1033,10 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
+  
   <span class="md-ellipsis">
     Utility Sub-commands
+    
   </span>
   
 
@@ -906,8 +1046,10 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
+  
   <span class="md-ellipsis">
     Utility Sub-commands
+    
   </span>
   
 
@@ -998,6 +1140,15 @@
   <a href="#list-strategies" class="md-nav__link">
     <span class="md-ellipsis">
       List Strategies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-hyperopt-loss-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Hyperopt-Loss functions
     </span>
   </a>
   
@@ -1228,8 +1379,10 @@
       <a href="../plotting/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Plotting
+    
   </span>
   
 
@@ -1248,8 +1401,10 @@
       <a href="../exchanges/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Exchange-specific Notes
+    
   </span>
   
 
@@ -1268,26 +1423,29 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_21" >
         
           
-          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_21" id="__nav_21_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     Data Analysis
+    
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_20">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_21">
             <span class="md-nav__icon md-icon"></span>
             Data Analysis
           </label>
@@ -1303,8 +1461,10 @@
       <a href="../data-analysis/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Jupyter Notebooks
+    
   </span>
   
 
@@ -1324,8 +1484,10 @@
       <a href="../strategy_analysis_example/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Strategy analysis
+    
   </span>
   
 
@@ -1345,8 +1507,10 @@
       <a href="../advanced-backtesting/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Backtest analysis
+    
   </span>
   
 
@@ -1373,26 +1537,29 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_21" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_22" >
         
           
-          <label class="md-nav__link" for="__nav_21" id="__nav_21_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_22" id="__nav_22_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     Advanced Topics
+    
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_21_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_21">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_22_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_22">
             <span class="md-nav__icon md-icon"></span>
             Advanced Topics
           </label>
@@ -1408,8 +1575,10 @@
       <a href="../advanced-setup/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Advanced Post-installation Tasks
+    
   </span>
   
 
@@ -1429,8 +1598,10 @@
       <a href="../trade-object/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Trade Object
+    
   </span>
   
 
@@ -1450,8 +1621,10 @@
       <a href="../lookahead-analysis/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Lookahead analysis
+    
   </span>
   
 
@@ -1471,8 +1644,10 @@
       <a href="../recursive-analysis/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Recursive analysis
+    
   </span>
   
 
@@ -1492,8 +1667,10 @@
       <a href="../strategy-advanced/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Advanced Strategy
+    
   </span>
   
 
@@ -1513,8 +1690,10 @@
       <a href="../advanced-hyperopt/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Advanced Hyperopt
+    
   </span>
   
 
@@ -1534,8 +1713,10 @@
       <a href="../advanced-orderflow/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Orderflow
+    
   </span>
   
 
@@ -1555,8 +1736,10 @@
       <a href="../producer-consumer/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Producer/Consumer mode
+    
   </span>
   
 
@@ -1576,29 +1759,10 @@
       <a href="../sql_cheatsheet/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     SQL Cheat-sheet
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../edge/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Edge Positioning
+    
   </span>
   
 
@@ -1625,8 +1789,10 @@
       <a href="../faq/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     FAQ
+    
   </span>
   
 
@@ -1645,8 +1811,10 @@
       <a href="../strategy_migration/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Strategy migration
+    
   </span>
   
 
@@ -1665,8 +1833,10 @@
       <a href="../updating/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Updating Freqtrade
+    
   </span>
   
 
@@ -1685,8 +1855,10 @@
       <a href="../deprecated/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Deprecated Features
+    
   </span>
   
 
@@ -1705,8 +1877,10 @@
       <a href="../developer/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Contributors Guide
+    
   </span>
   
 
@@ -1813,6 +1987,15 @@
   <a href="#list-strategies" class="md-nav__link">
     <span class="md-ellipsis">
       List Strategies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-hyperopt-loss-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Hyperopt-Loss functions
     </span>
   </a>
   
@@ -2039,19 +2222,25 @@
                 
                   
 
+
+  
+    <a href="https://github.com/freqtrade/freqtrade/edit/develop/docs/utils.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
   
   
 
 
 <h1 id="utility-subcommands">Utility Subcommands<a class="headerlink" href="#utility-subcommands" title="Permanent link">&para;</a></h1>
-<p>Besides the Live-Trade and Dry-Run run modes, the <code>backtesting</code>, <code>edge</code> and <code>hyperopt</code> optimization subcommands, and the <code>download-data</code> subcommand which prepares historical data, the bot contains a number of utility subcommands. They are described in this section.</p>
+<p>Besides the Live-Trade and Dry-Run run modes, the <code>backtesting</code> and <code>hyperopt</code> optimization subcommands, and the <code>download-data</code> subcommand which prepares historical data, the bot contains a number of utility subcommands. They are described in this section.</p>
 <h2 id="create-userdir">Create userdir<a class="headerlink" href="#create-userdir" title="Permanent link">&para;</a></h2>
 <p>Creates the directory structure to hold your files for freqtrade.
 Will also create strategy and hyperopt examples for you to get started.
-Can be used multiple times - using <code>--reset</code> will reset the sample strategy and hyperopt files to their default state. </p>
+Can be used multiple times - using <code>--reset</code> will reset the sample strategy and hyperopt files to their default state.</p>
 <div class="highlight"><pre><span></span><code>usage: freqtrade create-userdir [-h] [--userdir PATH] [--reset]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
@@ -2076,11 +2265,13 @@ optional arguments:
 <p>Creates a new configuration file, asking some questions which are important selections for a configuration.</p>
 <div class="highlight"><pre><span></span><code>usage: freqtrade new-config [-h] [-c PATH]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -c PATH, --config PATH
-                        Specify configuration file (default: `config.json`). Multiple --config options may be used. Can be set to `-`
-                        to read config from stdin.
+                        Specify configuration file (default:
+                        `userdir/config.json` or `config.json` whichever
+                        exists). Multiple --config options may be used. Can be
+                        set to `-` to read config from stdin.
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -2143,20 +2334,22 @@ Yet, please do double-check for sensitive values in your output to make sure you
 <p>Creates a new strategy from a template similar to SampleStrategy.
 The file will be named inline with your class name, and will not overwrite existing files.</p>
 <p>Results will be located in <code>user_data/strategies/&lt;strategyclassname&gt;.py</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="go">usage: freqtrade new-strategy [-h] [--userdir PATH] [-s NAME]</span>
-<span class="go">                              [--template {full,minimal,advanced}]</span>
+<div class="highlight"><pre><span></span><code>usage: freqtrade new-strategy [-h] [--userdir PATH] [-s NAME]
+                              [--strategy-path PATH]
+                              [--template {full,minimal,advanced}]
 
-<span class="go">optional arguments:</span>
-<span class="go">  -h, --help            show this help message and exit</span>
-<span class="go">  --userdir PATH, --user-data-dir PATH</span>
-<span class="go">                        Path to userdata directory.</span>
-<span class="go">  -s NAME, --strategy NAME</span>
-<span class="go">                        Specify strategy class name which will be used by the</span>
-<span class="go">                        bot.</span>
-<span class="go">  --template {full,minimal,advanced}</span>
-<span class="go">                        Use a template which is either `minimal`, `full`</span>
-<span class="go">                        (containing multiple sample indicators) or `advanced`.</span>
-<span class="go">                        Default: `full`.</span>
+options:
+  -h, --help            show this help message and exit
+  --userdir PATH, --user-data-dir PATH
+                        Path to userdata directory.
+  -s NAME, --strategy NAME
+                        Specify strategy class name which will be used by the
+                        bot.
+  --strategy-path PATH  Specify additional strategy lookup path.
+  --template {full,minimal,advanced}
+                        Use a template which is either `minimal`, `full`
+                        (containing multiple sample indicators) or `advanced`.
+                        Default: `full`.
 </code></pre></div>
 <h3 id="sample-usage-of-new-strategy">Sample usage of new-strategy<a class="headerlink" href="#sample-usage-of-new-strategy" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>freqtrade<span class="w"> </span>new-strategy<span class="w"> </span>--strategy<span class="w"> </span>AwesomeStrategy
@@ -2170,24 +2363,25 @@ The file will be named inline with your class name, and will not overwrite exist
 <h2 id="list-strategies">List Strategies<a class="headerlink" href="#list-strategies" title="Permanent link">&para;</a></h2>
 <p>Use the <code>list-strategies</code> subcommand to see all strategies in one particular directory.</p>
 <p>This subcommand is useful for finding problems in your environment with loading strategies: modules with strategies that contain errors and failed to load are printed in red (LOAD FAILED), while strategies with duplicate names are printed in yellow (DUPLICATE NAME).</p>
-<div class="highlight"><pre><span></span><code>usage: freqtrade list-strategies [-h] [-v] [--logfile FILE] [-V] [-c PATH]
-                                 [-d PATH] [--userdir PATH]
-                                 [--strategy-path PATH] [-1] [--no-color]
+<div class="highlight"><pre><span></span><code>usage: freqtrade list-strategies [-h] [-v] [--no-color] [--logfile FILE] [-V]
+                                 [-c PATH] [-d PATH] [--userdir PATH]
+                                 [--strategy-path PATH] [-1]
                                  [--recursive-strategy-search]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --strategy-path PATH  Specify additional strategy lookup path.
   -1, --one-column      Print output in one column.
-  --no-color            Disable colorization of hyperopt results. May be
-                        useful if you are redirecting output to a file.
   --recursive-strategy-search
                         Recursively search for a strategy in the strategies
                         folder.
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
-  --logfile FILE        Log to the file specified. Special values are:
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
+  --logfile FILE, --log-file FILE
+                        Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
                         details.
   -V, --version         show program&#39;s version number and exit
@@ -2196,8 +2390,10 @@ Common arguments:
                         `userdir/config.json` or `config.json` whichever
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
-  -d PATH, --datadir PATH
-                        Path to directory with historical backtesting data.
+  -d PATH, --datadir PATH, --data-dir PATH
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 </code></pre></div>
@@ -2214,24 +2410,26 @@ Common arguments:
 <p>Example: Search dedicated strategy path.</p>
 <div class="highlight"><pre><span></span><code>freqtrade<span class="w"> </span>list-strategies<span class="w"> </span>--strategy-path<span class="w"> </span>~/.freqtrade/strategies/
 </code></pre></div>
-<h2 id="list-freqai-models">List freqAI models<a class="headerlink" href="#list-freqai-models" title="Permanent link">&para;</a></h2>
-<p>Use the <code>list-freqaimodels</code> subcommand to see all freqAI models available.</p>
-<p>This subcommand is useful for finding problems in your environment with loading freqAI models: modules with models that contain errors and failed to load are printed in red (LOAD FAILED), while models with duplicate names are printed in yellow (DUPLICATE NAME).</p>
-<div class="highlight"><pre><span></span><code>usage: freqtrade list-freqaimodels [-h] [-v] [--logfile FILE] [-V] [-c PATH]
-                                   [-d PATH] [--userdir PATH]
-                                   [--freqaimodel-path PATH] [-1] [--no-color]
+<h2 id="list-hyperopt-loss-functions">List Hyperopt-Loss functions<a class="headerlink" href="#list-hyperopt-loss-functions" title="Permanent link">&para;</a></h2>
+<p>Use the <code>list-hyperoptloss</code> subcommand to see all hyperopt loss functions available.</p>
+<p>It provides a quick list of all available loss functions in your environment.</p>
+<p>This subcommand can be useful for finding problems in your environment with loading loss functions: modules with Hyperopt-Loss functions that contain errors and failed to load are printed in red (LOAD FAILED), while hyperopt-Loss functions with duplicate names are printed in yellow (DUPLICATE NAME).</p>
+<div class="highlight"><pre><span></span><code>usage: freqtrade list-hyperoptloss [-h] [-v] [--no-color] [--logfile FILE]
+                                   [-V] [-c PATH] [-d PATH] [--userdir PATH]
+                                   [--hyperopt-path PATH] [-1]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
-  --freqaimodel-path PATH
-                        Specify additional lookup path for freqaimodels.
+  --hyperopt-path PATH  Specify additional lookup path for Hyperopt Loss
+                        functions.
   -1, --one-column      Print output in one column.
-  --no-color            Disable colorization of hyperopt results. May be
-                        useful if you are redirecting output to a file.
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
-  --logfile FILE        Log to the file specified. Special values are:
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
+  --logfile FILE, --log-file FILE
+                        Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
                         details.
   -V, --version         show program&#39;s version number and exit
@@ -2241,18 +2439,81 @@ Common arguments:
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
   -d PATH, --datadir PATH, --data-dir PATH
-                        Path to directory with historical backtesting data.
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
+  --userdir PATH, --user-data-dir PATH
+                        Path to userdata directory.
+</code></pre></div>
+<h2 id="list-freqai-models">List freqAI models<a class="headerlink" href="#list-freqai-models" title="Permanent link">&para;</a></h2>
+<p>Use the <code>list-freqaimodels</code> subcommand to see all freqAI models available.</p>
+<p>This subcommand is useful for finding problems in your environment with loading freqAI models: modules with models that contain errors and failed to load are printed in red (LOAD FAILED), while models with duplicate names are printed in yellow (DUPLICATE NAME).</p>
+<div class="highlight"><pre><span></span><code>usage: freqtrade list-freqaimodels [-h] [-v] [--no-color] [--logfile FILE]
+                                   [-V] [-c PATH] [-d PATH] [--userdir PATH]
+                                   [--freqaimodel-path PATH] [-1]
+
+options:
+  -h, --help            show this help message and exit
+  --freqaimodel-path PATH
+                        Specify additional lookup path for freqaimodels.
+  -1, --one-column      Print output in one column.
+
+Common arguments:
+  -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
+  --logfile FILE, --log-file FILE
+                        Log to the file specified. Special values are:
+                        &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
+                        details.
+  -V, --version         show program&#39;s version number and exit
+  -c PATH, --config PATH
+                        Specify configuration file (default:
+                        `userdir/config.json` or `config.json` whichever
+                        exists). Multiple --config options may be used. Can be
+                        set to `-` to read config from stdin.
+  -d PATH, --datadir PATH, --data-dir PATH
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 </code></pre></div>
 <h2 id="list-exchanges">List Exchanges<a class="headerlink" href="#list-exchanges" title="Permanent link">&para;</a></h2>
 <p>Use the <code>list-exchanges</code> subcommand to see the exchanges available for the bot.</p>
-<div class="highlight"><pre><span></span><code>usage: freqtrade list-exchanges [-h] [-1] [-a]
+<div class="highlight"><pre><span></span><code>usage: freqtrade list-exchanges [-h] [-v] [--no-color] [--logfile FILE] [-V]
+                                [-c PATH] [-d PATH] [--userdir PATH] [-1] [-a]
+                                [--trading-mode {spot,margin,futures}]
+                                [--dex-exchanges]
 
-optional arguments:
-  -h, --help        show this help message and exit
-  -1, --one-column  Print output in one column.
-  -a, --all         Print all exchanges known to the ccxt library.
+options:
+  -h, --help            show this help message and exit
+  -1, --one-column      Print output in one column.
+  -a, --all             Print all exchanges known to the ccxt library.
+  --trading-mode {spot,margin,futures}, --tradingmode {spot,margin,futures}
+                        Select Trading mode
+  --dex-exchanges       Print only DEX exchanges.
+
+Common arguments:
+  -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
+  --logfile FILE, --log-file FILE
+                        Log to the file specified. Special values are:
+                        &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
+                        details.
+  -V, --version         show program&#39;s version number and exit
+  -c PATH, --config PATH
+                        Specify configuration file (default:
+                        `userdir/config.json` or `config.json` whichever
+                        exists). Multiple --config options may be used. Can be
+                        set to `-` to read config from stdin.
+  -d PATH, --datadir PATH, --data-dir PATH
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
+  --userdir PATH, --user-data-dir PATH
+                        Path to userdata directory.
 </code></pre></div>
 <p>Example: see exchanges available for the bot:</p>
 <div class="highlight"><pre><span></span><code>$ freqtrade list-exchanges
@@ -2294,8 +2555,8 @@ okx                 True     Official     spot, isolated futures
 </div>
 <h2 id="list-timeframes">List Timeframes<a class="headerlink" href="#list-timeframes" title="Permanent link">&para;</a></h2>
 <p>Use the <code>list-timeframes</code> subcommand to see the list of timeframes available for the exchange.</p>
-<div class="highlight"><pre><span></span><code>usage: freqtrade list-timeframes [-h] [-v] [--logfile FILE] [-V] [-c PATH]
-                                 [-d PATH] [--userdir PATH]
+<div class="highlight"><pre><span></span><code>usage: freqtrade list-timeframes [-h] [-v] [--no-color] [--logfile FILE] [-V]
+                                 [-c PATH] [-d PATH] [--userdir PATH]
                                  [--exchange EXCHANGE] [-1]
 
 options:
@@ -2305,6 +2566,8 @@ options:
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
   --logfile FILE, --log-file FILE
                         Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
@@ -2316,7 +2579,9 @@ Common arguments:
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
   -d PATH, --datadir PATH, --data-dir PATH
-                        Path to directory with historical backtesting data.
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 </code></pre></div>
@@ -2339,18 +2604,14 @@ For example, in the 'ETH/BTC' pair 'ETH' is the base currency, while 'BTC' is th
 <p>For pairs traded by Freqtrade the pair quote currency is defined by the value of the <code>stake_currency</code> configuration setting.</p>
 <p>You can print info about any pair/market with these subcommands - and you can filter output by quote-currency using <code>--quote BTC</code>, or by base-currency using <code>--base ETH</code> options correspondingly.</p>
 <p>These subcommands have same usage and same set of available options:</p>
-<div class="highlight"><pre><span></span><code>usage: freqtrade list-markets [-h] [-v] [--logfile FILE] [-V] [-c PATH]
-                              [-d PATH] [--userdir PATH] [--exchange EXCHANGE]
-                              [--print-list] [--print-json] [-1] [--print-csv]
-                              [--base BASE_CURRENCY [BASE_CURRENCY ...]]
-                              [--quote QUOTE_CURRENCY [QUOTE_CURRENCY ...]]
-                              [-a] [--trading-mode {spot,margin,futures}]
-usage: freqtrade list-pairs [-h] [-v] [--logfile FILE] [-V] [-c PATH]
-                            [-d PATH] [--userdir PATH] [--exchange EXCHANGE]
-                            [--print-list] [--print-json] [-1] [--print-csv]
+<div class="highlight"><pre><span></span><code>usage: freqtrade list-pairs [-h] [-v] [--no-color] [--logfile FILE] [-V]
+                            [-c PATH] [-d PATH] [--userdir PATH]
+                            [--exchange EXCHANGE] [--print-list]
+                            [--print-json] [-1] [--print-csv]
                             [--base BASE_CURRENCY [BASE_CURRENCY ...]]
                             [--quote QUOTE_CURRENCY [QUOTE_CURRENCY ...]] [-a]
                             [--trading-mode {spot,margin,futures}]
+
 options:
   -h, --help            show this help message and exit
   --exchange EXCHANGE   Exchange name. Only valid if no config is provided.
@@ -2370,6 +2631,8 @@ options:
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
   --logfile FILE, --log-file FILE
                         Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
@@ -2381,12 +2644,15 @@ Common arguments:
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
   -d PATH, --datadir PATH, --data-dir PATH
-                        Path to directory with historical backtesting data.
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 </code></pre></div>
-<p>By default, only active pairs/markets are shown. Active pairs/markets are those that can currently be traded
-on the exchange. The see the list of all pairs/markets (not only the active ones), use the <code>-a</code>/<code>-all</code> option.</p>
+<p>By default, only active pairs/markets are shown. Active pairs/markets are those that can currently be traded on the exchange.
+You can use the <code>-a</code>/<code>-all</code> option to see the list of all pairs/markets, including the inactive ones.
+Pairs may be listed as untradeable if the smallest tradeable price for the market is very small, i.e. less than <code>1e-11</code> (<code>0.00000000001</code>)</p>
 <p>Pairs/markets are sorted by its symbol string in the printed output.</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2440,7 +2706,7 @@ options:
 <p>Please refer to the <a href="../advanced-setup/#use-a-different-database-system">corresponding documentation</a> to learn about requirements for different database systems.</p>
 <div class="highlight"><pre><span></span><code>usage: freqtrade convert-db [-h] [--db-url PATH] [--db-url-from PATH]
 
-optional arguments:
+options:
   -h, --help          show this help message and exit
   --db-url PATH       Override trades database URL, this is useful in custom
                       deployments (default: `sqlite:///tradesv3.sqlite` for
@@ -2462,15 +2728,18 @@ There may still be bugs - so if you happen to stumble across these, please repor
 Freqtrade will start the webserver and allow FreqUI to start and control backtesting processes.
 This has the advantage that data will not be reloaded between backtesting runs (as long as timeframe and timerange remain identical).
 FreqUI will also show the backtesting results.</p>
-<div class="highlight"><pre><span></span><code>usage: freqtrade webserver [-h] [-v] [--logfile FILE] [-V] [-c PATH] [-d PATH]
-                           [--userdir PATH]
+<div class="highlight"><pre><span></span><code>usage: freqtrade webserver [-h] [-v] [--no-color] [--logfile FILE] [-V]
+                           [-c PATH] [-d PATH] [--userdir PATH]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
-  --logfile FILE        Log to the file specified. Special values are:
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
+  --logfile FILE, --log-file FILE
+                        Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
                         details.
   -V, --version         show program&#39;s version number and exit
@@ -2479,8 +2748,10 @@ Common arguments:
                         `userdir/config.json` or `config.json` whichever
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
-  -d PATH, --datadir PATH
-                        Path to directory with historical backtesting data.
+  -d PATH, --datadir PATH, --data-dir PATH
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 </code></pre></div>
@@ -2506,22 +2777,35 @@ Adding <code>--show-pair-list</code> outputs a sorted pair list you can easily c
 <summary>Strategy overfitting</summary>
 <p>Only using winning pairs can lead to an overfitted strategy, which will not work well on future data. Make sure to extensively test your strategy in dry-run before risking real money.</p>
 </details>
-<div class="highlight"><pre><span></span><code>usage: freqtrade backtesting-show [-h] [-v] [--logfile FILE] [-V] [-c PATH]
-                                  [-d PATH] [--userdir PATH]
-                                  [--export-filename PATH] [--show-pair-list]
+<div class="highlight"><pre><span></span><code>usage: freqtrade backtesting-show [-h] [-v] [--no-color] [--logfile FILE] [-V]
+                                  [-c PATH] [-d PATH] [--userdir PATH]
+                                  [--backtest-filename PATH]
+                                  [--backtest-directory PATH]
+                                  [--show-pair-list]
+                                  [--breakdown {day,week,month,year} [{day,week,month,year} ...]]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
-  --export-filename PATH
-                        Save backtest results to the file with this filename.
-                        Requires `--export` to be set as well. Example:
-                        `--export-filename=user_data/backtest_results/backtest
-                        _today.json`
+  --backtest-filename PATH, --export-filename PATH
+                        Use this filename for backtest results.Example:
+                        `--backtest-
+                        filename=backtest_results_2020-09-27_16-20-48.json`.
+                        Assumes either `user_data/backtest_results/` or
+                        `--export-directory` as base directory.
+  --backtest-directory PATH, --export-directory PATH
+                        Directory to use for backtest results. Example:
+                        `--export-directory=user_data/backtest_results/`.
   --show-pair-list      Show backtesting pairlist sorted by profit.
+  --breakdown {day,week,month,year} [{day,week,month,year} ...]
+                        Show backtesting breakdown per [day, week, month,
+                        year].
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
-  --logfile FILE        Log to the file specified. Special values are:
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
+  --logfile FILE, --log-file FILE
+                        Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
                         details.
   -V, --version         show program&#39;s version number and exit
@@ -2530,63 +2814,73 @@ Common arguments:
                         `userdir/config.json` or `config.json` whichever
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
-  -d PATH, --datadir PATH
-                        Path to directory with historical backtesting data.
+  -d PATH, --datadir PATH, --data-dir PATH
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 </code></pre></div>
 <h2 id="detailed-backtest-analysis">Detailed backtest analysis<a class="headerlink" href="#detailed-backtest-analysis" title="Permanent link">&para;</a></h2>
 <p>Advanced backtest result analysis.</p>
 <p>More details in the <a href="../advanced-backtesting/#analyze-the-buyentry-and-sellexit-tags">Backtesting analysis</a> Section.</p>
-<div class="highlight"><pre><span></span><code>usage: freqtrade backtesting-analysis [-h] [-v] [--logfile FILE] [-V]
-                                      [-c PATH] [-d PATH] [--userdir PATH]
-                                      [--export-filename PATH]
-                                      [--analysis-groups {0,1,2,3,4} [{0,1,2,3,4} ...]]
+<div class="highlight"><pre><span></span><code>usage: freqtrade backtesting-analysis [-h] [-v] [--no-color] [--logfile FILE]
+                                      [-V] [-c PATH] [-d PATH]
+                                      [--userdir PATH]
+                                      [--backtest-filename PATH]
+                                      [--backtest-directory PATH]
+                                      [--analysis-groups {0,1,2,3,4,5} [{0,1,2,3,4,5} ...]]
                                       [--enter-reason-list ENTER_REASON_LIST [ENTER_REASON_LIST ...]]
                                       [--exit-reason-list EXIT_REASON_LIST [EXIT_REASON_LIST ...]]
                                       [--indicator-list INDICATOR_LIST [INDICATOR_LIST ...]]
-                                      [--timerange YYYYMMDD-[YYYYMMDD]]
-                                      [--rejected]
-                                      [--analysis-to-csv]
-                                      [--analysis-csv-path PATH]
+                                      [--entry-only] [--exit-only]
+                                      [--timerange TIMERANGE]
+                                      [--rejected-signals] [--analysis-to-csv]
+                                      [--analysis-csv-path ANALYSIS_CSV_PATH]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
-  --export-filename PATH, --backtest-filename PATH
-                        Use this filename for backtest results.Requires
-                        `--export` to be set as well. Example: `--export-filen
-                        ame=user_data/backtest_results/backtest_today.json`
-  --analysis-groups {0,1,2,3,4} [{0,1,2,3,4} ...]
+  --backtest-filename PATH, --export-filename PATH
+                        Use this filename for backtest results.Example:
+                        `--backtest-
+                        filename=backtest_results_2020-09-27_16-20-48.json`.
+                        Assumes either `user_data/backtest_results/` or
+                        `--export-directory` as base directory.
+  --backtest-directory PATH, --export-directory PATH
+                        Directory to use for backtest results. Example:
+                        `--export-directory=user_data/backtest_results/`.
+  --analysis-groups {0,1,2,3,4,5} [{0,1,2,3,4,5} ...]
                         grouping output - 0: simple wins/losses by enter tag,
                         1: by enter_tag, 2: by enter_tag and exit_tag, 3: by
                         pair and enter_tag, 4: by pair, enter_ and exit_tag
-                        (this can get quite large)
+                        (this can get quite large), 5: by exit_tag
   --enter-reason-list ENTER_REASON_LIST [ENTER_REASON_LIST ...]
                         Space separated list of entry signals to analyse.
                         Default: all. e.g. &#39;entry_tag_a entry_tag_b&#39;
   --exit-reason-list EXIT_REASON_LIST [EXIT_REASON_LIST ...]
                         Space separated list of exit signals to analyse.
-                        Default: all. e.g.
-                        &#39;exit_tag_a roi stop_loss trailing_stop_loss&#39;
+                        Default: all. e.g. &#39;exit_tag_a roi stop_loss
+                        trailing_stop_loss&#39;
   --indicator-list INDICATOR_LIST [INDICATOR_LIST ...]
                         Space separated list of indicators to analyse. e.g.
                         &#39;close rsi bb_lowerband profit_abs&#39;
-  --timerange YYYYMMDD-[YYYYMMDD]
-                        Timerange to filter trades for analysis, 
-                        start inclusive, end exclusive. e.g.
-                        20220101-20220201
-  --rejected
-                        Print out rejected trades table
-  --analysis-to-csv
-                        Write out tables to individual CSVs, by default to 
-                        &#39;user_data/backtest_results&#39; unless &#39;--analysis-csv-path&#39; is given.
-  --analysis-csv-path [PATH]
-                        Optional path where individual CSVs will be written. If not used,
-                        CSVs will be written to &#39;user_data/backtest_results&#39;.
+  --entry-only          Only analyze entry signals.
+  --exit-only           Only analyze exit signals.
+  --timerange TIMERANGE
+                        Specify what timerange of data to use.
+  --rejected-signals    Analyse rejected signals
+  --analysis-to-csv     Save selected analysis tables to individual CSVs
+  --analysis-csv-path ANALYSIS_CSV_PATH
+                        Specify a path to save the analysis CSVs if
+                        --analysis-to-csv is enabled. Default:
+                        user_data/basktesting_results/
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
-  --logfile FILE        Log to the file specified. Special values are:
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
+  --logfile FILE, --log-file FILE
+                        Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
                         details.
   -V, --version         show program&#39;s version number and exit
@@ -2595,15 +2889,17 @@ Common arguments:
                         `userdir/config.json` or `config.json` whichever
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
-  -d PATH, --datadir PATH
-                        Path to directory with historical backtesting data.
+  -d PATH, --datadir PATH, --data-dir PATH
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 </code></pre></div>
 <h2 id="list-hyperopt-results">List Hyperopt results<a class="headerlink" href="#list-hyperopt-results" title="Permanent link">&para;</a></h2>
 <p>You can list the hyperoptimization epochs the Hyperopt module evaluated previously with the <code>hyperopt-list</code> sub-command.</p>
-<div class="highlight"><pre><span></span><code>usage: freqtrade hyperopt-list [-h] [-v] [--logfile FILE] [-V] [-c PATH]
-                               [-d PATH] [--userdir PATH] [--best]
+<div class="highlight"><pre><span></span><code>usage: freqtrade hyperopt-list [-h] [-v] [--no-color] [--logfile FILE] [-V]
+                               [-c PATH] [-d PATH] [--userdir PATH] [--best]
                                [--profitable] [--min-trades INT]
                                [--max-trades INT] [--min-avg-time FLOAT]
                                [--max-avg-time FLOAT] [--min-avg-profit FLOAT]
@@ -2611,10 +2907,11 @@ Common arguments:
                                [--min-total-profit FLOAT]
                                [--max-total-profit FLOAT]
                                [--min-objective FLOAT] [--max-objective FLOAT]
-                               [--no-color] [--print-json] [--no-details]
-                               [--hyperopt-filename PATH] [--export-csv FILE]
+                               [--print-json] [--no-details]
+                               [--hyperopt-filename FILENAME]
+                               [--export-csv FILE]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --best                Select only best epochs.
   --profitable          Select only profitable epochs.
@@ -2634,8 +2931,6 @@ optional arguments:
                         Select epochs above objective.
   --max-objective FLOAT
                         Select epochs below objective.
-  --no-color            Disable colorization of hyperopt results. May be
-                        useful if you are redirecting output to a file.
   --print-json          Print output in JSON format.
   --no-details          Do not print best epoch details.
   --hyperopt-filename FILENAME
@@ -2646,7 +2941,10 @@ optional arguments:
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
-  --logfile FILE        Log to the file specified. Special values are:
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
+  --logfile FILE, --log-file FILE
+                        Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
                         details.
   -V, --version         show program&#39;s version number and exit
@@ -2655,8 +2953,10 @@ Common arguments:
                         `userdir/config.json` or `config.json` whichever
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
-  -d PATH, --datadir PATH
-                        Path to directory with historical backtesting data.
+  -d PATH, --datadir PATH, --data-dir PATH
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 </code></pre></div>
@@ -2674,14 +2974,14 @@ You can override this using the <code>--hyperopt-filename</code> argument, and s
 </code></pre></div></p>
 <h2 id="show-details-of-hyperopt-results">Show details of Hyperopt results<a class="headerlink" href="#show-details-of-hyperopt-results" title="Permanent link">&para;</a></h2>
 <p>You can show the details of any hyperoptimization epoch previously evaluated by the Hyperopt module with the <code>hyperopt-show</code> subcommand.</p>
-<div class="highlight"><pre><span></span><code>usage: freqtrade hyperopt-show [-h] [-v] [--logfile FILE] [-V] [-c PATH]
-                               [-d PATH] [--userdir PATH] [--best]
+<div class="highlight"><pre><span></span><code>usage: freqtrade hyperopt-show [-h] [-v] [--no-color] [--logfile FILE] [-V]
+                               [-c PATH] [-d PATH] [--userdir PATH] [--best]
                                [--profitable] [-n INT] [--print-json]
                                [--hyperopt-filename FILENAME] [--no-header]
                                [--disable-param-export]
-                               [--breakdown {day,week,month} [{day,week,month} ...]]
+                               [--breakdown {day,week,month,year} [{day,week,month,year} ...]]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --best                Select only best epochs.
   --profitable          Select only profitable epochs.
@@ -2693,12 +2993,16 @@ optional arguments:
   --no-header           Do not print epoch details header.
   --disable-param-export
                         Disable automatic hyperopt parameter export.
-  --breakdown {day,week,month} [{day,week,month} ...]
-                        Show backtesting breakdown per [day, week, month].
+  --breakdown {day,week,month,year} [{day,week,month,year} ...]
+                        Show backtesting breakdown per [day, week, month,
+                        year].
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
-  --logfile FILE        Log to the file specified. Special values are:
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
+  --logfile FILE, --log-file FILE
+                        Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
                         details.
   -V, --version         show program&#39;s version number and exit
@@ -2707,8 +3011,10 @@ Common arguments:
                         `userdir/config.json` or `config.json` whichever
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
-  -d PATH, --datadir PATH
-                        Path to directory with historical backtesting data.
+  -d PATH, --datadir PATH, --data-dir PATH
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 </code></pre></div>
@@ -2726,12 +3032,13 @@ You can override this using the <code>--hyperopt-filename</code> argument, and s
 </code></pre></div>
 <h2 id="show-trades">Show trades<a class="headerlink" href="#show-trades" title="Permanent link">&para;</a></h2>
 <p>Print selected (or all) trades from database to screen.</p>
-<div class="highlight"><pre><span></span><code>usage: freqtrade show-trades [-h] [-v] [--logfile FILE] [-V] [-c PATH]
-                             [-d PATH] [--userdir PATH] [--db-url PATH]
+<div class="highlight"><pre><span></span><code>usage: freqtrade show-trades [-h] [-v] [--no-color] [--logfile FILE] [-V]
+                             [-c PATH] [-d PATH] [--userdir PATH]
+                             [--db-url PATH]
                              [--trade-ids TRADE_IDS [TRADE_IDS ...]]
                              [--print-json]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --db-url PATH         Override trades database URL, this is useful in custom
                         deployments (default: `sqlite:///tradesv3.sqlite` for
@@ -2743,7 +3050,10 @@ optional arguments:
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
-  --logfile FILE        Log to the file specified. Special values are:
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
+  --logfile FILE, --log-file FILE
+                        Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
                         details.
   -V, --version         show program&#39;s version number and exit
@@ -2752,8 +3062,10 @@ Common arguments:
                         `userdir/config.json` or `config.json` whichever
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
-  -d PATH, --datadir PATH
-                        Path to directory with historical backtesting data.
+  -d PATH, --datadir PATH, --data-dir PATH
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 </code></pre></div>
@@ -2770,18 +3082,30 @@ Your original strategy will remain available in the <code>user_data/strategies_o
 <p>Strategy updater will work on a "best effort" approach. Please do your due diligence and verify the results of the conversion.
 We also recommend to run a python formatter (e.g. <code>black</code>) to format results in a sane manner.</p>
 </div>
-<div class="highlight"><pre><span></span><code>usage: freqtrade strategy-updater [-h] [-v] [--logfile FILE] [-V] [-c PATH]
-                                  [-d PATH] [--userdir PATH]
+<div class="highlight"><pre><span></span><code>usage: freqtrade strategy-updater [-h] [-v] [--no-color] [--logfile FILE] [-V]
+                                  [-c PATH] [-d PATH] [--userdir PATH]
                                   [--strategy-list STRATEGY_LIST [STRATEGY_LIST ...]]
+                                  [--strategy-path PATH]
+                                  [--recursive-strategy-search]
 
 options:
   -h, --help            show this help message and exit
   --strategy-list STRATEGY_LIST [STRATEGY_LIST ...]
                         Provide a space-separated list of strategies to
-                        be converted.
+                        backtest. Please note that timeframe needs to be set
+                        either in config or via command line. When using this
+                        together with `--export trades`, the strategy-name is
+                        injected into the filename (so `backtest-data.json`
+                        becomes `backtest-data-SampleStrategy.json`
+  --strategy-path PATH  Specify additional strategy lookup path.
+  --recursive-strategy-search
+                        Recursively search for a strategy in the strategies
+                        folder.
 
 Common arguments:
   -v, --verbose         Verbose mode (-vv for more, -vvv to get all messages).
+  --no-color            Disable colorization of hyperopt results. May be
+                        useful if you are redirecting output to a file.
   --logfile FILE, --log-file FILE
                         Log to the file specified. Special values are:
                         &#39;syslog&#39;, &#39;journald&#39;. See the documentation for more
@@ -2793,7 +3117,9 @@ Common arguments:
                         exists). Multiple --config options may be used. Can be
                         set to `-` to read config from stdin.
   -d PATH, --datadir PATH, --data-dir PATH
-                        Path to directory with historical backtesting data.
+                        Path to the base directory of the exchange with
+                        historical backtesting data. To see futures data, use
+                        trading-mode additionally.
   --userdir PATH, --user-data-dir PATH
                         Path to userdata directory.
 </code></pre></div>
@@ -2805,6 +3131,8 @@ Common arguments:
 
 
 
+
+  
 
 
 
@@ -2819,7 +3147,7 @@ Common arguments:
         
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
   Back to top
 </button>
         
@@ -2836,7 +3164,7 @@ Common arguments:
           <a href="../leverage/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Short / Leverage">
             <div class="md-footer__button md-icon">
               
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
             </div>
             <div class="md-footer__title">
               <span class="md-footer__direction">
@@ -2861,7 +3189,7 @@ Common arguments:
             </div>
             <div class="md-footer__button md-icon">
               
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
             </div>
           </a>
         
@@ -2886,7 +3214,6 @@ Common arguments:
       
 
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
@@ -2897,14 +3224,14 @@ Common arguments:
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "search.share", "content.code.copy", "navigation.top", "navigation.footer"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "search.share", "content.code.copy", "content.action.edit", "navigation.top", "navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.471ce7a9.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
         <script src="../javascripts/config.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

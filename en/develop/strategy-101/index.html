@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://www.freqtrade.io/en/stable/freqai/">
+        <link rel="canonical" href="https://www.freqtrade.io/en/stable/strategy-101/">
       
       
-        <link rel="prev" href="../hyperopt/">
+        <link rel="prev" href="../configuration/">
       
       
-        <link rel="next" href="../freqai-configuration/">
+        <link rel="next" href="../strategy-customization/">
       
       
       <link rel="icon" href="../images/logo.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Introduction - Freqtrade</title>
+        <title>Strategy Quickstart - Freqtrade</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#freqai" class="md-skip">
+        <a href="#freqtrade-strategies-101-a-quick-start-for-strategy-development" class="md-skip">
           Skip to content
         </a>
       
@@ -127,7 +127,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction
+              Strategy Quickstart
             
           </span>
         </div>
@@ -455,10 +455,32 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../strategy-101/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Strategy Quickstart
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -469,6 +491,170 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#required-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Knowledge
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structure-of-a-basic-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure of a Basic Strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structure of a Basic Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-dataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main dataframe
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#populate-indicator-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Populate indicator values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#populate-entry-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Populate entry signals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#populate-exit-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Populate exit signals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-simple-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      A simple strategy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-trades" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making trades
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backtesting-and-forward-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backtesting and forward testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backtesting and forward testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assessing-backtesting-and-dry-run-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assessing backtesting and dry run results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#controlling-or-monitoring-a-running-bot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Controlling or monitoring a running bot
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Controlling or monitoring a running bot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-thoughts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Thoughts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -790,20 +976,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
         
           
           <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
@@ -819,7 +1003,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_16">
             <span class="md-nav__icon md-icon"></span>
             FreqAI
@@ -830,32 +1014,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Introduction
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../freqai/" class="md-nav__link">
         
   
   
@@ -866,146 +1028,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Introduction
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      Quick start
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#general-approach" class="md-nav__link">
-    <span class="md-ellipsis">
-      General approach
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="General approach">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#important-machine-learning-vocabulary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Important machine learning vocabulary
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#install-prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install prerequisites
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Install prerequisites">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#usage-with-docker" class="md-nav__link">
-    <span class="md-ellipsis">
-      Usage with docker
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#freqai-position-in-open-source-machine-learning-landscape" class="md-nav__link">
-    <span class="md-ellipsis">
-      FreqAI position in open-source machine learning landscape
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#citing-freqai" class="md-nav__link">
-    <span class="md-ellipsis">
-      Citing FreqAI
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-pitfalls" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common pitfalls
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#additional-learning-materials" class="md-nav__link">
-    <span class="md-ellipsis">
-      Additional learning materials
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#support" class="md-nav__link">
-    <span class="md-ellipsis">
-      Support
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#credits" class="md-nav__link">
-    <span class="md-ellipsis">
-      Credits
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1749,37 +1771,55 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#required-knowledge" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      Required Knowledge
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
+  <a href="#structure-of-a-basic-strategy" class="md-nav__link">
     <span class="md-ellipsis">
-      Quick start
+      Structure of a Basic Strategy
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#general-approach" class="md-nav__link">
-    <span class="md-ellipsis">
-      General approach
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="General approach">
+    <nav class="md-nav" aria-label="Structure of a Basic Strategy">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#important-machine-learning-vocabulary" class="md-nav__link">
+  <a href="#main-dataframe" class="md-nav__link">
     <span class="md-ellipsis">
-      Important machine learning vocabulary
+      Main dataframe
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#populate-indicator-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Populate indicator values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#populate-entry-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Populate entry signals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#populate-exit-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Populate exit signals
     </span>
   </a>
   
@@ -1791,37 +1831,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-prerequisites" class="md-nav__link">
+  <a href="#a-simple-strategy" class="md-nav__link">
     <span class="md-ellipsis">
-      Install prerequisites
+      A simple strategy
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Install prerequisites">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-trades" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making trades
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backtesting-and-forward-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backtesting and forward testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backtesting and forward testing">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#usage-with-docker" class="md-nav__link">
+  <a href="#assessing-backtesting-and-dry-run-results" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage with docker
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#freqai-position-in-open-source-machine-learning-landscape" class="md-nav__link">
-    <span class="md-ellipsis">
-      FreqAI position in open-source machine learning landscape
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#citing-freqai" class="md-nav__link">
-    <span class="md-ellipsis">
-      Citing FreqAI
+      Assessing backtesting and dry run results
     </span>
   </a>
   
@@ -1833,36 +1873,42 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-pitfalls" class="md-nav__link">
+  <a href="#controlling-or-monitoring-a-running-bot" class="md-nav__link">
     <span class="md-ellipsis">
-      Common pitfalls
+      Controlling or monitoring a running bot
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Controlling or monitoring a running bot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-thoughts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Thoughts
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#additional-learning-materials" class="md-nav__link">
+  <a href="#conclusion" class="md-nav__link">
     <span class="md-ellipsis">
-      Additional learning materials
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#support" class="md-nav__link">
-    <span class="md-ellipsis">
-      Support
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#credits" class="md-nav__link">
-    <span class="md-ellipsis">
-      Credits
+      Conclusion
     </span>
   </a>
   
@@ -1884,7 +1930,7 @@
 
 
   
-    <a href="https://github.com/freqtrade/freqtrade/edit/develop/docs/freqai.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/freqtrade/freqtrade/edit/develop/docs/strategy-101.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1892,106 +1938,158 @@
   
 
 
-<p><img alt="freqai-logo" src="../assets/freqai_doc_logo.svg" /></p>
-<h1 id="freqai">FreqAI<a class="headerlink" href="#freqai" title="Permanent link">&para;</a></h1>
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p>FreqAI is a software designed to automate a variety of tasks associated with training a predictive machine learning model to generate market forecasts given a set of input signals. In general, FreqAI aims to be a sandbox for easily deploying robust machine learning libraries on real-time data (<a href="#freqai-position-in-open-source-machine-learning-landscape">details</a>).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>FreqAI is, and always will be, a not-for-profit, open-source project. FreqAI does <em>not</em> have a crypto token, FreqAI does <em>not</em> sell signals, and FreqAI does not have a domain besides the present <a href="https://www.freqtrade.io/en/latest/freqai/">freqtrade documentation</a>.</p>
-</div>
-<p>Features include:</p>
+<h1 id="freqtrade-strategies-101-a-quick-start-for-strategy-development">Freqtrade Strategies 101: A Quick Start for Strategy Development<a class="headerlink" href="#freqtrade-strategies-101-a-quick-start-for-strategy-development" title="Permanent link">&para;</a></h1>
+<p>For the purposes of this quick start, we are assuming you are familiar with the basics of trading, and have read the 
+<a href="../bot-basics/">Freqtrade basics</a> page.</p>
+<h2 id="required-knowledge">Required Knowledge<a class="headerlink" href="#required-knowledge" title="Permanent link">&para;</a></h2>
+<p>A strategy in Freqtrade is a Python class that defines the logic for buying and selling cryptocurrency <code>assets</code>.</p>
+<p>Assets are defined as <code>pairs</code>, which represent the <code>coin</code> and the <code>stake</code>. The coin is the asset you are trading using another currency as the stake.</p>
+<p>Data is supplied by the exchange in the form of <code>candles</code>, which are made up of a six values: <code>date</code>, <code>open</code>, <code>high</code>, <code>low</code>, <code>close</code> and <code>volume</code>.</p>
+<p><code>Technical analysis</code> functions analyse the candle data using various computational and statistical formulae, and produce secondary values called <code>indicators</code>.</p>
+<p>Indicators are analysed on the asset pair candles to generate <code>signals</code>.</p>
+<p>Signals are turned into <code>orders</code> on a cryptocurrency <code>exchange</code>, i.e. <code>trades</code>.</p>
+<p>We use the terms <code>entry</code> and <code>exit</code> instead of <code>buying</code> and <code>selling</code> because Freqtrade supports both <code>long</code> and <code>short</code> trades.</p>
 <ul>
-<li><strong>Self-adaptive retraining</strong> - Retrain models during <a href="../freqai-running/#live-deployments">live deployments</a> to self-adapt to the market in a supervised manner</li>
-<li><strong>Rapid feature engineering</strong> - Create large rich <a href="../freqai-feature-engineering/#feature-engineering">feature sets</a> (10k+ features) based on simple user-created strategies</li>
-<li><strong>High performance</strong> - Threading allows for adaptive model retraining on a separate thread (or on GPU if available) from model inferencing (prediction) and bot trade operations. Newest models and data are kept in RAM for rapid inferencing</li>
-<li><strong>Realistic backtesting</strong> - Emulate self-adaptive training on historic data with a <a href="../freqai-running/#backtesting">backtesting module</a> that automates retraining</li>
-<li><strong>Extensibility</strong> - The generalized and robust architecture allows for incorporating any <a href="../freqai-configuration/#using-different-prediction-models">machine learning library/method</a> available in Python. Eight examples are currently available, including classifiers, regressors, and a convolutional neural network</li>
-<li><strong>Smart outlier removal</strong> - Remove outliers from training and prediction data sets using a variety of <a href="../freqai-feature-engineering/#outlier-detection">outlier detection techniques</a></li>
-<li><strong>Crash resilience</strong> - Store trained models to disk to make reloading from a crash fast and easy, and <a href="../freqai-running/#purging-old-model-data">purge obsolete files</a> for sustained dry/live runs</li>
-<li><strong>Automatic data normalization</strong> - <a href="../freqai-feature-engineering/#building-the-data-pipeline">Normalize the data</a> in a smart and statistically safe way</li>
-<li><strong>Automatic data download</strong> - Compute timeranges for data downloads and update historic data (in live deployments)</li>
-<li><strong>Cleaning of incoming data</strong> - Handle NaNs safely before training and model inferencing</li>
-<li><strong>Dimensionality reduction</strong> - Reduce the size of the training data via <a href="../freqai-feature-engineering/#data-dimensionality-reduction-with-principal-component-analysis">Principal Component Analysis</a></li>
-<li><strong>Deploying bot fleets</strong> - Set one bot to train models while a fleet of <a href="../producer-consumer/">consumers</a> use signals.</li>
+<li><strong>long</strong>: You buy the coin based on a stake, e.g. buying the coin BTC using USDT as your stake, and you make a profit by selling the coin at a higher rate than you paid for. In long trades, profits are made by the coin value going up versus the stake.</li>
+<li><strong>short</strong>: You borrow capital from the exchange in the form of the coin, and you pay back the stake value of the coin later. In short trades profits are made by the coin value going down versus the stake (you pay the loan off at a lower rate).</li>
 </ul>
-<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<p>The easiest way to quickly test FreqAI is to run it in dry mode with the following command:</p>
-<div class="highlight"><pre><span></span><code>freqtrade<span class="w"> </span>trade<span class="w"> </span>--config<span class="w"> </span>config_examples/config_freqai.example.json<span class="w"> </span>--strategy<span class="w"> </span>FreqaiExampleStrategy<span class="w"> </span>--freqaimodel<span class="w"> </span>LightGBMRegressor<span class="w"> </span>--strategy-path<span class="w"> </span>freqtrade/templates
+<p>Whilst Freqtrade supports spot and futures markets for certain exchanges, for simplicity we will focus on spot (long) trades only.</p>
+<h2 id="structure-of-a-basic-strategy">Structure of a Basic Strategy<a class="headerlink" href="#structure-of-a-basic-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="main-dataframe">Main dataframe<a class="headerlink" href="#main-dataframe" title="Permanent link">&para;</a></h3>
+<p>Freqtrade strategies use a tabular data structure with rows and columns known as a <code>dataframe</code> to generate signals to enter and exit trades.</p>
+<p>Each pair in your configured pairlist has its own dataframe. Dataframes are indexed by the <code>date</code> column, e.g. <code>2024-06-31 12:00</code>.</p>
+<p>The next 5 columns represent the <code>open</code>, <code>high</code>, <code>low</code>, <code>close</code> and <code>volume</code> (OHLCV) data.</p>
+<h3 id="populate-indicator-values">Populate indicator values<a class="headerlink" href="#populate-indicator-values" title="Permanent link">&para;</a></h3>
+<p>The <code>populate_indicators</code> function adds columns to the dataframe that represent the technical analysis indicator values.</p>
+<p>Examples of common indicators include Relative Strength Index, Bollinger Bands, Money Flow Index, Moving Average, and Average True Range.</p>
+<p>Columns are added to the dataframe by calling technical analysis functions, e.g. ta-lib's RSI function <code>ta.RSI()</code>, and assigning them to a column name, e.g. <code>rsi</code></p>
+<div class="highlight"><pre><span></span><code><span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;rsi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ta</span><span class="o">.</span><span class="n">RSI</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
 </code></pre></div>
-<p>You will see the boot-up process of automatic data downloading, followed by simultaneous training and trading. </p>
-<div class="admonition danger">
-<p class="admonition-title">Not for production</p>
-<p>The example strategy provided with the Freqtrade source code is designed for showcasing/testing a wide variety of FreqAI features. It is also designed to run on small computers so that it can be used as a benchmark between developers and users. It is <em>not</em> designed to be run in production.</p>
-</div>
-<p>An example strategy, prediction model, and config to use as a starting points can be found in
-<code>freqtrade/templates/FreqaiExampleStrategy.py</code>, <code>freqtrade/freqai/prediction_models/LightGBMRegressor.py</code>, and
-<code>config_examples/config_freqai.example.json</code>, respectively.</p>
-<h2 id="general-approach">General approach<a class="headerlink" href="#general-approach" title="Permanent link">&para;</a></h2>
-<p>You provide FreqAI with a set of custom <em>base indicators</em> (the same way as in a <a href="../strategy-customization/">typical Freqtrade strategy</a>) as well as target values (<em>labels</em>). For each pair in the whitelist, FreqAI trains a model to predict the target values based on the input of custom indicators. The models are then consistently retrained, with a predetermined frequency, to adapt to market conditions. FreqAI offers the ability to both backtest strategies (emulating reality with periodic retraining on historic data) and deploy dry/live runs. In dry/live conditions, FreqAI can be set to constant retraining in a background thread to keep models as up to date as possible.</p>
-<p>An overview of the algorithm, explaining the data processing pipeline and model usage, is shown below.</p>
-<p><img alt="freqai-algo" src="../assets/freqai_algo.jpg" /></p>
-<h3 id="important-machine-learning-vocabulary">Important machine learning vocabulary<a class="headerlink" href="#important-machine-learning-vocabulary" title="Permanent link">&para;</a></h3>
-<p><strong>Features</strong> - the parameters, based on historic data, on which a model is trained. All features for a single candle are stored as a vector. In FreqAI, you build a feature data set from anything you can construct in the strategy.</p>
-<p><strong>Labels</strong> - the target values that the model is trained toward. Each feature vector is associated with a single label that is defined by you within the strategy. These labels intentionally look into the future and are what you are training the model to be able to predict.</p>
-<p><strong>Training</strong> - the process of "teaching" the model to match the feature sets to the associated labels. Different types of models "learn" in different ways which means that one might be better than another for a specific application. More information about the different models that are already implemented in FreqAI can be found <a href="../freqai-configuration/#using-different-prediction-models">here</a>.</p>
-<p><strong>Train data</strong> - a subset of the feature data set that is fed to the model during training to "teach" the model how to predict the targets. This data directly influences weight connections in the model.</p>
-<p><strong>Test data</strong> - a subset of the feature data set that is used to evaluate the performance of the model after training. This data does not influence nodal weights within the model.</p>
-<p><strong>Inferencing</strong> - the process of feeding a trained model new unseen data on which it will make a prediction. </p>
-<h2 id="install-prerequisites">Install prerequisites<a class="headerlink" href="#install-prerequisites" title="Permanent link">&para;</a></h2>
-<p>The normal Freqtrade install process will ask if you wish to install FreqAI dependencies. You should reply "yes" to this question if you wish to use FreqAI. If you did not reply yes, you can manually install these dependencies after the install with:</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements-freqai.txt
+<details class="hint">
+<summary>Technical Analysis libraries</summary>
+<p>Different libraries work in different ways to generate indicator values. Please check the documentation of each library to understand
+how to integrate it into your strategy. You can also check the <a href="https://github.com/freqtrade/freqtrade-strategies">Freqtrade example strategies</a> to give you ideas.</p>
+</details>
+<h3 id="populate-entry-signals">Populate entry signals<a class="headerlink" href="#populate-entry-signals" title="Permanent link">&para;</a></h3>
+<p>The <code>populate_entry_trend</code> function defines conditions for an entry signal.</p>
+<p>The dataframe column <code>enter_long</code> is added to the dataframe, and when a value of <code>1</code> is in this column, Freqtrade sees an entry signal.</p>
+<details class="hint">
+<summary>Shorting</summary>
+<p>To enter short trades, use the <code>enter_short</code> column.</p>
+</details>
+<h3 id="populate-exit-signals">Populate exit signals<a class="headerlink" href="#populate-exit-signals" title="Permanent link">&para;</a></h3>
+<p>The <code>populate_exit_trend</code> function defines conditions for an exit signal.</p>
+<p>The dataframe column <code>exit_long</code> is added to the dataframe, and when a value of <code>1</code> is in this column, Freqtrade sees an exit signal.</p>
+<details class="hint">
+<summary>Shorting</summary>
+<p>To exit short trades, use the <code>exit_short</code> column.</p>
+</details>
+<h2 id="a-simple-strategy">A simple strategy<a class="headerlink" href="#a-simple-strategy" title="Permanent link">&para;</a></h2>
+<p>Here is a minimal example of a Freqtrade strategy:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">freqtrade.strategy</span><span class="w"> </span><span class="kn">import</span> <span class="n">IStrategy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">talib.abstract</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ta</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyStrategy</span><span class="p">(</span><span class="n">IStrategy</span><span class="p">):</span>
+
+    <span class="n">timeframe</span> <span class="o">=</span> <span class="s1">&#39;15m&#39;</span>
+
+    <span class="c1"># set the initial stoploss to -10%</span>
+    <span class="n">stoploss</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.10</span>
+
+    <span class="c1"># exit profitable positions at any time when the profit is greater than 1%</span>
+    <span class="n">minimal_roi</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;0&quot;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">populate_indicators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+        <span class="c1"># generate values for technical analysis indicators</span>
+        <span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;rsi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ta</span><span class="o">.</span><span class="n">RSI</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">timeperiod</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">dataframe</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">populate_entry_trend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+        <span class="c1"># generate entry signals based on indicator values</span>
+        <span class="n">dataframe</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;rsi&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">),</span>
+            <span class="s1">&#39;enter_long&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">dataframe</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">populate_exit_trend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+        <span class="c1"># generate exit signals based on indicator values</span>
+        <span class="n">dataframe</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;rsi&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">70</span><span class="p">),</span>
+            <span class="s1">&#39;exit_long&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">dataframe</span>
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Catboost will not be installed on low-powered arm devices (raspberry), since it does not provide wheels for this platform.</p>
-</div>
-<h3 id="usage-with-docker">Usage with docker<a class="headerlink" href="#usage-with-docker" title="Permanent link">&para;</a></h3>
-<p>If you are using docker, a dedicated tag with FreqAI dependencies is available as <code>:freqai</code>. As such - you can replace the image line in your docker compose file with <code>image: freqtradeorg/freqtrade:stable_freqai</code>. This image contains the regular FreqAI dependencies. Similar to native installs, Catboost will not be available on ARM based devices. If you would like to use PyTorch or Reinforcement learning, you should use the torch or RL tags, <code>image: freqtradeorg/freqtrade:stable_freqaitorch</code>, <code>image: freqtradeorg/freqtrade:stable_freqairl</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">docker-compose-freqai.yml</p>
-<p>We do provide an explicit docker-compose file for this in <code>docker/docker-compose-freqai.yml</code> - which can be used via <code>docker compose -f docker/docker-compose-freqai.yml run ...</code> - or can be copied to replace the original docker file. This docker-compose file also contains a (disabled) section to enable GPU resources within docker containers. This obviously assumes the system has GPU resources available.</p>
-</div>
-<h3 id="freqai-position-in-open-source-machine-learning-landscape">FreqAI position in open-source machine learning landscape<a class="headerlink" href="#freqai-position-in-open-source-machine-learning-landscape" title="Permanent link">&para;</a></h3>
-<p>Forecasting chaotic time-series based systems, such as equity/cryptocurrency markets, requires a broad set of tools geared toward testing a wide range of hypotheses. Fortunately, a recent maturation of robust machine learning libraries (e.g. <code>scikit-learn</code>) has opened up a wide range of research possibilities. Scientists from a diverse range of fields can now easily prototype their studies on an abundance of established machine learning algorithms. Similarly, these user-friendly libraries enable "citizen scientists" to use their basic Python skills for data exploration. However, leveraging these machine learning libraries on historical and live chaotic data sources can be logistically difficult and expensive. Additionally, robust data collection, storage, and handling presents a disparate challenge. <a href="#freqai"><code>FreqAI</code></a> aims to provide a generalized and extensible open-sourced framework geared toward live deployments of adaptive modeling for market forecasting. The <code>FreqAI</code> framework is effectively a sandbox for the rich world of open-source machine learning libraries. Inside the <code>FreqAI</code> sandbox, users find they can combine a wide variety of third-party libraries to test creative hypotheses on a free live 24/7 chaotic data source - cryptocurrency exchange data. </p>
-<h3 id="citing-freqai">Citing FreqAI<a class="headerlink" href="#citing-freqai" title="Permanent link">&para;</a></h3>
-<p>FreqAI is <a href="https://joss.theoj.org/papers/10.21105/joss.04864">published in the Journal of Open Source Software</a>. If you find FreqAI useful in your research, please use the following citation:</p>
-<div class="highlight"><pre><span></span><code><span class="nc">@article</span><span class="p">{</span><span class="nl">Caulk2022</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="na">doi</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{10.21105/joss.04864}</span><span class="p">,</span>
-<span class="w">    </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://doi.org/10.21105/joss.04864}</span><span class="p">,</span>
-<span class="w">    </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2022}</span><span class="p">,</span><span class="w"> </span><span class="na">publisher</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{The Open Journal}</span><span class="p">,</span>
-<span class="w">    </span><span class="na">volume</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{7}</span><span class="p">,</span><span class="w"> </span><span class="na">number</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{80}</span><span class="p">,</span><span class="w"> </span><span class="na">pages</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{4864}</span><span class="p">,</span>
-<span class="w">    </span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Robert A. Caulk and Elin Törnquist and Matthias Voppichler and Andrew R. Lawless and Ryan McMullan and Wagner Costa Santos and Timothy C. Pogue and Johan van der Vlugt and Stefan P. Gehring and Pascal Schmidt}</span><span class="p">,</span>
-<span class="w">    </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{FreqAI: generalizing adaptive modeling for chaotic time-series market forecasts}</span><span class="p">,</span>
-<span class="w">    </span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Journal of Open Source Software}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span>
-</code></pre></div>
-<h2 id="common-pitfalls">Common pitfalls<a class="headerlink" href="#common-pitfalls" title="Permanent link">&para;</a></h2>
-<p>FreqAI cannot be combined with dynamic <code>VolumePairlists</code> (or any pairlist filter that adds and removes pairs dynamically).
-This is for performance reasons - FreqAI relies on making quick predictions/retrains. To do this effectively,
-it needs to download all the training data at the beginning of a dry/live instance. FreqAI stores and appends
-new candles automatically for future retrains. This means that if new pairs arrive later in the dry run due to a volume pairlist, it will not have the data ready. However, FreqAI does work with the <code>ShufflePairlist</code> or a <code>VolumePairlist</code> which keeps the total pairlist constant (but reorders the pairs according to volume).</p>
-<h2 id="additional-learning-materials">Additional learning materials<a class="headerlink" href="#additional-learning-materials" title="Permanent link">&para;</a></h2>
-<p>Here we compile some external materials that provide deeper looks into various components of FreqAI:</p>
+<h2 id="making-trades">Making trades<a class="headerlink" href="#making-trades" title="Permanent link">&para;</a></h2>
+<p>When a signal is found (a <code>1</code> in an entry or exit column), Freqtrade will attempt to make an order, i.e. a <code>trade</code> or <code>position</code>.</p>
+<p>Each new trade position takes up a <code>slot</code>. Slots represent the maximum number of concurrent new trades that can be opened.</p>
+<p>The number of slots is defined by the <code>max_open_trades</code> <a href="../configuration/">configuration</a> option.</p>
+<p>However, there can be a range of scenarios where generating a signal does not always create a trade order. These include:</p>
 <ul>
-<li><a href="https://emergentmethods.medium.com/real-time-head-to-head-adaptive-modeling-of-financial-market-data-using-xgboost-and-catboost-995a115a7495">Real-time head-to-head: Adaptive modeling of financial market data using XGBoost and CatBoost</a></li>
-<li><a href="https://emergentmethods.medium.com/freqai-from-price-to-prediction-6fadac18b665">FreqAI - from price to prediction</a></li>
+<li>not enough remaining stake to buy an asset, or funds in your wallet to sell an asset (including any fees)</li>
+<li>not enough remaining free slots for a new trade to be opened (the number of positions you have open equals the <code>max_open_trades</code> option)</li>
+<li>there is already an open trade for a pair (Freqtrade cannot stack positions - however it can <a href="../strategy-callbacks/#adjust-trade-position">adjust existing positions</a>)</li>
+<li>if an entry and exit signal is present on the same candle, they are considered as <a href="../strategy-customization/#colliding-signals">colliding</a>, and no order will be raised</li>
+<li>the strategy actively rejects the trade order due to logic you specify by using one of the relevant <a href="../strategy-callbacks/#trade-entry-buy-order-confirmation">entry</a> or <a href="../strategy-callbacks/#trade-exit-sell-order-confirmation">exit</a> callbacks</li>
 </ul>
-<h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">&para;</a></h2>
-<p>You can find support for FreqAI in a variety of places, including the <a href="https://discord.gg/Jd8JYeWHc4">Freqtrade discord</a>, the dedicated <a href="https://discord.gg/7AMWACmbjT">FreqAI discord</a>, and in <a href="https://github.com/freqtrade/freqtrade/issues">github issues</a>.</p>
-<h2 id="credits">Credits<a class="headerlink" href="#credits" title="Permanent link">&para;</a></h2>
-<p>FreqAI is developed by a group of individuals who all contribute specific skillsets to the project.</p>
-<p>Conception and software development:
-Robert Caulk @robcaulk</p>
-<p>Theoretical brainstorming and data analysis:
-Elin Törnquist @th0rntwig</p>
-<p>Code review and software architecture brainstorming:
-@xmatthias</p>
-<p>Software development:
-Wagner Costa @wagnercosta
-Emre Suzen @aemr3
-Timothy Pogue @wizrds</p>
-<p>Beta testing and bug reporting:
-Stefan Gehring @bloodhunter4rc, @longyu, Andrew Lawless @paranoidandy, Pascal Schmidt @smidelis, Ryan McMullan @smarmau, Juha Nykänen @suikula, Johan van der Vlugt @jooopiert, Richárd Józsa @richardjosza</p>
+<p>Read through the <a href="../strategy-customization/">strategy customization</a> documentation for more details.</p>
+<h2 id="backtesting-and-forward-testing">Backtesting and forward testing<a class="headerlink" href="#backtesting-and-forward-testing" title="Permanent link">&para;</a></h2>
+<p>Strategy development can be a long and frustrating process, as turning our human "gut instincts" into a working computer-controlled
+("algo") strategy is not always straightforward.</p>
+<p>Therefore a strategy should be tested to verify that it is going to work as intended.</p>
+<p>Freqtrade has two testing modes:</p>
+<ul>
+<li><strong>backtesting</strong>: using historical data that you <a href="../data-download/">download from an exchange</a>, backtesting is a quick way to assess performance of a strategy. However, it can be very easy to distort results so a strategy will look a lot more profitable than it really is. Check the <a href="../backtesting/">backtesting documentation</a> for more information.</li>
+<li><strong>dry run</strong>: often referred to as <em>forward testing</em>, dry runs use real time data from the exchange. However, any signals that would result in trades are tracked as normal by Freqtrade, but do not have any trades opened on the exchange itself. Forward testing runs in real time, so whilst it takes longer to get results it is a much more reliable indicator of <strong>potential</strong> performance than backtesting.</li>
+</ul>
+<p>Dry runs are enabled by setting <code>dry_run</code> to true in your <a href="../configuration/#using-dry-run-mode">configuration</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Backtests can be very inaccurate</p>
+<p>There are many reasons why backtest results may not match reality. Please check the <a href="../backtesting/#assumptions-made-by-backtesting">backtesting assumptions</a> and <a href="../strategy-customization/#common-mistakes-when-developing-strategies">common strategy mistakes</a> documentation.
+Some websites that list and rank Freqtrade strategies show impressive backtest results. Do not assume these results are achieveable or realistic.</p>
+</div>
+<details class="hint">
+<summary>Useful commands</summary>
+<p>Freqtrade includes two useful commands to check for basic flaws in strategies: <a href="../lookahead-analysis/">lookahead-analysis</a> and <a href="../recursive-analysis/">recursive-analysis</a>.</p>
+</details>
+<h3 id="assessing-backtesting-and-dry-run-results">Assessing backtesting and dry run results<a class="headerlink" href="#assessing-backtesting-and-dry-run-results" title="Permanent link">&para;</a></h3>
+<p>Always dry run your strategy after backtesting it to see if backtesting and dry run results are sufficiently similar.</p>
+<p>If there is any significant difference, verify that your entry and exit signals are consistent and appear on the same candles between the two modes. However, there will always be differences between dry runs and backtests:</p>
+<ul>
+<li>Backtesting assumes all orders fill. In dry runs this might not be the case if using limit orders or there is no volume on the exchange.</li>
+<li>Following an entry signal on candle close, backtesting assumes trades enter at the next candle's open price (unless you have custom pricing callbacks in your strategy). In dry runs, there is often a delay between signals and trades opening.
+  This is because when new candles come in on your main timeframe, e.g. every 5 minutes, it takes time for Freqtrade to analyse all pair dataframes. Therefore, Freqtrade will attempt to open trades a few seconds (ideally a small a delay as possible)
+  after candle open.</li>
+<li>As entry rates in dry runs might not match backtesting, this means profit calculations will also differ. Therefore, it is normal if ROI, stoploss, trailing stoploss and callback exits are not identical.</li>
+<li>The more computational "lag" you have between new candles coming in and your signals being raised and trades being opened will result in greater price unpredictability. Make sure your computer is powerful enough to process the data for the number 
+  of pairs you have in your pairlist within a reasonable time. Freqtrade will warn you in the logs if there are significant data processing delays.</li>
+</ul>
+<h2 id="controlling-or-monitoring-a-running-bot">Controlling or monitoring a running bot<a class="headerlink" href="#controlling-or-monitoring-a-running-bot" title="Permanent link">&para;</a></h2>
+<p>Once your bot is running in dry or live mode, Freqtrade has six mechanisms to control or monitor a running bot:</p>
+<ul>
+<li><strong><a href="../freq-ui/">FreqUI</a></strong>: The easiest to get started with, FreqUI is a web interface to see and control current activity of your bot.</li>
+<li><strong><a href="../telegram-usage/">Telegram</a></strong>: On mobile devices, Telegram integration is available to get alerts about your bot activity and to control certain aspects.</li>
+<li><strong><a href="https://github.com/freqtrade/ftui">FTUI</a></strong>: FTUI is a terminal (command line) interface to Freqtrade, and allows monitoring of a running bot only.</li>
+<li><strong><a href="../rest-api/#consuming-the-api">freqtrade-client</a></strong>: A python implementation of the REST API, making it easy to make requests and consume bot responses from your python apps or the command line.</li>
+<li><strong><a href="../rest-api/#available-endpoints">REST API endpoints</a></strong>: The REST API allows programmers to develop their own tools to interact with a Freqtrade bot.</li>
+<li><strong><a href="../webhook-config/">Webhooks</a></strong>: Freqtrade can send information to other services, e.g. discord, by webhooks.</li>
+</ul>
+<h3 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h3>
+<p>Freqtrade generates extensive debugging logs to help you understand what's happening. Please familiarise yourself with the information and error messages you might see in your bot logs.</p>
+<p>Logging by default occurs on standard out (the command line). If you want to write out to a file instead, many freqtrade commands, including the <code>trade</code> command, accept the <code>--logfile</code> option to write to a file.</p>
+<p>Check the <a href="../faq/#how-do-i-search-the-bot-logs-for-something">FAQ</a> for examples.</p>
+<h2 id="final-thoughts">Final Thoughts<a class="headerlink" href="#final-thoughts" title="Permanent link">&para;</a></h2>
+<p>Algo trading is difficult, and most public strategies are not good performers due to the time and effort to make a strategy work profitably in multiple scenarios.</p>
+<p>Therefore, taking public strategies and using backtests as a way to assess performance is often problematic. However, Freqtrade provides useful ways to help you make decisions and do your due diligence.</p>
+<p>There are many different ways to achieve profitability, and there is no one single tip, trick or config option that will fix a poorly performing strategy.</p>
+<p>Freqtrade is an open source platform with a large and helpful community - make sure to visit our <a href="https://discord.gg/p7nuUNVfP7">discord channel</a> to discuss your strategy with others!</p>
+<p>As always, only invest what you are willing to lose.</p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Developing a strategy in Freqtrade involves defining entry and exit signals based on technical indicators. By following the structure and methods outlined above, you can create and test your own trading strategies.</p>
+<p>Common questions and answers are available on our <a href="../faq/">FAQ</a>.</p>
+<p>To continue, refer to the more in-depth <a href="../strategy-customization/">Freqtrade strategy customization documentation</a>.</p>
 
 
 
@@ -2030,7 +2128,7 @@ Stefan Gehring @bloodhunter4rc, @longyu, Andrew Lawless @paranoidandy, Pascal Sc
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../hyperopt/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Hyperopt">
+          <a href="../configuration/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Configuration">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2040,20 +2138,20 @@ Stefan Gehring @bloodhunter4rc, @longyu, Andrew Lawless @paranoidandy, Pascal Sc
                 Previous
               </span>
               <div class="md-ellipsis">
-                Hyperopt
+                Configuration
               </div>
             </div>
           </a>
         
         
           
-          <a href="../freqai-configuration/" class="md-footer__link md-footer__link--next" aria-label="Next: Configuration">
+          <a href="../strategy-customization/" class="md-footer__link md-footer__link--next" aria-label="Next: Strategy Customization">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Configuration
+                Strategy Customization
               </div>
             </div>
             <div class="md-footer__button md-icon">
