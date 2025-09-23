@@ -4,16 +4,15 @@ PairList manager class
 
 import logging
 from functools import partial
-from typing import Dict, List, Optional
 
-from cachetools import TTLCache, cached
+from cachetools import LRUCache, TTLCache, cached
 
 from freqtrade.constants import Config, ListPairsWithTimeframes
 from freqtrade.data.dataprovider import DataProvider
 from freqtrade.enums import CandleType
 from freqtrade.enums.runmode import RunMode
 from freqtrade.exceptions import OperationalException
-from freqtrade.exchange.types import Tickers
+from freqtrade.exchange.exchange_types import Tickers
 from freqtrade.mixins import LoggingMixin
 from freqtrade.plugins.pairlist.IPairList import IPairList, SupportsBacktesting
 from freqtrade.plugins.pairlist.pairlist_helpers import expand_pairlist
@@ -24,16 +23,14 @@ logger = logging.getLogger(__name__)
 
 
 class PairListManager(LoggingMixin):
-    def __init__(
-        self, exchange, config: Config, dataprovider: Optional[DataProvider] = None
-    ) -> None:
+    def __init__(self, exchange, config: Config, dataprovider: DataProvider | None = None) -> None:
         self._exchange = exchange
         self._config = config
         self._whitelist = self._config["exchange"].get("pair_whitelist")
         self._blacklist = self._config["exchange"].get("pair_blacklist", [])
-        self._pairlist_handlers: List[IPairList] = []
+        self._pairlist_handlers: list[IPairList] = []
         self._tickers_needed = False
-        self._dataprovider: Optional[DataProvider] = dataprovider
+        self._dataprovider: DataProvider | None = dataprovider
         for pairlist_handler_config in self._config.get("pairlists", []):
             pairlist_handler = PairListResolver.load_pairlist(
                 pairlist_handler_config["method"],
@@ -59,17 +56,18 @@ class PairListManager(LoggingMixin):
             )
 
         self._check_backtest()
+        self._not_expiring_cache: LRUCache = LRUCache(maxsize=1)
 
         refresh_period = config.get("pairlist_refresh_period", 3600)
         LoggingMixin.__init__(self, logger, refresh_period)
 
     def _check_backtest(self) -> None:
-        if self._config["runmode"] not in (RunMode.BACKTEST, RunMode.EDGE, RunMode.HYPEROPT):
+        if self._config["runmode"] not in (RunMode.BACKTEST, RunMode.HYPEROPT):
             return
 
-        pairlist_errors: List[str] = []
-        noaction_pairlists: List[str] = []
-        biased_pairlists: List[str] = []
+        pairlist_errors: list[str] = []
+        noaction_pairlists: list[str] = []
+        biased_pairlists: list[str] = []
         for pairlist_handler in self._pairlist_handlers:
             if pairlist_handler.supports_backtesting == SupportsBacktesting.NO:
                 pairlist_errors.append(pairlist_handler.name)
@@ -97,12 +95,12 @@ class PairListManager(LoggingMixin):
             )
 
     @property
-    def whitelist(self) -> List[str]:
+    def whitelist(self) -> list[str]:
         """The current whitelist"""
         return self._whitelist
 
     @property
-    def blacklist(self) -> List[str]:
+    def blacklist(self) -> list[str]:
         """
         The current blacklist
         -> no need to overwrite in subclasses
@@ -110,16 +108,24 @@ class PairListManager(LoggingMixin):
         return self._blacklist
 
     @property
-    def expanded_blacklist(self) -> List[str]:
+    def expanded_blacklist(self) -> list[str]:
         """The expanded blacklist (including wildcard expansion)"""
-        return expand_pairlist(self._blacklist, self._exchange.get_markets().keys())
+        eblacklist = self._not_expiring_cache.get("eblacklist")
+
+        if not eblacklist:
+            eblacklist = expand_pairlist(self._blacklist, self._exchange.get_markets().keys())
+
+            if self._config["runmode"] in (RunMode.BACKTEST, RunMode.HYPEROPT):
+                self._not_expiring_cache["eblacklist"] = eblacklist.copy()
+
+        return eblacklist
 
     @property
-    def name_list(self) -> List[str]:
+    def name_list(self) -> list[str]:
         """Get list of loaded Pairlist Handler names"""
         return [p.name for p in self._pairlist_handlers]
 
-    def short_desc(self) -> List[Dict]:
+    def short_desc(self) -> list[dict]:
         """List of short_desc for each Pairlist Handler"""
         return [{p.name: p.short_desc()} for p in self._pairlist_handlers]
 
@@ -130,7 +136,7 @@ class PairListManager(LoggingMixin):
     def refresh_pairlist(self) -> None:
         """Run pairlist through all configured Pairlist Handlers."""
         # Tickers should be cached to avoid calling the exchange on each call.
-        tickers: Dict = {}
+        tickers: dict = {}
         if self._tickers_needed:
             tickers = self._get_cached_tickers()
 
@@ -150,7 +156,7 @@ class PairListManager(LoggingMixin):
 
         self._whitelist = pairlist
 
-    def verify_blacklist(self, pairlist: List[str], logmethod) -> List[str]:
+    def verify_blacklist(self, pairlist: list[str], logmethod) -> list[str]:
         """
         Verify and remove items from pairlist - returning a filtered pairlist.
         Logs a warning or info depending on `aswarning`.
@@ -160,21 +166,22 @@ class PairListManager(LoggingMixin):
         :param logmethod: Function that'll be called, `logger.info` or `logger.warning`.
         :return: pairlist - blacklisted pairs
         """
-        try:
-            blacklist = self.expanded_blacklist
-        except ValueError as err:
-            logger.error(f"Pair blacklist contains an invalid Wildcard: {err}")
-            return []
-        log_once = partial(self.log_once, logmethod=logmethod)
-        for pair in pairlist.copy():
-            if pair in blacklist:
-                log_once(f"Pair {pair} in your blacklist. Removing it from whitelist...")
-                pairlist.remove(pair)
+        if self._blacklist:
+            try:
+                blacklist = self.expanded_blacklist
+            except ValueError as err:
+                logger.error(f"Pair blacklist contains an invalid Wildcard: {err}")
+                return []
+            log_once = partial(self.log_once, logmethod=logmethod)
+            for pair in pairlist.copy():
+                if pair in blacklist:
+                    log_once(f"Pair {pair} in your blacklist. Removing it from whitelist...")
+                    pairlist.remove(pair)
         return pairlist
 
     def verify_whitelist(
-        self, pairlist: List[str], logmethod, keep_invalid: bool = False
-    ) -> List[str]:
+        self, pairlist: list[str], logmethod, keep_invalid: bool = False
+    ) -> list[str]:
         """
         Verify and remove items from pairlist - returning a filtered pairlist.
         Logs a warning or info depending on `aswarning`.
@@ -193,7 +200,7 @@ class PairListManager(LoggingMixin):
         return whitelist
 
     def create_pair_list(
-        self, pairs: List[str], timeframe: Optional[str] = None
+        self, pairs: list[str], timeframe: str | None = None
     ) -> ListPairsWithTimeframes:
         """
         Create list of pair tuples with (pair, timeframe)
