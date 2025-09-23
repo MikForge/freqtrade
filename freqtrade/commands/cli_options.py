@@ -4,7 +4,7 @@ Definition of cli arguments used in arguments.py
 
 from argparse import SUPPRESS, ArgumentTypeError
 
-from freqtrade import __version__, constants
+from freqtrade import constants
 from freqtrade.constants import HYPEROPT_LOSS_BUILTIN
 from freqtrade.enums import CandleType
 
@@ -48,7 +48,6 @@ AVAILABLE_CLI_OPTIONS = {
         "--verbose",
         help="Verbose mode (-vv for more, -vvv to get all messages).",
         action="count",
-        default=0,
     ),
     "logfile": Arg(
         "--logfile",
@@ -60,8 +59,15 @@ AVAILABLE_CLI_OPTIONS = {
     "version": Arg(
         "-V",
         "--version",
-        action="version",
-        version=f"%(prog)s {__version__}",
+        help="show program's version number and exit",
+        action="store_true",
+    ),
+    "version_main": Arg(
+        # Copy of version - used to have -V available with and without subcommand.
+        "-V",
+        "--version",
+        help="show program's version number and exit",
+        action="store_true",
     ),
     "config": Arg(
         "-c",
@@ -77,7 +83,8 @@ AVAILABLE_CLI_OPTIONS = {
         "-d",
         "--datadir",
         "--data-dir",
-        help="Path to directory with historical backtesting data.",
+        help="Path to the base directory of the exchange with historical backtesting data. "
+        "To see futures data, use trading-mode additionally.",
         metavar="PATH",
     ),
     "user_data_dir": Arg(
@@ -168,14 +175,6 @@ AVAILABLE_CLI_OPTIONS = {
         action="store_true",
         default=False,
     ),
-    "use_max_market_positions": Arg(
-        "--dmmp",
-        "--disable-max-market-positions",
-        help="Disable applying `max_open_trades` during backtest "
-        "(same as setting `max_open_trades` to a very high number).",
-        action="store_false",
-        default=True,
-    ),
     "backtest_show_pair_list": Arg(
         "--show-pair-list",
         help="Show backtesting pairlist sorted by profit.",
@@ -185,9 +184,17 @@ AVAILABLE_CLI_OPTIONS = {
     "enable_protections": Arg(
         "--enable-protections",
         "--enableprotections",
-        help="Enable protections for backtesting."
+        help="Enable protections for backtesting. "
         "Will slow backtesting down by a considerable amount, but will include "
         "configured protections",
+        action="store_true",
+        default=False,
+    ),
+    "enable_dynamic_pairlist": Arg(
+        "--enable-dynamic-pairlist",
+        help="Enables dynamic pairlist refreshes in backtesting. "
+        "The pairlist will be generated for each new candle if you're using a "
+        "pairlist handler that supports this feature, for example, ShuffleFilter.",
         action="store_true",
         default=False,
     ),
@@ -200,17 +207,29 @@ AVAILABLE_CLI_OPTIONS = {
         "(so `backtest-data.json` becomes `backtest-data-SampleStrategy.json`",
         nargs="+",
     ),
+    "backtest_notes": Arg(
+        "--notes",
+        help="Add notes to the backtest results.",
+        metavar="TEXT",
+    ),
     "export": Arg(
         "--export",
         help="Export backtest results (default: trades).",
         choices=constants.EXPORT_OPTIONS,
     ),
+    "exportdirectory": Arg(
+        "--backtest-directory",
+        "--export-directory",
+        help="Directory to use for backtest results. "
+        "Example: `--export-directory=user_data/backtest_results/`. ",
+        metavar="PATH",
+    ),
     "exportfilename": Arg(
-        "--export-filename",
         "--backtest-filename",
+        "--export-filename",
         help="Use this filename for backtest results."
-        "Requires `--export` to be set as well. "
-        "Example: `--export-filename=user_data/backtest_results/backtest_today.json`",
+        "Example: `--backtest-filename=backtest_results_2020-09-27_16-20-48.json`. "
+        "Assumes either `user_data/backtest_results/` or `--export-directory` as base directory.",
         metavar="PATH",
     ),
     "disableparamexport": Arg(
@@ -226,7 +245,7 @@ AVAILABLE_CLI_OPTIONS = {
     ),
     "backtest_breakdown": Arg(
         "--breakdown",
-        help="Show backtesting breakdown per [day, week, month].",
+        help="Show backtesting breakdown per [day, week, month, year].",
         nargs="+",
         choices=constants.BACKTEST_BREAKDOWNS,
     ),
@@ -235,13 +254,6 @@ AVAILABLE_CLI_OPTIONS = {
         help="Load a cached backtest result no older than specified age (default: %(default)s).",
         default=constants.BACKTEST_CACHE_DEFAULT,
         choices=constants.BACKTEST_CACHE_AGE,
-    ),
-    # Edge
-    "stoploss_range": Arg(
-        "--stoplosses",
-        help="Defines a range of stoploss values against which edge will assess the strategy. "
-        'The format is "min,max,step" (without any space). '
-        "Example: `--stoplosses=-0.01,-0.1,-0.001`",
     ),
     # Hyperopt
     "hyperopt": Arg(
@@ -262,6 +274,13 @@ AVAILABLE_CLI_OPTIONS = {
         type=check_int_positive,
         metavar="INT",
         default=constants.HYPEROPT_EPOCH,
+    ),
+    "early_stop": Arg(
+        "--early-stop",
+        help="Early stop hyperopt if no improvement after (default: %(default)d) epochs.",
+        type=check_int_positive,
+        metavar="INT",
+        default=0,  # 0 to disable by default
     ),
     "spaces": Arg(
         "--spaces",
@@ -343,7 +362,7 @@ AVAILABLE_CLI_OPTIONS = {
         help="Specify the class name of the hyperopt loss function class (IHyperOptLoss). "
         "Different functions can generate completely different results, "
         "since the target for optimization is different. Built-in Hyperopt-loss-functions are: "
-        f'{", ".join(HYPEROPT_LOSS_BUILTIN)}',
+        f"{', '.join(HYPEROPT_LOSS_BUILTIN)}",
         metavar="NAME",
     ),
     "hyperoptexportfilename": Arg(
@@ -363,6 +382,11 @@ AVAILABLE_CLI_OPTIONS = {
         "-a",
         "--all",
         help="Print all exchanges known to the ccxt library.",
+        action="store_true",
+    ),
+    "dex_exchanges": Arg(
+        "--dex-exchanges",
+        help="Print only DEX exchanges.",
         action="store_true",
     ),
     # List pairs / markets
@@ -438,6 +462,11 @@ AVAILABLE_CLI_OPTIONS = {
         help="Also download data from inactive pairs.",
         action="store_true",
     ),
+    "no_parallel_download": Arg(
+        "--no-parallel-download",
+        help="Disable parallel startup download. Only use this if you experience issues.",
+        action="store_true",
+    ),
     "new_pairs_days": Arg(
         "--new-pairs-days",
         help="Download data of new pairs for given number of days. Default: `%(default)s`.",
@@ -465,7 +494,7 @@ AVAILABLE_CLI_OPTIONS = {
     "format_from_trades": Arg(
         "--format-from",
         help="Source format for data conversion.",
-        choices=constants.AVAILABLE_DATAHANDLERS + ["kraken_csv"],
+        choices=[*constants.AVAILABLE_DATAHANDLERS, "kraken_csv"],
         required=True,
     ),
     "format_from": Arg(
@@ -528,6 +557,15 @@ AVAILABLE_CLI_OPTIONS = {
             "Not specifying this installs the latest version."
         ),
         type=str,
+    ),
+    "ui_prerelease": Arg(
+        "--prerelease",
+        help=(
+            "Install the latest pre-release version of FreqUI. "
+            "This is not recommended for production use."
+        ),
+        action="store_true",
+        default=False,
     ),
     # Templating options
     "template": Arg(
@@ -672,8 +710,7 @@ AVAILABLE_CLI_OPTIONS = {
         "--ignore-missing-spaces",
         "--ignore-unparameterized-spaces",
         help=(
-            "Suppress errors for any requested Hyperopt spaces "
-            "that do not contain any parameters."
+            "Suppress errors for any requested Hyperopt spaces that do not contain any parameters."
         ),
         action="store_true",
     ),
@@ -718,6 +755,12 @@ AVAILABLE_CLI_OPTIONS = {
         ),
         nargs="+",
         default=[],
+    ),
+    "entry_only": Arg(
+        "--entry-only", help=("Only analyze entry signals."), action="store_true", default=False
+    ),
+    "exit_only": Arg(
+        "--exit-only", help=("Only analyze exit signals."), action="store_true", default=False
     ),
     "analysis_rejected": Arg(
         "--rejected-signals",
@@ -770,6 +813,14 @@ AVAILABLE_CLI_OPTIONS = {
         "--startup-candle",
         help="Specify startup candles to be checked (`199`, `499`, `999`, `1999`).",
         nargs="+",
+    ),
+    "lookahead_allow_limit_orders": Arg(
+        "--allow-limit-orders",
+        help=(
+            "Allow limit orders in lookahead analysis (could cause false positives "
+            "in lookahead analysis results)."
+        ),
+        action="store_true",
     ),
     "show_sensitive": Arg(
         "--show-sensitive",

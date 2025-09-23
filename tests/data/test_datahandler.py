@@ -1,7 +1,7 @@
 # pragma pylint: disable=missing-docstring, protected-access, C0103
 
 import re
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from unittest.mock import MagicMock
 
@@ -12,7 +12,6 @@ from pandas.testing import assert_frame_equal
 from freqtrade.configuration import TimeRange
 from freqtrade.constants import AVAILABLE_DATAHANDLERS
 from freqtrade.data.history.datahandlers.featherdatahandler import FeatherDataHandler
-from freqtrade.data.history.datahandlers.hdf5datahandler import HDF5DataHandler
 from freqtrade.data.history.datahandlers.idatahandler import (
     IDataHandler,
     get_datahandler,
@@ -21,6 +20,7 @@ from freqtrade.data.history.datahandlers.idatahandler import (
 from freqtrade.data.history.datahandlers.jsondatahandler import JsonDataHandler, JsonGzDataHandler
 from freqtrade.data.history.datahandlers.parquetdatahandler import ParquetDataHandler
 from freqtrade.enums import CandleType, TradingMode
+from freqtrade.exceptions import OperationalException
 from tests.conftest import log_has, log_has_re
 
 
@@ -45,17 +45,11 @@ def test_datahandler_ohlcv_get_pairs(testdatadir):
     pairs = JsonGzDataHandler.ohlcv_get_pairs(testdatadir, "8m", candle_type=CandleType.SPOT)
     assert set(pairs) == {"UNITTEST/BTC"}
 
-    pairs = HDF5DataHandler.ohlcv_get_pairs(testdatadir, "5m", candle_type=CandleType.SPOT)
-    assert set(pairs) == {"UNITTEST/BTC"}
-
     pairs = FeatherDataHandler.ohlcv_get_pairs(testdatadir, "1h", candle_type=CandleType.MARK)
     assert set(pairs) == {"UNITTEST/USDT:USDT", "XRP/USDT:USDT"}
 
     pairs = JsonGzDataHandler.ohlcv_get_pairs(testdatadir, "1h", candle_type=CandleType.FUTURES)
     assert set(pairs) == {"XRP/USDT:USDT"}
-
-    pairs = HDF5DataHandler.ohlcv_get_pairs(testdatadir, "1h", candle_type=CandleType.MARK)
-    assert set(pairs) == {"UNITTEST/USDT:USDT"}
 
 
 @pytest.mark.parametrize(
@@ -134,8 +128,6 @@ def test_datahandler_ohlcv_get_available_data(testdatadir):
 
     paircombs = JsonGzDataHandler.ohlcv_get_available_data(testdatadir, TradingMode.SPOT)
     assert set(paircombs) == {("UNITTEST/BTC", "8m", CandleType.SPOT)}
-    paircombs = HDF5DataHandler.ohlcv_get_available_data(testdatadir, TradingMode.SPOT)
-    assert set(paircombs) == {("UNITTEST/BTC", "5m", CandleType.SPOT)}
 
 
 def test_jsondatahandler_ohlcv_purge(mocker, testdatadir):
@@ -173,19 +165,19 @@ def test_datahandler_ohlcv_data_min_max(testdatadir):
     # Empty pair
     min_max = dh.ohlcv_data_min_max("UNITTEST/BTC", "8m", "spot")
     assert len(min_max) == 3
-    assert min_max[0] == datetime.fromtimestamp(0, tz=timezone.utc)
+    assert min_max[0] == datetime.fromtimestamp(0, tz=UTC)
     assert min_max[0] == min_max[1]
     # Empty pair2
     min_max = dh.ohlcv_data_min_max("NOPAIR/XXX", "41m", "spot")
     assert len(min_max) == 3
-    assert min_max[0] == datetime.fromtimestamp(0, tz=timezone.utc)
+    assert min_max[0] == datetime.fromtimestamp(0, tz=UTC)
     assert min_max[0] == min_max[1]
 
     # Existing pair ...
     min_max = dh.ohlcv_data_min_max("UNITTEST/BTC", "1m", "spot")
     assert len(min_max) == 3
-    assert min_max[0] == datetime(2017, 11, 4, 23, 2, tzinfo=timezone.utc)
-    assert min_max[1] == datetime(2017, 11, 14, 22, 59, tzinfo=timezone.utc)
+    assert min_max[0] == datetime(2017, 11, 4, 23, 2, tzinfo=UTC)
+    assert min_max[1] == datetime(2017, 11, 14, 22, 59, tzinfo=UTC)
 
 
 def test_datahandler__check_empty_df(testdatadir, caplog):
@@ -321,7 +313,6 @@ def test_datahandler_trades_append(datahandler, testdatadir):
     "datahandler,expected",
     [
         ("jsongz", {"XRP/ETH", "XRP/OLD"}),
-        ("hdf5", {"XRP/ETH"}),
         ("feather", {"XRP/ETH"}),
         ("parquet", {"XRP/ETH"}),
     ],
@@ -332,32 +323,11 @@ def test_datahandler_trades_get_pairs(testdatadir, datahandler, expected):
     assert set(pairs) == expected
 
 
-def test_hdf5datahandler_trades_load(testdatadir):
-    dh = get_datahandler(testdatadir, "hdf5")
-    trades = dh.trades_load("XRP/ETH", TradingMode.SPOT)
-    assert isinstance(trades, DataFrame)
-
-    trades1 = dh.trades_load("UNITTEST/NONEXIST", TradingMode.SPOT)
-    assert isinstance(trades1, DataFrame)
-    assert trades1.empty
-    # data goes from 2019-10-11 - 2019-10-13
-    timerange = TimeRange.parse_timerange("20191011-20191012")
-
-    trades2 = dh._trades_load("XRP/ETH", TradingMode.SPOT, timerange)
-    assert len(trades) > len(trades2)
-    # Check that ID is None (If it's nan, it's wrong)
-    assert trades2.iloc[0]["type"] is None
-
-    # unfiltered load has trades before starttime
-
-    assert len(trades.loc[trades["timestamp"] < timerange.startts * 1000]) >= 0
-    # filtered list does not have trades before starttime
-    assert len(trades2.loc[trades2["timestamp"] < timerange.startts * 1000]) == 0
-    # unfiltered load has trades after endtime
-    assert len(trades.loc[trades["timestamp"] > timerange.stopts * 1000]) >= 0
-    # filtered list does not have trades after endtime
-    assert len(trades2.loc[trades2["timestamp"] > timerange.stopts * 1000]) == 0
-    # assert len([t for t in trades2 if t[0] > timerange.stopts * 1000]) == 0
+def test_hdf5datahandler_deprecated(testdatadir):
+    with pytest.raises(
+        OperationalException, match=r"DEPRECATED: The hdf5 dataformat is deprecated and has.*"
+    ):
+        get_datahandler(testdatadir, "hdf5")
 
 
 @pytest.mark.parametrize(
@@ -369,54 +339,19 @@ def test_hdf5datahandler_trades_load(testdatadir):
         ("UNITTEST/USDT:USDT", "1h", "mark", "-mark", "2021-11-16", "2021-11-18"),
     ],
 )
-def test_hdf5datahandler_ohlcv_load_and_resave(
-    testdatadir, tmp_path, pair, timeframe, candle_type, candle_append, startdt, enddt
-):
-    tmpdir2 = tmp_path
-    if candle_type not in ("", "spot"):
-        tmpdir2 = tmp_path / "futures"
-        tmpdir2.mkdir()
-    dh = get_datahandler(testdatadir, "hdf5")
-    ohlcv = dh._ohlcv_load(pair, timeframe, None, candle_type=candle_type)
-    assert isinstance(ohlcv, DataFrame)
-    assert len(ohlcv) > 0
-
-    file = tmpdir2 / f"UNITTEST_NEW-{timeframe}{candle_append}.h5"
-    assert not file.is_file()
-
-    dh1 = get_datahandler(tmp_path, "hdf5")
-    dh1.ohlcv_store("UNITTEST/NEW", timeframe, ohlcv, candle_type=candle_type)
-    assert file.is_file()
-
-    assert not ohlcv[ohlcv["date"] < startdt].empty
-
-    timerange = TimeRange.parse_timerange(f"{startdt.replace('-', '')}-{enddt.replace('-', '')}")
-
-    # Call private function to ensure timerange is filtered in hdf5
-    ohlcv = dh._ohlcv_load(pair, timeframe, timerange, candle_type=candle_type)
-    ohlcv1 = dh1._ohlcv_load("UNITTEST/NEW", timeframe, timerange, candle_type=candle_type)
-    assert len(ohlcv) == len(ohlcv1)
-    assert ohlcv.equals(ohlcv1)
-    assert ohlcv[ohlcv["date"] < startdt].empty
-    assert ohlcv[ohlcv["date"] > enddt].empty
-
-    # Try loading inexisting file
-    ohlcv = dh.ohlcv_load("UNITTEST/NONEXIST", timeframe, candle_type=candle_type)
-    assert ohlcv.empty
-
-
-@pytest.mark.parametrize(
-    "pair,timeframe,candle_type,candle_append,startdt,enddt",
-    [
-        # Data goes from 2018-01-10 - 2018-01-30
-        ("UNITTEST/BTC", "5m", "spot", "", "2018-01-15", "2018-01-19"),
-        # Mark data goes from to 2021-11-15 2021-11-19
-        ("UNITTEST/USDT:USDT", "1h", "mark", "-mark", "2021-11-16", "2021-11-18"),
-    ],
-)
-@pytest.mark.parametrize("datahandler", ["hdf5", "feather", "parquet"])
+@pytest.mark.parametrize("datahandler", ["feather", "parquet"])
 def test_generic_datahandler_ohlcv_load_and_resave(
-    datahandler, testdatadir, tmp_path, pair, timeframe, candle_type, candle_append, startdt, enddt
+    datahandler,
+    mocker,
+    testdatadir,
+    tmp_path,
+    pair,
+    timeframe,
+    candle_type,
+    candle_append,
+    startdt,
+    enddt,
+    caplog,
 ):
     tmpdir2 = tmp_path
     if candle_type not in ("", "spot"):
@@ -443,14 +378,7 @@ def test_generic_datahandler_ohlcv_load_and_resave(
     timerange = TimeRange.parse_timerange(f"{startdt.replace('-', '')}-{enddt.replace('-', '')}")
 
     ohlcv = dhbase.ohlcv_load(pair, timeframe, timerange=timerange, candle_type=candle_type)
-    if datahandler == "hdf5":
-        ohlcv1 = dh1._ohlcv_load("UNITTEST/NEW", timeframe, timerange, candle_type=candle_type)
-        if candle_type == "mark":
-            ohlcv1["volume"] = 0.0
-    else:
-        ohlcv1 = dh1.ohlcv_load(
-            "UNITTEST/NEW", timeframe, timerange=timerange, candle_type=candle_type
-        )
+    ohlcv1 = dh1.ohlcv_load("UNITTEST/NEW", timeframe, timerange=timerange, candle_type=candle_type)
 
     assert len(ohlcv) == len(ohlcv1)
     assert ohlcv.equals(ohlcv1)
@@ -458,25 +386,24 @@ def test_generic_datahandler_ohlcv_load_and_resave(
     assert ohlcv[ohlcv["date"] > enddt].empty
 
     # Try loading inexisting file
-    ohlcv = dh.ohlcv_load("UNITTEST/NONEXIST", timeframe, candle_type=candle_type)
+    ohlcv = dh1.ohlcv_load("UNITTEST/NONEXIST", timeframe, candle_type=candle_type)
     assert ohlcv.empty
 
+    # Try loading a file that exists but errors
+    mocker.patch(
+        "freqtrade.data.history.datahandlers.featherdatahandler.read_feather",
+        side_effect=Exception("Test"),
+    )
+    mocker.patch(
+        "freqtrade.data.history.datahandlers.parquetdatahandler.read_parquet",
+        side_effect=Exception("Test"),
+    )
+    ohlcv_e = dh1.ohlcv_load("UNITTEST/NEW", timeframe, candle_type=candle_type)
+    assert ohlcv_e.empty
+    assert log_has_re("Error loading data from", caplog)
 
-def test_hdf5datahandler_ohlcv_purge(mocker, testdatadir):
-    mocker.patch.object(Path, "exists", MagicMock(return_value=False))
-    unlinkmock = mocker.patch.object(Path, "unlink", MagicMock())
-    dh = get_datahandler(testdatadir, "hdf5")
-    assert not dh.ohlcv_purge("UNITTEST/NONEXIST", "5m", "")
-    assert not dh.ohlcv_purge("UNITTEST/NONEXIST", "5m", candle_type="mark")
-    assert unlinkmock.call_count == 0
 
-    mocker.patch.object(Path, "exists", MagicMock(return_value=True))
-    assert dh.ohlcv_purge("UNITTEST/NONEXIST", "5m", "")
-    assert dh.ohlcv_purge("UNITTEST/NONEXIST", "5m", candle_type="mark")
-    assert unlinkmock.call_count == 2
-
-
-@pytest.mark.parametrize("datahandler", ["jsongz", "hdf5", "feather", "parquet"])
+@pytest.mark.parametrize("datahandler", ["jsongz", "feather", "parquet"])
 def test_datahandler_trades_load(testdatadir, datahandler):
     dh = get_datahandler(testdatadir, datahandler)
     trades = dh.trades_load("XRP/ETH", TradingMode.SPOT)
@@ -490,7 +417,7 @@ def test_datahandler_trades_load(testdatadir, datahandler):
     assert trades1.empty
 
 
-@pytest.mark.parametrize("datahandler", ["jsongz", "hdf5", "feather", "parquet"])
+@pytest.mark.parametrize("datahandler", ["jsongz", "feather", "parquet"])
 def test_datahandler_trades_store(testdatadir, tmp_path, datahandler):
     dh = get_datahandler(testdatadir, datahandler)
     trades = dh.trades_load("XRP/ETH", TradingMode.SPOT)
@@ -506,7 +433,7 @@ def test_datahandler_trades_store(testdatadir, tmp_path, datahandler):
     assert len(trades_new) == len(trades)
 
 
-@pytest.mark.parametrize("datahandler", ["jsongz", "hdf5", "feather", "parquet"])
+@pytest.mark.parametrize("datahandler", ["jsongz", "feather", "parquet"])
 def test_datahandler_trades_purge(mocker, testdatadir, datahandler):
     mocker.patch.object(Path, "exists", MagicMock(return_value=False))
     unlinkmock = mocker.patch.object(Path, "unlink", MagicMock())
@@ -530,8 +457,6 @@ def test_datahandler_trades_get_available_data(testdatadir):
 
     paircombs = JsonGzDataHandler.trades_get_available_data(testdatadir, TradingMode.SPOT)
     assert set(paircombs) == {"XRP/ETH", "XRP/OLD"}
-    paircombs = HDF5DataHandler.trades_get_available_data(testdatadir, TradingMode.SPOT)
-    assert set(paircombs) == {"XRP/ETH"}
 
 
 def test_datahandler_trades_data_min_max(testdatadir):
@@ -542,14 +467,14 @@ def test_datahandler_trades_data_min_max(testdatadir):
     # Empty pair
     min_max = dh.trades_data_min_max("NADA/ETH", TradingMode.SPOT)
     assert len(min_max) == 3
-    assert min_max[0] == datetime.fromtimestamp(0, tz=timezone.utc)
+    assert min_max[0] == datetime.fromtimestamp(0, tz=UTC)
     assert min_max[0] == min_max[1]
 
     # Existing pair ...
     min_max = dh.trades_data_min_max("XRP/ETH", TradingMode.SPOT)
     assert len(min_max) == 3
-    assert min_max[0] == datetime(2019, 10, 11, 0, 0, 11, 620000, tzinfo=timezone.utc)
-    assert min_max[1] == datetime(2019, 10, 13, 11, 19, 28, 844000, tzinfo=timezone.utc)
+    assert min_max[0] == datetime(2019, 10, 11, 0, 0, 11, 620000, tzinfo=UTC)
+    assert min_max[1] == datetime(2019, 10, 13, 11, 19, 28, 844000, tzinfo=UTC)
 
 
 def test_gethandlerclass():
@@ -561,10 +486,6 @@ def test_gethandlerclass():
     assert cl == JsonGzDataHandler
     assert issubclass(cl, IDataHandler)
     assert issubclass(cl, JsonDataHandler)
-
-    cl = get_datahandlerclass("hdf5")
-    assert cl == HDF5DataHandler
-    assert issubclass(cl, IDataHandler)
 
     cl = get_datahandlerclass("feather")
     assert cl == FeatherDataHandler
@@ -586,5 +507,136 @@ def test_get_datahandler(testdatadir):
     dh1 = get_datahandler(testdatadir, "jsongz", dh)
     assert id(dh1) == id(dh)
 
-    dh = get_datahandler(testdatadir, "hdf5")
-    assert isinstance(dh, HDF5DataHandler)
+
+@pytest.fixture
+def feather_dh(testdatadir):
+    return FeatherDataHandler(testdatadir)
+
+
+@pytest.fixture
+def trades_full(feather_dh):
+    df = feather_dh.trades_load("XRP/ETH", TradingMode.SPOT)
+    assert not df.empty
+    return df
+
+
+@pytest.fixture
+def timerange_mid(trades_full):
+    # Pick a mid-range window using actual timestamps
+    mid_start = int(trades_full["timestamp"].iloc[len(trades_full) // 3])
+    mid_end = int(trades_full["timestamp"].iloc[(2 * len(trades_full)) // 3])
+    return TimeRange("date", "date", startts=mid_start, stopts=mid_end)
+
+
+def test_feather_trades_timerange_filter_fullspan(feather_dh, trades_full):
+    timerange_full = TimeRange(
+        "date",
+        "date",
+        startts=int(trades_full["timestamp"].min()),
+        stopts=int(trades_full["timestamp"].max()),
+    )
+    # Full-span filter should equal unfiltered
+    filtered = feather_dh.trades_load("XRP/ETH", TradingMode.SPOT, timerange=timerange_full)
+    assert_frame_equal(
+        trades_full.reset_index(drop=True), filtered.reset_index(drop=True), check_exact=True
+    )
+
+
+def test_feather_trades_timerange_filter_subset(feather_dh, trades_full, timerange_mid):
+    # Subset filter should be a subset of the full-span filter
+    subset = feather_dh.trades_load("XRP/ETH", TradingMode.SPOT, timerange=timerange_mid)
+    assert not subset.empty
+    assert subset["timestamp"].min() >= timerange_mid.startts
+    assert subset["timestamp"].max() <= timerange_mid.stopts
+    assert len(subset) < len(trades_full)
+
+
+def test_feather_trades_timerange_pushdown_fallback(
+    feather_dh, trades_full, timerange_mid, monkeypatch, caplog
+):
+    # Pushdown filter should fail, so fallback should load the entire file
+    import freqtrade.data.history.datahandlers.featherdatahandler as fdh
+
+    def raise_err(*args, **kwargs):
+        raise ValueError("fail")
+
+    # Mock the dataset loading to raise an error
+    monkeypatch.setattr(fdh.dataset, "dataset", raise_err)
+
+    with caplog.at_level("WARNING"):
+        out = feather_dh.trades_load("XRP/ETH", TradingMode.SPOT, timerange=timerange_mid)
+
+    assert len(out) == len(trades_full)
+    assert any(
+        "Unable to use Arrow filtering, loading entire trades file" in r.message
+        for r in caplog.records
+    )
+
+
+def test_feather_trades_timerange_open_start(feather_dh, trades_full):
+    # Open start: stop timestamp but no start (startts=0)
+    stop_ts = int(trades_full["timestamp"].iloc[(2 * len(trades_full)) // 3])
+    tr = TimeRange(None, "date", startts=0, stopts=stop_ts)
+
+    filtered = feather_dh.trades_load("XRP/ETH", TradingMode.SPOT, timerange=tr)
+    assert 0 < len(filtered) < len(trades_full)
+    assert filtered["timestamp"].max() <= stop_ts
+    # First row should match full's first row
+    assert filtered.iloc[0]["timestamp"] == trades_full.iloc[0]["timestamp"]
+
+
+def test_feather_trades_timerange_open_end(feather_dh, trades_full):
+    # Open end: start timestamp but no stop (stopts=0)
+    start_ts = int(trades_full["timestamp"].iloc[len(trades_full) // 3])
+    tr = TimeRange("date", None, startts=start_ts, stopts=0)
+
+    filtered = feather_dh.trades_load("XRP/ETH", TradingMode.SPOT, timerange=tr)
+    assert 0 < len(filtered) < len(trades_full)
+    assert filtered["timestamp"].min() >= start_ts
+    # Last row should match full's last row
+    assert filtered.iloc[-1]["timestamp"] == trades_full.iloc[-1]["timestamp"]
+
+
+def test_feather_trades_timerange_fully_open(feather_dh, trades_full):
+    # Fully open: no start or stop bounds (both 0)
+    tr = TimeRange(None, None, startts=0, stopts=0)
+
+    filtered = feather_dh.trades_load("XRP/ETH", TradingMode.SPOT, timerange=tr)
+    # Should equal unfiltered load
+    assert_frame_equal(
+        trades_full.reset_index(drop=True), filtered.reset_index(drop=True), check_exact=True
+    )
+
+
+def test_feather_build_arrow_time_filter(feather_dh):
+    # None timerange should return None
+    assert feather_dh._build_arrow_time_filter(None) is None
+
+    # Fully open (both bounds 0) should return None
+    tr_fully_open = TimeRange(None, None, startts=0, stopts=0)
+    assert feather_dh._build_arrow_time_filter(tr_fully_open) is None
+
+    # Open start (startts=0) should return stop filter only
+    tr_open_start = TimeRange(None, "date", startts=0, stopts=1000)
+    filter_open_start = feather_dh._build_arrow_time_filter(tr_open_start)
+    assert filter_open_start is not None
+    # Should be a single expression (timestamp <= stopts)
+    assert str(filter_open_start).count("<=") == 1
+    assert str(filter_open_start).count(">=") == 0
+
+    # Open end (stopts=0) should return start filter only
+    tr_open_end = TimeRange("date", None, startts=500, stopts=0)
+    filter_open_end = feather_dh._build_arrow_time_filter(tr_open_end)
+    assert filter_open_end is not None
+    # Should be a single expression (timestamp >= startts)
+    assert str(filter_open_end).count(">=") == 1
+    assert str(filter_open_end).count("<=") == 0
+
+    # Closed range should return combined filter
+    tr_closed = TimeRange("date", "date", startts=500, stopts=1000)
+    filter_closed = feather_dh._build_arrow_time_filter(tr_closed)
+    assert filter_closed is not None
+    # Should contain both >= and <= (combined with &)
+    filter_str = str(filter_closed)
+    assert ">=" in filter_str
+    assert "<=" in filter_str

@@ -4,7 +4,7 @@ This module manages webhook communication
 
 import logging
 import time
-from typing import Any, Dict, Optional
+from typing import Any
 
 from requests import RequestException, post
 
@@ -44,12 +44,12 @@ class Webhook(RPCHandler):
         """
         pass
 
-    def _get_value_dict(self, msg: RPCSendMsg) -> Optional[Dict[str, Any]]:
+    def _get_value_dict(self, msg: RPCSendMsg) -> dict[str, Any] | None:
         whconfig = self._config["webhook"]
         if msg["type"].value in whconfig:
             # Explicit types should have priority
             valuedict = whconfig.get(msg["type"].value)
-        # Deprecated 2022.10 - only keep generic method.
+        # The below is deprecated 2022.10 - only keep generic method.
         elif msg["type"] in [RPCMessageType.ENTRY]:
             valuedict = whconfig.get("webhookentry")
         elif msg["type"] in [RPCMessageType.ENTRY_CANCEL]:
@@ -81,6 +81,20 @@ class Webhook(RPCHandler):
             return None
         return valuedict
 
+    def recursive_format(self, obj: dict | list | str, msg: RPCSendMsg):
+        """
+        Format the given object using the provided message.
+        """
+        match obj:
+            case dict():
+                return {k: self.recursive_format(v, msg) for k, v in obj.items()}
+            case list():
+                return [self.recursive_format(item, msg) for item in obj]
+            case str():
+                return obj.format(**msg)
+            case _:
+                return obj
+
     def send_msg(self, msg: RPCSendMsg) -> None:
         """Send a message to telegram channel"""
         try:
@@ -90,12 +104,11 @@ class Webhook(RPCHandler):
                 logger.debug("Message type '%s' not configured for webhooks", msg["type"])
                 return
 
-            payload = {key: value.format(**msg) for (key, value) in valuedict.items()}
+            payload = self.recursive_format(valuedict, msg)
             self._send_msg(payload)
         except KeyError as exc:
             logger.exception(
-                "Problem calling Webhook. Please check your webhook configuration. "
-                "Exception: %s",
+                "Problem calling Webhook. Please check your webhook configuration. Exception: %s",
                 exc,
             )
 

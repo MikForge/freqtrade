@@ -6,9 +6,11 @@ Provides pair white list as it configured in config
 
 import logging
 from copy import deepcopy
-from typing import Dict, List
 
-from freqtrade.exchange.types import Tickers
+from cachetools import LRUCache
+
+from freqtrade.enums import RunMode
+from freqtrade.exchange.exchange_types import Tickers
 from freqtrade.plugins.pairlist.IPairList import IPairList, PairlistParameter, SupportsBacktesting
 
 
@@ -23,6 +25,8 @@ class StaticPairList(IPairList):
         super().__init__(*args, **kwargs)
 
         self._allow_inactive = self._pairlistconfig.get("allow_inactive", False)
+        # Pair cache - only used for optimize modes
+        self._bt_pair_cache: LRUCache = LRUCache(maxsize=1)
 
     @property
     def needstickers(self) -> bool:
@@ -45,7 +49,7 @@ class StaticPairList(IPairList):
         return "Use pairlist as configured in config."
 
     @staticmethod
-    def available_parameters() -> Dict[str, PairlistParameter]:
+    def available_parameters() -> dict[str, PairlistParameter]:
         return {
             "allow_inactive": {
                 "type": "boolean",
@@ -55,22 +59,31 @@ class StaticPairList(IPairList):
             },
         }
 
-    def gen_pairlist(self, tickers: Tickers) -> List[str]:
+    def gen_pairlist(self, tickers: Tickers) -> list[str]:
         """
         Generate the pairlist
         :param tickers: Tickers (from exchange.get_tickers). May be cached.
         :return: List of pairs
         """
-        if self._allow_inactive:
-            return self.verify_whitelist(
+        pairlist = self._bt_pair_cache.get("pairlist")
+
+        if not pairlist:
+            wl = self.verify_whitelist(
                 self._config["exchange"]["pair_whitelist"], logger.info, keep_invalid=True
             )
-        else:
-            return self._whitelist_for_active_markets(
-                self.verify_whitelist(self._config["exchange"]["pair_whitelist"], logger.info)
-            )
+            if self._allow_inactive:
+                pairlist = wl
+            else:
+                # Avoid implicit filtering of "verify_whitelist" to keep
+                # proper warnings in the log
+                pairlist = self._whitelist_for_active_markets(wl)
 
-    def filter_pairlist(self, pairlist: List[str], tickers: Tickers) -> List[str]:
+            if self._config["runmode"] in (RunMode.BACKTEST, RunMode.HYPEROPT):
+                self._bt_pair_cache["pairlist"] = pairlist.copy()
+
+        return pairlist
+
+    def filter_pairlist(self, pairlist: list[str], tickers: Tickers) -> list[str]:
         """
         Filters and sorts pairlist and returns the whitelist again.
         Called on each bot iteration - please use internal caching if necessary

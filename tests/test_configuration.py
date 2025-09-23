@@ -6,11 +6,14 @@ from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
-from jsonschema import ValidationError
 
 from freqtrade.commands import Arguments
-from freqtrade.configuration import Configuration, validate_config_consistency
-from freqtrade.configuration.config_secrets import sanitize_config
+from freqtrade.configuration import (
+    Configuration,
+    remove_exchange_credentials,
+    sanitize_config,
+    validate_config_consistency,
+)
 from freqtrade.configuration.config_validation import validate_config_schema
 from freqtrade.configuration.deprecated_settings import (
     check_conflicting_settings,
@@ -47,20 +50,20 @@ def test_load_config_missing_attributes(default_conf) -> None:
     conf = deepcopy(default_conf)
     conf.pop("exchange")
 
-    with pytest.raises(ValidationError, match=r".*'exchange' is a required property.*"):
+    with pytest.raises(ConfigurationError, match=r".*'exchange' is a required property.*"):
         validate_config_schema(conf)
 
     conf = deepcopy(default_conf)
     conf.pop("stake_currency")
     conf["runmode"] = RunMode.DRY_RUN
-    with pytest.raises(ValidationError, match=r".*'stake_currency' is a required property.*"):
+    with pytest.raises(ConfigurationError, match=r".*'stake_currency' is a required property.*"):
         validate_config_schema(conf)
 
 
 def test_load_config_incorrect_stake_amount(default_conf) -> None:
     default_conf["stake_amount"] = "fake"
 
-    with pytest.raises(ValidationError, match=r".*'fake' does not match 'unlimited'.*"):
+    with pytest.raises(ConfigurationError, match=r".*'fake' does not match 'unlimited'.*"):
         validate_config_schema(default_conf)
 
 
@@ -111,7 +114,7 @@ def test_load_config_file_error_range(default_conf, mocker, caplog) -> None:
 
     x = log_config_error_range("somefile", "Parse error at offset 4: Invalid value.")
     assert isinstance(x, str)
-    assert x == '  "max_open_trades": 1,\n  "stake_currency": "BTC",\n' '  "stake_amount": .001,'
+    assert x == '  "max_open_trades": 1,\n  "stake_currency": "BTC",\n  "stake_amount": .001,'
 
     x = log_config_error_range("-", "")
     assert x == ""
@@ -247,7 +250,7 @@ def test_from_recursive_files(testdatadir) -> None:
     assert "test_pricing2_conf.json" in conf["config_files"][3]
 
     files = testdatadir / "testconfigs/recursive.json"
-    with pytest.raises(OperationalException, match="Config loop detected."):
+    with pytest.raises(OperationalException, match=r"Config loop detected\."):
         load_from_files([files])
 
 
@@ -489,7 +492,6 @@ def test_setup_configuration_with_arguments(mocker, default_conf, caplog, tmp_pa
         "--timeframe",
         "1m",
         "--enable-position-stacking",
-        "--disable-max-market-positions",
         "--timerange",
         ":100",
         "--export",
@@ -517,10 +519,6 @@ def test_setup_configuration_with_arguments(mocker, default_conf, caplog, tmp_pa
 
     assert "position_stacking" in config
     assert log_has("Parameter --enable-position-stacking detected ...", caplog)
-
-    assert "use_max_market_positions" in config
-    assert log_has("Parameter --disable-max-market-positions detected ...", caplog)
-    assert log_has("max_open_trades set to unlimited ...", caplog)
 
     assert "timerange" in config
     assert log_has("Parameter --timerange detected: {} ...".format(config["timerange"]), caplog)
@@ -570,8 +568,6 @@ def test_setup_configuration_with_stratlist(mocker, default_conf, caplog) -> Non
 
     assert "position_stacking" not in config
 
-    assert "use_max_market_positions" not in config
-
     assert "timerange" not in config
 
     assert "export" in config
@@ -610,7 +606,7 @@ def test_cli_verbose_with_params(default_conf, mocker, caplog) -> None:
     patched_configuration_load_config_file(mocker, default_conf)
 
     # Prevent setting loggers
-    mocker.patch("freqtrade.loggers.set_loggers", MagicMock)
+    mocker.patch("freqtrade.loggers.logging.config.dictConfig", MagicMock)
     arglist = ["trade", "-vvv"]
     args = Arguments(arglist).get_parsed_arg()
 
@@ -621,7 +617,9 @@ def test_cli_verbose_with_params(default_conf, mocker, caplog) -> None:
     assert log_has("Verbosity set to 3", caplog)
 
 
+@pytest.mark.usefixtures("keep_log_config_loggers")
 def test_set_logfile(default_conf, mocker, tmp_path):
+    default_conf["ft_tests_force_logging"] = True
     patched_configuration_load_config_file(mocker, default_conf)
     f = tmp_path / "test_file.log"
     assert not f.is_file()
@@ -674,7 +672,7 @@ def test_validate_max_open_trades(default_conf):
     default_conf["stake_amount"] = "unlimited"
     with pytest.raises(
         OperationalException,
-        match="`max_open_trades` and `stake_amount` cannot both be unlimited.",
+        match=r"`max_open_trades` and `stake_amount` cannot both be unlimited\.",
     ):
         validate_config_consistency(default_conf)
 
@@ -693,14 +691,15 @@ def test_validate_price_side(default_conf):
     conf["order_types"]["entry"] = "market"
     with pytest.raises(
         OperationalException,
-        match='Market entry orders require entry_pricing.price_side = "other".',
+        match=r'Market entry orders require entry_pricing.price_side = "other"\.',
     ):
         validate_config_consistency(conf)
 
     conf = deepcopy(default_conf)
     conf["order_types"]["exit"] = "market"
     with pytest.raises(
-        OperationalException, match='Market exit orders require exit_pricing.price_side = "other".'
+        OperationalException,
+        match=r'Market exit orders require exit_pricing.price_side = "other"\.',
     ):
         validate_config_consistency(conf)
 
@@ -718,8 +717,8 @@ def test_validate_tsl(default_conf):
     default_conf["stoploss"] = 0.0
     with pytest.raises(
         OperationalException,
-        match="The config stoploss needs to be different "
-        "from 0 to avoid problems with sell orders.",
+        match=r"The config stoploss needs to be different "
+        r"from 0 to avoid problems with sell orders\.",
     ):
         validate_config_consistency(default_conf)
     default_conf["stoploss"] = -0.10
@@ -761,27 +760,6 @@ def test_validate_tsl(default_conf):
         validate_config_consistency(default_conf)
 
 
-def test_validate_edge2(edge_conf):
-    edge_conf.update(
-        {
-            "use_exit_signal": True,
-        }
-    )
-    # Passes test
-    validate_config_consistency(edge_conf)
-
-    edge_conf.update(
-        {
-            "use_exit_signal": False,
-        }
-    )
-    with pytest.raises(
-        OperationalException,
-        match="Edge requires `use_exit_signal` to be True, otherwise no sells will happen.",
-    ):
-        validate_config_consistency(edge_conf)
-
-
 def test_validate_whitelist(default_conf):
     default_conf["runmode"] = RunMode.DRY_RUN
     # Test regular case - has whitelist and uses StaticPairlist
@@ -790,7 +768,7 @@ def test_validate_whitelist(default_conf):
     del conf["exchange"]["pair_whitelist"]
     # Test error case
     with pytest.raises(
-        OperationalException, match="StaticPairList requires pair_whitelist to be set."
+        OperationalException, match=r"StaticPairList requires pair_whitelist to be set\."
     ):
         validate_config_consistency(conf)
 
@@ -810,65 +788,6 @@ def test_validate_whitelist(default_conf):
     del conf["exchange"]["pair_whitelist"]
 
     validate_config_consistency(conf)
-
-
-@pytest.mark.parametrize(
-    "protconf,expected",
-    [
-        ([], None),
-        ([{"method": "StoplossGuard", "lookback_period": 2000, "stop_duration_candles": 10}], None),
-        ([{"method": "StoplossGuard", "lookback_period_candles": 20, "stop_duration": 10}], None),
-        (
-            [
-                {
-                    "method": "StoplossGuard",
-                    "lookback_period_candles": 20,
-                    "lookback_period": 2000,
-                    "stop_duration": 10,
-                }
-            ],
-            r"Protections must specify either `lookback_period`.*",
-        ),
-        (
-            [
-                {
-                    "method": "StoplossGuard",
-                    "lookback_period": 20,
-                    "stop_duration": 10,
-                    "stop_duration_candles": 10,
-                }
-            ],
-            r"Protections must specify either `stop_duration`.*",
-        ),
-        (
-            [
-                {
-                    "method": "StoplossGuard",
-                    "lookback_period": 20,
-                    "stop_duration": 10,
-                    "unlock_at": "20:02",
-                }
-            ],
-            r"Protections must specify either `unlock_at`, `stop_duration` or.*",
-        ),
-        (
-            [{"method": "StoplossGuard", "lookback_period_candles": 20, "unlock_at": "20:02"}],
-            None,
-        ),
-        (
-            [{"method": "StoplossGuard", "lookback_period_candles": 20, "unlock_at": "55:102"}],
-            "Invalid date format for unlock_at: 55:102.",
-        ),
-    ],
-)
-def test_validate_protections(default_conf, protconf, expected):
-    conf = deepcopy(default_conf)
-    conf["protections"] = protconf
-    if expected:
-        with pytest.raises(OperationalException, match=expected):
-            validate_config_consistency(conf)
-    else:
-        validate_config_consistency(conf)
 
 
 def test_validate_ask_orderbook(default_conf, caplog) -> None:
@@ -1051,7 +970,7 @@ def test__validate_consumers(default_conf, caplog) -> None:
     conf = deepcopy(default_conf)
     conf.update({"external_message_consumer": {"enabled": True, "producers": []}})
     with pytest.raises(
-        OperationalException, match="You must specify at least 1 Producer to connect to."
+        OperationalException, match=r"You must specify at least 1 Producer to connect to\."
     ):
         validate_config_consistency(conf)
 
@@ -1078,7 +997,7 @@ def test__validate_consumers(default_conf, caplog) -> None:
         }
     )
     with pytest.raises(
-        OperationalException, match="Producer names must be unique. Duplicate: default"
+        OperationalException, match=r"Producer names must be unique\. Duplicate: default"
     ):
         validate_config_consistency(conf)
 
@@ -1108,7 +1027,7 @@ def test__validate_orderflow(default_conf) -> None:
     conf["exchange"]["use_public_trades"] = True
     with pytest.raises(
         ConfigurationError,
-        match="Orderflow is a required configuration key when using public trades.",
+        match=r"Orderflow is a required configuration key when using public trades\.",
     ):
         validate_config_consistency(conf)
 
@@ -1124,6 +1043,17 @@ def test__validate_orderflow(default_conf) -> None:
     )
     # Should pass.
     validate_config_consistency(conf)
+
+
+def test_validate_edge_removal(default_conf):
+    default_conf["edge"] = {
+        "enabled": True,
+    }
+    with pytest.raises(
+        ConfigurationError,
+        match=r"Edge is no longer supported and has been removed from Freqtrade with 2025\.6\.",
+    ):
+        validate_config_consistency(default_conf)
 
 
 def test_load_config_test_comments() -> None:
@@ -1145,7 +1075,7 @@ def test_load_config_default_exchange(all_conf) -> None:
 
     assert "exchange" not in all_conf
 
-    with pytest.raises(ValidationError, match=r"'exchange' is a required property"):
+    with pytest.raises(ConfigurationError, match=r"'exchange' is a required property"):
         validate_config_schema(all_conf)
 
 
@@ -1158,14 +1088,14 @@ def test_load_config_default_exchange_name(all_conf) -> None:
 
     assert "name" not in all_conf["exchange"]
 
-    with pytest.raises(ValidationError, match=r"'name' is a required property"):
+    with pytest.raises(ConfigurationError, match=r"'name' is a required property"):
         validate_config_schema(all_conf)
 
 
 def test_load_config_stoploss_exchange_limit_ratio(all_conf) -> None:
     all_conf["order_types"]["stoploss_on_exchange_limit_ratio"] = 1.15
 
-    with pytest.raises(ValidationError, match=r"1.15 is greater than the maximum"):
+    with pytest.raises(ConfigurationError, match=r"1.15 is greater than the maximum"):
         validate_config_schema(all_conf)
 
 
@@ -1379,23 +1309,6 @@ def test_process_removed_settings(mocker, default_conf, setting):
         process_temporary_deprecated_settings(default_conf)
 
 
-def test_process_deprecated_setting_edge(mocker, edge_conf):
-    patched_configuration_load_config_file(mocker, edge_conf)
-    edge_conf.update(
-        {
-            "edge": {
-                "enabled": True,
-                "capital_available_percentage": 0.5,
-            }
-        }
-    )
-
-    with pytest.raises(
-        OperationalException, match=r"DEPRECATED.*Using 'edge.capital_available_percentage'*"
-    ):
-        process_temporary_deprecated_settings(edge_conf)
-
-
 def test_check_conflicting_settings(mocker, default_conf, caplog):
     patched_configuration_load_config_file(mocker, default_conf)
 
@@ -1533,20 +1446,28 @@ def test_process_deprecated_protections(default_conf, caplog):
     assert not log_has(message, caplog)
 
     config["protections"] = []
-    process_temporary_deprecated_settings(config)
-    assert log_has(message, caplog)
+    with pytest.raises(ConfigurationError, match=message):
+        process_temporary_deprecated_settings(config)
 
 
 def test_flat_vars_to_nested_dict(caplog):
     test_args = {
         "FREQTRADE__EXCHANGE__SOME_SETTING": "true",
         "FREQTRADE__EXCHANGE__SOME_FALSE_SETTING": "false",
-        "FREQTRADE__EXCHANGE__CONFIG__whatever": "sometime",
+        "FREQTRADE__EXCHANGE__CONFIG__whatEver": "sometime",  # Lowercased
+        # Preserve case for ccxt_config
+        "FREQTRADE__EXCHANGE__CCXT_CONFIG__httpsProxy": "something",
         "FREQTRADE__EXIT_PRICING__PRICE_SIDE": "bid",
         "FREQTRADE__EXIT_PRICING__cccc": "500",
         "FREQTRADE__STAKE_AMOUNT": "200.05",
         "FREQTRADE__TELEGRAM__CHAT_ID": "2151",
         "NOT_RELEVANT": "200.0",  # Will be ignored
+        "FREQTRADE__ARRAY": '[{"name":"default","host":"xxx"}]',
+        "FREQTRADE__EXCHANGE__PAIR_WHITELIST": '["BTC/USDT", "ETH/USDT"]',
+        # Fails due to trailing comma
+        "FREQTRADE__ARRAY_TRAIL_COMMA": '[{"name":"default","host":"xxx",}]',
+        # Object fails
+        "FREQTRADE__OBJECT": '{"name":"default","host":"xxx"}',
     }
     expected = {
         "stake_amount": 200.05,
@@ -1558,10 +1479,17 @@ def test_flat_vars_to_nested_dict(caplog):
             "config": {
                 "whatever": "sometime",
             },
+            "ccxt_config": {
+                "httpsProxy": "something",
+            },
             "some_setting": True,
             "some_false_setting": False,
+            "pair_whitelist": ["BTC/USDT", "ETH/USDT"],
         },
         "telegram": {"chat_id": "2151"},
+        "array": [{"name": "default", "host": "xxx"}],
+        "object": '{"name":"default","host":"xxx"}',
+        "array_trail_comma": '[{"name":"default","host":"xxx",}]',
     }
     res = _flat_vars_to_nested_dict(test_args, ENV_VAR_PREFIX)
     assert res == expected
@@ -1663,3 +1591,17 @@ def test_sanitize_config(default_conf_usdt):
     res = sanitize_config(default_conf_usdt, show_sensitive=True)
     assert res["exchange"]["key"] == default_conf_usdt["exchange"]["key"]
     assert res["exchange"]["secret"] == default_conf_usdt["exchange"]["secret"]
+
+
+def test_remove_exchange_credentials(default_conf) -> None:
+    conf = deepcopy(default_conf)
+    remove_exchange_credentials(conf["exchange"], False)
+
+    assert conf["exchange"]["key"] != ""
+    assert conf["exchange"]["secret"] != ""
+
+    remove_exchange_credentials(conf["exchange"], True)
+    assert conf["exchange"]["key"] == ""
+    assert conf["exchange"]["secret"] == ""
+    assert conf["exchange"].get("password", "") == ""
+    assert conf["exchange"].get("uid", "") == ""
