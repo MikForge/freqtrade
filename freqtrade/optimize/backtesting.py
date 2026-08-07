@@ -105,6 +105,8 @@ HEADERS = [
     "exit_short",
     "enter_tag",
     "exit_tag",
+    "ATRLONG",
+    "ATRSHORT"
 ]
 
 

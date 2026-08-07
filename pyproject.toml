@@ -139,6 +139,7 @@ Documentation = "https://freqtrade.io"
 
 [project.scripts]
 freqtrade = "freqtrade.main:main"
+divergex = "divergex_flow.cli:main"
 
 [tool.setuptools]
 include-package-data = true
@@ -146,7 +147,7 @@ zip-safe = false
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["freqtrade*"]
+include = ["freqtrade*", "divergex_flow*"]
 exclude = ["tests", "tests.*", "user_data", "user_data*"]
 namespaces = true
 
